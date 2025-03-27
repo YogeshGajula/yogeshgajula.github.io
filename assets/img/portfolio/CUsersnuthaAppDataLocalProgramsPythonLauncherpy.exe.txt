@@ -1,0 +1,690 @@
+
+    ‖ ======================================================================== ‖
+    ‖ Welcome to the application simulation, in this exercise we will use this ‖
+    ‖ python program to simulate testing whether our Squid app has the desired ‖
+    ‖ cloud-native traits. Refer to the README.md file for more information    ‖
+    ‖ ======================================================================== ‖
+
+
+  A list of all the accepted commands for this simulation:
+  help                    # Prints out the list of supported commands
+  status                  # Prints the status of the application
+  web                     # Simulate application's status web page HTML
+  kill [POD_NAME]         # Simulate killing off pod with given [POD_NAME]
+  scale [NUMBER]          # Simulate autoscaling the application to run the
+                              application with [NUMBER] pods
+  get-user [POD_NAME]     # Simulate checking the privilege of the user
+                              account running on the target Squid Server pod
+  quit                    # Terminate program
+
+Initializing application...
+>>> Squid proxy VPN Server is UP
+>>> Application is ***Running*** with a total of 4/4 running pods.
+>>> POD_NAME                    STATUS                  READY           AGE
+>>> squid-proxy-68704           Running                 1/1             4s
+>>> squid-proxy-69704           Running                 1/1             3s
+>>> squid-proxy-70705           Running                 1/1             2s
+>>> squid-proxy-71705           Running                 1/1             1s
+
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <center>
+      <h1>Squid VPN Server</h1>
+      <p>Server is up and running and serving traffic!</p>
+    </center>
+
+  </body>
+</html>
+
+------------
+Please type a command: (e.g. 'help')
+kill squid-proxy-68704
+>>> Application is ***Scaling Up*** with a total of 3/4 running pods.
+>>> POD_NAME                    STATUS                  READY           AGE
+>>> squid-proxy-68704           Terminating             0/1             53s
+>>> squid-proxy-69704           Running                 1/1             52s
+>>> squid-proxy-70705           Running                 1/1             51s
+>>> squid-proxy-71705           Running                 1/1             50s
+
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <center>
+      <h1>Squid VPN Server</h1>
+      <p>Server is up and running and serving traffic!</p>
+    </center>
+
+  </body>
+</html>
+
+------------
+>>> Application is ***Scaling Up*** with a total of 3/4 running pods.
+>>> POD_NAME                    STATUS                  READY           AGE
+>>> squid-proxy-69704           Running                 1/1             52s
+>>> squid-proxy-70705           Running                 1/1             51s
+>>> squid-proxy-71705           Running                 1/1             50s
+>>> squid-proxy-21977           ContainerCreating       0/1             0s
+
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <center>
+      <h1>Squid VPN Server</h1>
+      <p>Server is up and running and serving traffic!</p>
+    </center>
+
+  </body>
+</html>
+
+------------
+>>> Application is ***Running*** with a total of 4/4 running pods.
+>>> POD_NAME                    STATUS                  READY           AGE
+>>> squid-proxy-69704           Running                 1/1             57s
+>>> squid-proxy-70705           Running                 1/1             56s
+>>> squid-proxy-71705           Running                 1/1             55s
+>>> squid-proxy-21977           Running                 1/1             5s
+
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <center>
+      <h1>Squid VPN Server</h1>
+      <p>Server is up and running and serving traffic!</p>
+    </center>
+
+  </body>
+</html>
+
+------------
+Please type a command: (e.g. 'help')
+scale 100
+Scaling the application to 100 pods
+Current scale = 100, active pods = 4
+>>> Application is ***Scaling Up*** with a total of 4/100 running pods.
+>>> POD_NAME                    STATUS                  READY           AGE
+>>> squid-proxy-69704           Running                 1/1             126s
+>>> squid-proxy-70705           Running                 1/1             125s
+>>> squid-proxy-71705           Running                 1/1             124s
+>>> squid-proxy-21977           Running                 1/1             74s
+>>> squid-proxy-47286           ContainerCreating       0/1             48s
+>>> squid-proxy-47787           ContainerCreating       0/1             48s
+>>> squid-proxy-48287           ContainerCreating       0/1             47s
+>>> squid-proxy-48788           ContainerCreating       0/1             47s
+>>> squid-proxy-49289           ContainerCreating       0/1             46s
+>>> squid-proxy-49789           ContainerCreating       0/1             46s
+>>> squid-proxy-50290           ContainerCreating       0/1             45s
+>>> squid-proxy-50791           ContainerCreating       0/1             45s
+>>> squid-proxy-51291           ContainerCreating       0/1             44s
+>>> squid-proxy-51792           ContainerCreating       0/1             44s
+>>> squid-proxy-52293           ContainerCreating       0/1             43s
+>>> squid-proxy-52793           ContainerCreating       0/1             43s
+>>> squid-proxy-53294           ContainerCreating       0/1             42s
+>>> squid-proxy-53794           ContainerCreating       0/1             42s
+>>> squid-proxy-54294           ContainerCreating       0/1             41s
+>>> squid-proxy-54795           ContainerCreating       0/1             41s
+>>> squid-proxy-55296           ContainerCreating       0/1             40s
+>>> squid-proxy-55796           ContainerCreating       0/1             40s
+>>> squid-proxy-56297           ContainerCreating       0/1             39s
+>>> squid-proxy-56797           ContainerCreating       0/1             39s
+>>> squid-proxy-57298           ContainerCreating       0/1             38s
+>>> squid-proxy-57799           ContainerCreating       0/1             38s
+>>> squid-proxy-58299           ContainerCreating       0/1             37s
+>>> squid-proxy-58800           ContainerCreating       0/1             37s
+>>> squid-proxy-59300           ContainerCreating       0/1             36s
+>>> squid-proxy-59801           ContainerCreating       0/1             36s
+>>> squid-proxy-60302           ContainerCreating       0/1             35s
+>>> squid-proxy-60803           ContainerCreating       0/1             35s
+>>> squid-proxy-61304           ContainerCreating       0/1             34s
+>>> squid-proxy-61804           ContainerCreating       0/1             34s
+>>> squid-proxy-62305           ContainerCreating       0/1             33s
+>>> squid-proxy-62806           ContainerCreating       0/1             33s
+>>> squid-proxy-63307           ContainerCreating       0/1             32s
+>>> squid-proxy-63808           ContainerCreating       0/1             32s
+>>> squid-proxy-64308           ContainerCreating       0/1             31s
+>>> squid-proxy-64809           ContainerCreating       0/1             31s
+>>> squid-proxy-65309           ContainerCreating       0/1             30s
+>>> squid-proxy-65810           ContainerCreating       0/1             30s
+>>> squid-proxy-66311           ContainerCreating       0/1             29s
+>>> squid-proxy-66811           ContainerCreating       0/1             29s
+>>> squid-proxy-67312           ContainerCreating       0/1             28s
+>>> squid-proxy-67812           ContainerCreating       0/1             28s
+>>> squid-proxy-68313           ContainerCreating       0/1             27s
+>>> squid-proxy-68814           ContainerCreating       0/1             27s
+>>> squid-proxy-69315           ContainerCreating       0/1             26s
+>>> squid-proxy-69815           ContainerCreating       0/1             26s
+>>> squid-proxy-70316           ContainerCreating       0/1             25s
+>>> squid-proxy-70817           ContainerCreating       0/1             25s
+>>> squid-proxy-71318           ContainerCreating       0/1             24s
+>>> squid-proxy-71819           ContainerCreating       0/1             24s
+>>> squid-proxy-72319           ContainerCreating       0/1             23s
+>>> squid-proxy-72820           ContainerCreating       0/1             23s
+>>> squid-proxy-73321           ContainerCreating       0/1             22s
+>>> squid-proxy-73821           ContainerCreating       0/1             22s
+>>> squid-proxy-74322           ContainerCreating       0/1             21s
+>>> squid-proxy-74822           ContainerCreating       0/1             21s
+>>> squid-proxy-75323           ContainerCreating       0/1             20s
+>>> squid-proxy-75823           ContainerCreating       0/1             20s
+>>> squid-proxy-76324           ContainerCreating       0/1             19s
+>>> squid-proxy-76825           ContainerCreating       0/1             19s
+>>> squid-proxy-77326           ContainerCreating       0/1             18s
+>>> squid-proxy-77826           ContainerCreating       0/1             18s
+>>> squid-proxy-78326           ContainerCreating       0/1             17s
+>>> squid-proxy-78826           ContainerCreating       0/1             17s
+>>> squid-proxy-79327           ContainerCreating       0/1             16s
+>>> squid-proxy-79828           ContainerCreating       0/1             16s
+>>> squid-proxy-80329           ContainerCreating       0/1             15s
+>>> squid-proxy-80829           ContainerCreating       0/1             15s
+>>> squid-proxy-81330           ContainerCreating       0/1             14s
+>>> squid-proxy-81830           ContainerCreating       0/1             14s
+>>> squid-proxy-82330           ContainerCreating       0/1             13s
+>>> squid-proxy-82831           ContainerCreating       0/1             13s
+>>> squid-proxy-83331           ContainerCreating       0/1             12s
+>>> squid-proxy-83832           ContainerCreating       0/1             12s
+>>> squid-proxy-84333           ContainerCreating       0/1             11s
+>>> squid-proxy-84833           ContainerCreating       0/1             11s
+>>> squid-proxy-85334           ContainerCreating       0/1             10s
+>>> squid-proxy-85834           ContainerCreating       0/1             10s
+>>> squid-proxy-86335           ContainerCreating       0/1             9s
+>>> squid-proxy-86835           ContainerCreating       0/1             9s
+>>> squid-proxy-87336           ContainerCreating       0/1             8s
+>>> squid-proxy-87837           ContainerCreating       0/1             8s
+>>> squid-proxy-88338           ContainerCreating       0/1             7s
+>>> squid-proxy-88838           ContainerCreating       0/1             7s
+>>> squid-proxy-89339           ContainerCreating       0/1             6s
+>>> squid-proxy-89840           ContainerCreating       0/1             6s
+>>> squid-proxy-90340           ContainerCreating       0/1             5s
+>>> squid-proxy-90841           ContainerCreating       0/1             5s
+>>> squid-proxy-91341           ContainerCreating       0/1             4s
+>>> squid-proxy-91842           ContainerCreating       0/1             4s
+>>> squid-proxy-92342           ContainerCreating       0/1             3s
+>>> squid-proxy-92843           ContainerCreating       0/1             3s
+>>> squid-proxy-93343           ContainerCreating       0/1             2s
+>>> squid-proxy-93844           ContainerCreating       0/1             2s
+>>> squid-proxy-94344           ContainerCreating       0/1             1s
+>>> squid-proxy-94845           ContainerCreating       0/1             1s
+
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <center>
+      <h1>Squid VPN Server</h1>
+      <p>Server is up and running and serving traffic!</p>
+    </center>
+
+  </body>
+</html>
+
+------------
+>>> Application is ***Running*** with a total of 100/100 running pods.
+>>> POD_NAME                    STATUS                  READY           AGE
+>>> squid-proxy-69704           Running                 1/1             128s
+>>> squid-proxy-70705           Running                 1/1             127s
+>>> squid-proxy-71705           Running                 1/1             126s
+>>> squid-proxy-21977           Running                 1/1             76s
+>>> squid-proxy-47286           Running                 1/1             50s
+>>> squid-proxy-47787           Running                 1/1             50s
+>>> squid-proxy-48287           Running                 1/1             49s
+>>> squid-proxy-48788           Running                 1/1             49s
+>>> squid-proxy-49289           Running                 1/1             48s
+>>> squid-proxy-49789           Running                 1/1             48s
+>>> squid-proxy-50290           Running                 1/1             47s
+>>> squid-proxy-50791           Running                 1/1             47s
+>>> squid-proxy-51291           Running                 1/1             46s
+>>> squid-proxy-51792           Running                 1/1             46s
+>>> squid-proxy-52293           Running                 1/1             45s
+>>> squid-proxy-52793           Running                 1/1             45s
+>>> squid-proxy-53294           Running                 1/1             44s
+>>> squid-proxy-53794           Running                 1/1             44s
+>>> squid-proxy-54294           Running                 1/1             43s
+>>> squid-proxy-54795           Running                 1/1             43s
+>>> squid-proxy-55296           Running                 1/1             42s
+>>> squid-proxy-55796           Running                 1/1             42s
+>>> squid-proxy-56297           Running                 1/1             41s
+>>> squid-proxy-56797           Running                 1/1             41s
+>>> squid-proxy-57298           Running                 1/1             40s
+>>> squid-proxy-57799           Running                 1/1             40s
+>>> squid-proxy-58299           Running                 1/1             39s
+>>> squid-proxy-58800           Running                 1/1             39s
+>>> squid-proxy-59300           Running                 1/1             38s
+>>> squid-proxy-59801           Running                 1/1             38s
+>>> squid-proxy-60302           Running                 1/1             37s
+>>> squid-proxy-60803           Running                 1/1             37s
+>>> squid-proxy-61304           Running                 1/1             36s
+>>> squid-proxy-61804           Running                 1/1             36s
+>>> squid-proxy-62305           Running                 1/1             35s
+>>> squid-proxy-62806           Running                 1/1             35s
+>>> squid-proxy-63307           Running                 1/1             34s
+>>> squid-proxy-63808           Running                 1/1             34s
+>>> squid-proxy-64308           Running                 1/1             33s
+>>> squid-proxy-64809           Running                 1/1             33s
+>>> squid-proxy-65309           Running                 1/1             32s
+>>> squid-proxy-65810           Running                 1/1             32s
+>>> squid-proxy-66311           Running                 1/1             31s
+>>> squid-proxy-66811           Running                 1/1             31s
+>>> squid-proxy-67312           Running                 1/1             30s
+>>> squid-proxy-67812           Running                 1/1             30s
+>>> squid-proxy-68313           Running                 1/1             29s
+>>> squid-proxy-68814           Running                 1/1             29s
+>>> squid-proxy-69315           Running                 1/1             28s
+>>> squid-proxy-69815           Running                 1/1             28s
+>>> squid-proxy-70316           Running                 1/1             27s
+>>> squid-proxy-70817           Running                 1/1             27s
+>>> squid-proxy-71318           Running                 1/1             26s
+>>> squid-proxy-71819           Running                 1/1             26s
+>>> squid-proxy-72319           Running                 1/1             25s
+>>> squid-proxy-72820           Running                 1/1             25s
+>>> squid-proxy-73321           Running                 1/1             24s
+>>> squid-proxy-73821           Running                 1/1             24s
+>>> squid-proxy-74322           Running                 1/1             23s
+>>> squid-proxy-74822           Running                 1/1             23s
+>>> squid-proxy-75323           Running                 1/1             22s
+>>> squid-proxy-75823           Running                 1/1             22s
+>>> squid-proxy-76324           Running                 1/1             21s
+>>> squid-proxy-76825           Running                 1/1             21s
+>>> squid-proxy-77326           Running                 1/1             20s
+>>> squid-proxy-77826           Running                 1/1             20s
+>>> squid-proxy-78326           Running                 1/1             19s
+>>> squid-proxy-78826           Running                 1/1             19s
+>>> squid-proxy-79327           Running                 1/1             18s
+>>> squid-proxy-79828           Running                 1/1             18s
+>>> squid-proxy-80329           Running                 1/1             17s
+>>> squid-proxy-80829           Running                 1/1             17s
+>>> squid-proxy-81330           Running                 1/1             16s
+>>> squid-proxy-81830           Running                 1/1             16s
+>>> squid-proxy-82330           Running                 1/1             15s
+>>> squid-proxy-82831           Running                 1/1             15s
+>>> squid-proxy-83331           Running                 1/1             14s
+>>> squid-proxy-83832           Running                 1/1             14s
+>>> squid-proxy-84333           Running                 1/1             13s
+>>> squid-proxy-84833           Running                 1/1             13s
+>>> squid-proxy-85334           Running                 1/1             12s
+>>> squid-proxy-85834           Running                 1/1             12s
+>>> squid-proxy-86335           Running                 1/1             11s
+>>> squid-proxy-86835           Running                 1/1             11s
+>>> squid-proxy-87336           Running                 1/1             10s
+>>> squid-proxy-87837           Running                 1/1             10s
+>>> squid-proxy-88338           Running                 1/1             9s
+>>> squid-proxy-88838           Running                 1/1             9s
+>>> squid-proxy-89339           Running                 1/1             8s
+>>> squid-proxy-89840           Running                 1/1             8s
+>>> squid-proxy-90340           Running                 1/1             7s
+>>> squid-proxy-90841           Running                 1/1             7s
+>>> squid-proxy-91341           Running                 1/1             6s
+>>> squid-proxy-91842           Running                 1/1             6s
+>>> squid-proxy-92342           Running                 1/1             5s
+>>> squid-proxy-92843           Running                 1/1             5s
+>>> squid-proxy-93343           Running                 1/1             4s
+>>> squid-proxy-93844           Running                 1/1             4s
+>>> squid-proxy-94344           Running                 1/1             3s
+>>> squid-proxy-94845           Running                 1/1             3s
+
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <center>
+      <h1>Squid VPN Server</h1>
+      <p>Server is up and running and serving traffic!</p>
+    </center>
+
+  </body>
+</html>
+
+------------
+Please type a command: (e.g. 'help')
+kill squid-proxy-70817
+>>> Application is ***Scaling Up*** with a total of 99/100 running pods.
+>>> POD_NAME                    STATUS                  READY           AGE
+>>> squid-proxy-69704           Running                 1/1             145s
+>>> squid-proxy-70705           Running                 1/1             144s
+>>> squid-proxy-71705           Running                 1/1             143s
+>>> squid-proxy-21977           Running                 1/1             93s
+>>> squid-proxy-47286           Running                 1/1             67s
+>>> squid-proxy-47787           Running                 1/1             67s
+>>> squid-proxy-48287           Running                 1/1             66s
+>>> squid-proxy-48788           Running                 1/1             66s
+>>> squid-proxy-49289           Running                 1/1             65s
+>>> squid-proxy-49789           Running                 1/1             65s
+>>> squid-proxy-50290           Running                 1/1             64s
+>>> squid-proxy-50791           Running                 1/1             64s
+>>> squid-proxy-51291           Running                 1/1             63s
+>>> squid-proxy-51792           Running                 1/1             63s
+>>> squid-proxy-52293           Running                 1/1             62s
+>>> squid-proxy-52793           Running                 1/1             62s
+>>> squid-proxy-53294           Running                 1/1             61s
+>>> squid-proxy-53794           Running                 1/1             61s
+>>> squid-proxy-54294           Running                 1/1             60s
+>>> squid-proxy-54795           Running                 1/1             60s
+>>> squid-proxy-55296           Running                 1/1             59s
+>>> squid-proxy-55796           Running                 1/1             59s
+>>> squid-proxy-56297           Running                 1/1             58s
+>>> squid-proxy-56797           Running                 1/1             58s
+>>> squid-proxy-57298           Running                 1/1             57s
+>>> squid-proxy-57799           Running                 1/1             57s
+>>> squid-proxy-58299           Running                 1/1             56s
+>>> squid-proxy-58800           Running                 1/1             56s
+>>> squid-proxy-59300           Running                 1/1             55s
+>>> squid-proxy-59801           Running                 1/1             55s
+>>> squid-proxy-60302           Running                 1/1             54s
+>>> squid-proxy-60803           Running                 1/1             54s
+>>> squid-proxy-61304           Running                 1/1             53s
+>>> squid-proxy-61804           Running                 1/1             53s
+>>> squid-proxy-62305           Running                 1/1             52s
+>>> squid-proxy-62806           Running                 1/1             52s
+>>> squid-proxy-63307           Running                 1/1             51s
+>>> squid-proxy-63808           Running                 1/1             51s
+>>> squid-proxy-64308           Running                 1/1             50s
+>>> squid-proxy-64809           Running                 1/1             50s
+>>> squid-proxy-65309           Running                 1/1             49s
+>>> squid-proxy-65810           Running                 1/1             49s
+>>> squid-proxy-66311           Running                 1/1             48s
+>>> squid-proxy-66811           Running                 1/1             48s
+>>> squid-proxy-67312           Running                 1/1             47s
+>>> squid-proxy-67812           Running                 1/1             47s
+>>> squid-proxy-68313           Running                 1/1             46s
+>>> squid-proxy-68814           Running                 1/1             46s
+>>> squid-proxy-69315           Running                 1/1             45s
+>>> squid-proxy-69815           Running                 1/1             45s
+>>> squid-proxy-70316           Running                 1/1             44s
+>>> squid-proxy-70817           Terminating             0/1             44s
+>>> squid-proxy-71318           Running                 1/1             43s
+>>> squid-proxy-71819           Running                 1/1             43s
+>>> squid-proxy-72319           Running                 1/1             42s
+>>> squid-proxy-72820           Running                 1/1             42s
+>>> squid-proxy-73321           Running                 1/1             41s
+>>> squid-proxy-73821           Running                 1/1             41s
+>>> squid-proxy-74322           Running                 1/1             40s
+>>> squid-proxy-74822           Running                 1/1             40s
+>>> squid-proxy-75323           Running                 1/1             39s
+>>> squid-proxy-75823           Running                 1/1             39s
+>>> squid-proxy-76324           Running                 1/1             38s
+>>> squid-proxy-76825           Running                 1/1             38s
+>>> squid-proxy-77326           Running                 1/1             37s
+>>> squid-proxy-77826           Running                 1/1             37s
+>>> squid-proxy-78326           Running                 1/1             36s
+>>> squid-proxy-78826           Running                 1/1             36s
+>>> squid-proxy-79327           Running                 1/1             35s
+>>> squid-proxy-79828           Running                 1/1             35s
+>>> squid-proxy-80329           Running                 1/1             34s
+>>> squid-proxy-80829           Running                 1/1             34s
+>>> squid-proxy-81330           Running                 1/1             33s
+>>> squid-proxy-81830           Running                 1/1             33s
+>>> squid-proxy-82330           Running                 1/1             32s
+>>> squid-proxy-82831           Running                 1/1             32s
+>>> squid-proxy-83331           Running                 1/1             31s
+>>> squid-proxy-83832           Running                 1/1             31s
+>>> squid-proxy-84333           Running                 1/1             30s
+>>> squid-proxy-84833           Running                 1/1             30s
+>>> squid-proxy-85334           Running                 1/1             29s
+>>> squid-proxy-85834           Running                 1/1             29s
+>>> squid-proxy-86335           Running                 1/1             28s
+>>> squid-proxy-86835           Running                 1/1             28s
+>>> squid-proxy-87336           Running                 1/1             27s
+>>> squid-proxy-87837           Running                 1/1             27s
+>>> squid-proxy-88338           Running                 1/1             26s
+>>> squid-proxy-88838           Running                 1/1             26s
+>>> squid-proxy-89339           Running                 1/1             25s
+>>> squid-proxy-89840           Running                 1/1             25s
+>>> squid-proxy-90340           Running                 1/1             24s
+>>> squid-proxy-90841           Running                 1/1             24s
+>>> squid-proxy-91341           Running                 1/1             23s
+>>> squid-proxy-91842           Running                 1/1             23s
+>>> squid-proxy-92342           Running                 1/1             22s
+>>> squid-proxy-92843           Running                 1/1             22s
+>>> squid-proxy-93343           Running                 1/1             21s
+>>> squid-proxy-93844           Running                 1/1             21s
+>>> squid-proxy-94344           Running                 1/1             20s
+>>> squid-proxy-94845           Running                 1/1             20s
+
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <center>
+      <h1>Squid VPN Server</h1>
+      <p>Server is up and running and serving traffic!</p>
+    </center>
+
+  </body>
+</html>
+
+------------
+>>> Application is ***Scaling Up*** with a total of 99/100 running pods.
+>>> POD_NAME                    STATUS                  READY           AGE
+>>> squid-proxy-69704           Running                 1/1             146s
+>>> squid-proxy-70705           Running                 1/1             145s
+>>> squid-proxy-71705           Running                 1/1             144s
+>>> squid-proxy-21977           Running                 1/1             94s
+>>> squid-proxy-47286           Running                 1/1             68s
+>>> squid-proxy-47787           Running                 1/1             68s
+>>> squid-proxy-48287           Running                 1/1             67s
+>>> squid-proxy-48788           Running                 1/1             67s
+>>> squid-proxy-49289           Running                 1/1             66s
+>>> squid-proxy-49789           Running                 1/1             66s
+>>> squid-proxy-50290           Running                 1/1             65s
+>>> squid-proxy-50791           Running                 1/1             65s
+>>> squid-proxy-51291           Running                 1/1             64s
+>>> squid-proxy-51792           Running                 1/1             64s
+>>> squid-proxy-52293           Running                 1/1             63s
+>>> squid-proxy-52793           Running                 1/1             63s
+>>> squid-proxy-53294           Running                 1/1             62s
+>>> squid-proxy-53794           Running                 1/1             62s
+>>> squid-proxy-54294           Running                 1/1             61s
+>>> squid-proxy-54795           Running                 1/1             61s
+>>> squid-proxy-55296           Running                 1/1             60s
+>>> squid-proxy-55796           Running                 1/1             60s
+>>> squid-proxy-56297           Running                 1/1             59s
+>>> squid-proxy-56797           Running                 1/1             59s
+>>> squid-proxy-57298           Running                 1/1             58s
+>>> squid-proxy-57799           Running                 1/1             58s
+>>> squid-proxy-58299           Running                 1/1             57s
+>>> squid-proxy-58800           Running                 1/1             57s
+>>> squid-proxy-59300           Running                 1/1             56s
+>>> squid-proxy-59801           Running                 1/1             56s
+>>> squid-proxy-60302           Running                 1/1             55s
+>>> squid-proxy-60803           Running                 1/1             55s
+>>> squid-proxy-61304           Running                 1/1             54s
+>>> squid-proxy-61804           Running                 1/1             54s
+>>> squid-proxy-62305           Running                 1/1             53s
+>>> squid-proxy-62806           Running                 1/1             53s
+>>> squid-proxy-63307           Running                 1/1             52s
+>>> squid-proxy-63808           Running                 1/1             52s
+>>> squid-proxy-64308           Running                 1/1             51s
+>>> squid-proxy-64809           Running                 1/1             51s
+>>> squid-proxy-65309           Running                 1/1             50s
+>>> squid-proxy-65810           Running                 1/1             50s
+>>> squid-proxy-66311           Running                 1/1             49s
+>>> squid-proxy-66811           Running                 1/1             49s
+>>> squid-proxy-67312           Running                 1/1             48s
+>>> squid-proxy-67812           Running                 1/1             48s
+>>> squid-proxy-68313           Running                 1/1             47s
+>>> squid-proxy-68814           Running                 1/1             47s
+>>> squid-proxy-69315           Running                 1/1             46s
+>>> squid-proxy-69815           Running                 1/1             46s
+>>> squid-proxy-70316           Running                 1/1             45s
+>>> squid-proxy-71318           Running                 1/1             44s
+>>> squid-proxy-71819           Running                 1/1             44s
+>>> squid-proxy-72319           Running                 1/1             43s
+>>> squid-proxy-72820           Running                 1/1             43s
+>>> squid-proxy-73321           Running                 1/1             42s
+>>> squid-proxy-73821           Running                 1/1             42s
+>>> squid-proxy-74322           Running                 1/1             41s
+>>> squid-proxy-74822           Running                 1/1             41s
+>>> squid-proxy-75323           Running                 1/1             40s
+>>> squid-proxy-75823           Running                 1/1             40s
+>>> squid-proxy-76324           Running                 1/1             39s
+>>> squid-proxy-76825           Running                 1/1             39s
+>>> squid-proxy-77326           Running                 1/1             38s
+>>> squid-proxy-77826           Running                 1/1             38s
+>>> squid-proxy-78326           Running                 1/1             37s
+>>> squid-proxy-78826           Running                 1/1             37s
+>>> squid-proxy-79327           Running                 1/1             36s
+>>> squid-proxy-79828           Running                 1/1             36s
+>>> squid-proxy-80329           Running                 1/1             35s
+>>> squid-proxy-80829           Running                 1/1             35s
+>>> squid-proxy-81330           Running                 1/1             34s
+>>> squid-proxy-81830           Running                 1/1             34s
+>>> squid-proxy-82330           Running                 1/1             33s
+>>> squid-proxy-82831           Running                 1/1             33s
+>>> squid-proxy-83331           Running                 1/1             32s
+>>> squid-proxy-83832           Running                 1/1             32s
+>>> squid-proxy-84333           Running                 1/1             31s
+>>> squid-proxy-84833           Running                 1/1             31s
+>>> squid-proxy-85334           Running                 1/1             30s
+>>> squid-proxy-85834           Running                 1/1             30s
+>>> squid-proxy-86335           Running                 1/1             29s
+>>> squid-proxy-86835           Running                 1/1             29s
+>>> squid-proxy-87336           Running                 1/1             28s
+>>> squid-proxy-87837           Running                 1/1             28s
+>>> squid-proxy-88338           Running                 1/1             27s
+>>> squid-proxy-88838           Running                 1/1             27s
+>>> squid-proxy-89339           Running                 1/1             26s
+>>> squid-proxy-89840           Running                 1/1             26s
+>>> squid-proxy-90340           Running                 1/1             25s
+>>> squid-proxy-90841           Running                 1/1             25s
+>>> squid-proxy-91341           Running                 1/1             24s
+>>> squid-proxy-91842           Running                 1/1             24s
+>>> squid-proxy-92342           Running                 1/1             23s
+>>> squid-proxy-92843           Running                 1/1             23s
+>>> squid-proxy-93343           Running                 1/1             22s
+>>> squid-proxy-93844           Running                 1/1             22s
+>>> squid-proxy-94344           Running                 1/1             21s
+>>> squid-proxy-94845           Running                 1/1             21s
+>>> squid-proxy-15303           ContainerCreating       0/1             0s
+
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <center>
+      <h1>Squid VPN Server</h1>
+      <p>Server is up and running and serving traffic!</p>
+    </center>
+
+  </body>
+</html>
+
+------------
+>>> Application is ***Running*** with a total of 100/100 running pods.
+>>> POD_NAME                    STATUS                  READY           AGE
+>>> squid-proxy-69704           Running                 1/1             150s
+>>> squid-proxy-70705           Running                 1/1             149s
+>>> squid-proxy-71705           Running                 1/1             148s
+>>> squid-proxy-21977           Running                 1/1             98s
+>>> squid-proxy-47286           Running                 1/1             72s
+>>> squid-proxy-47787           Running                 1/1             72s
+>>> squid-proxy-48287           Running                 1/1             71s
+>>> squid-proxy-48788           Running                 1/1             71s
+>>> squid-proxy-49289           Running                 1/1             70s
+>>> squid-proxy-49789           Running                 1/1             70s
+>>> squid-proxy-50290           Running                 1/1             69s
+>>> squid-proxy-50791           Running                 1/1             69s
+>>> squid-proxy-51291           Running                 1/1             68s
+>>> squid-proxy-51792           Running                 1/1             68s
+>>> squid-proxy-52293           Running                 1/1             67s
+>>> squid-proxy-52793           Running                 1/1             67s
+>>> squid-proxy-53294           Running                 1/1             66s
+>>> squid-proxy-53794           Running                 1/1             66s
+>>> squid-proxy-54294           Running                 1/1             65s
+>>> squid-proxy-54795           Running                 1/1             65s
+>>> squid-proxy-55296           Running                 1/1             64s
+>>> squid-proxy-55796           Running                 1/1             64s
+>>> squid-proxy-56297           Running                 1/1             63s
+>>> squid-proxy-56797           Running                 1/1             63s
+>>> squid-proxy-57298           Running                 1/1             62s
+>>> squid-proxy-57799           Running                 1/1             62s
+>>> squid-proxy-58299           Running                 1/1             61s
+>>> squid-proxy-58800           Running                 1/1             61s
+>>> squid-proxy-59300           Running                 1/1             60s
+>>> squid-proxy-59801           Running                 1/1             60s
+>>> squid-proxy-60302           Running                 1/1             59s
+>>> squid-proxy-60803           Running                 1/1             59s
+>>> squid-proxy-61304           Running                 1/1             58s
+>>> squid-proxy-61804           Running                 1/1             58s
+>>> squid-proxy-62305           Running                 1/1             57s
+>>> squid-proxy-62806           Running                 1/1             57s
+>>> squid-proxy-63307           Running                 1/1             56s
+>>> squid-proxy-63808           Running                 1/1             56s
+>>> squid-proxy-64308           Running                 1/1             55s
+>>> squid-proxy-64809           Running                 1/1             55s
+>>> squid-proxy-65309           Running                 1/1             54s
+>>> squid-proxy-65810           Running                 1/1             54s
+>>> squid-proxy-66311           Running                 1/1             53s
+>>> squid-proxy-66811           Running                 1/1             53s
+>>> squid-proxy-67312           Running                 1/1             52s
+>>> squid-proxy-67812           Running                 1/1             52s
+>>> squid-proxy-68313           Running                 1/1             51s
+>>> squid-proxy-68814           Running                 1/1             51s
+>>> squid-proxy-69315           Running                 1/1             50s
+>>> squid-proxy-69815           Running                 1/1             50s
+>>> squid-proxy-70316           Running                 1/1             49s
+>>> squid-proxy-71318           Running                 1/1             48s
+>>> squid-proxy-71819           Running                 1/1             48s
+>>> squid-proxy-72319           Running                 1/1             47s
+>>> squid-proxy-72820           Running                 1/1             47s
+>>> squid-proxy-73321           Running                 1/1             46s
+>>> squid-proxy-73821           Running                 1/1             46s
+>>> squid-proxy-74322           Running                 1/1             45s
+>>> squid-proxy-74822           Running                 1/1             45s
+>>> squid-proxy-75323           Running                 1/1             44s
+>>> squid-proxy-75823           Running                 1/1             44s
+>>> squid-proxy-76324           Running                 1/1             43s
+>>> squid-proxy-76825           Running                 1/1             43s
+>>> squid-proxy-77326           Running                 1/1             42s
+>>> squid-proxy-77826           Running                 1/1             42s
+>>> squid-proxy-78326           Running                 1/1             41s
+>>> squid-proxy-78826           Running                 1/1             41s
+>>> squid-proxy-79327           Running                 1/1             40s
+>>> squid-proxy-79828           Running                 1/1             40s
+>>> squid-proxy-80329           Running                 1/1             39s
+>>> squid-proxy-80829           Running                 1/1             39s
+>>> squid-proxy-81330           Running                 1/1             38s
+>>> squid-proxy-81830           Running                 1/1             38s
+>>> squid-proxy-82330           Running                 1/1             37s
+>>> squid-proxy-82831           Running                 1/1             37s
+>>> squid-proxy-83331           Running                 1/1             36s
+>>> squid-proxy-83832           Running                 1/1             36s
+>>> squid-proxy-84333           Running                 1/1             35s
+>>> squid-proxy-84833           Running                 1/1             35s
+>>> squid-proxy-85334           Running                 1/1             34s
+>>> squid-proxy-85834           Running                 1/1             34s
+>>> squid-proxy-86335           Running                 1/1             33s
+>>> squid-proxy-86835           Running                 1/1             33s
+>>> squid-proxy-87336           Running                 1/1             32s
+>>> squid-proxy-87837           Running                 1/1             32s
+>>> squid-proxy-88338           Running                 1/1             31s
+>>> squid-proxy-88838           Running                 1/1             31s
+>>> squid-proxy-89339           Running                 1/1             30s
+>>> squid-proxy-89840           Running                 1/1             30s
+>>> squid-proxy-90340           Running                 1/1             29s
+>>> squid-proxy-90841           Running                 1/1             29s
+>>> squid-proxy-91341           Running                 1/1             28s
+>>> squid-proxy-91842           Running                 1/1             28s
+>>> squid-proxy-92342           Running                 1/1             27s
+>>> squid-proxy-92843           Running                 1/1             27s
+>>> squid-proxy-93343           Running                 1/1             26s
+>>> squid-proxy-93844           Running                 1/1             26s
+>>> squid-proxy-94344           Running                 1/1             25s
+>>> squid-proxy-94845           Running                 1/1             25s
+>>> squid-proxy-15303           Running                 1/1             4s
+
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <center>
+      <h1>Squid VPN Server</h1>
+      <p>Server is up and running and serving traffic!</p>
+    </center>
+
+  </body>
+</html>
+
+------------
+Please type a command: (e.g. 'help')

@@ -317,82 +317,312 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
 
     </section><!-- /Resume Section -->
 
-    <section id="portfolio" class="portfolio-section">
-        <!-- Section Header -->
-        <header class="section-header">
-          <h1>Portfolio</h1>
-          <p>
-            I have worked on diverse projects that highlight my expertise in cloud computing, data analytics, AI, and emerging technologies. 
-            My experience includes analyzing client data, developing interactive dashboards with Tableau and Power BI, and implementing 
-            robust cloud security solutions.
-          </p>
-        </header>
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio section light-background">
 
-        <!-- Portfolio Filters -->
-        <nav class="portfolio-filters">
-          <ul>
-            <li data-filter="all" class="active">All</li>
-            <li data-filter="cloud">Cloud Computing</li>
-            <li data-filter="data">Data Analytics</li>
-            <li data-filter="ai">AI & ML</li>
-            <li data-filter="tools">Development Tools</li>
-          </ul>
-        </nav>
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Portfolio</h2>
+        <p> I have worked on diverse projects that highlight my expertise in cloud computing, data analytics, AI, and emerging technologies. My experience includes analyzing client data, developing interactive dashboards with Tableau and Power BI, and implementing robust cloud security solutions. Recently, I completed a BCG GenAI Job Simulation, where I built an AI-powered financial chatbot using Python and pandas to analyze and interpret financial data from 10-K and 10-Q reports.
 
-        <!-- Portfolio Grid -->
-        <div class="portfolio-grid">
-          <!-- Cloud Computing Project -->
-          <article class="portfolio-item" data-category="cloud">
-            <div class="portfolio-image">
-              <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800" 
-                   alt="Cloud Computing Project" />
-              <span class="category-badge">Cloud Computing</span>
-            </div>
-            <div class="portfolio-content">
-              <h3>Verizon Cloud Platform Simulation</h3>
-              <p>VPN Security & Cloud-Native Testing</p>
-              <div class="portfolio-actions">
-                <button class="btn-primary">View Details</button>
-                <button class="btn-secondary">Live Demo</button>
+          Additionally, I have led technology workshops on VR, podcasting, 3D printing, and green screen technology, equipping students and faculty with innovative tools for enhanced learning experiences. My hands-on work in database security, network communication, AI automation, and cloud-based applications demonstrates my ability to tackle complex technical challenges with efficiency, innovation, and a data-driven approach.</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">                    
+
+        <div class="isotope-layout" data-default-filter=".filter-none" data-layout="masonry" data-sort="original-order">
+    
+          <style>
+            /* Style the Portfolio Filters */
+            .portfolio-filters {
+                display: flex;
+                gap: 12px;
+                justify-content: center;
+                padding: 30px 1;
+                list-style: none;
+            }
+        
+            /* Style Each Filter as a Button */
+            .portfolio-filters li {
+    display: flex; /* Enables flexbox for centering */
+    align-items: center; /* Centers text vertically */
+    justify-content: center; /* Centers text horizontally */
+    background: linear-gradient(135deg, #007bff, #0056b3); /* Sky Blue Gradient */
+    color: white;
+    padding: 5px 32px; /* Reducing vertical padding to prevent shifting */
+    border-radius: 15px; /* Makes buttons bigger and rounder */
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 2px 4px 12px rgba(0, 123, 255, 0.4); /* Bigger shadow effect */
+    border: none;
+    text-transform: uppercase;
+    font-size: 20px; /* Balanced font size */
+    letter-spacing: 1px;
+    text-align: center;
+    min-width: 120px; /* Maintains button width */
+    min-height: 30px; /* Ensures correct height */
+    line-height: 30px; /* Forces text to vertically align */
+    position: relative;
+    overflow: hidden;
+}
+
+
+
+/* Hover Effect */
+.portfolio-filters li:hover, .portfolio-filters li.active {
+    background: linear-gradient(135deg, #0056b3, #004494);
+    transform: scale(1.08); /* Slight increase on hover */
+    box-shadow: 3px 5px 15px rgba(0, 123, 255, 0.6);
+}
+
+            
+        
+            /* Clicked (Active) Effect */
+            .portfolio-filters li:active {
+                transform: scale(0.98); /* Slight press-down effect */
+                box-shadow: 1px 2px 6px rgba(0, 123, 255, 0.3);
+            }
+        
+            /* Animation Effect (Pulse Glow on Hover) */
+            .portfolio-filters li::before {
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                width: 300%;
+                height: 600%;
+                background: rgba(255, 255, 255, 0.1);
+                transition: all 0.4s ease;
+                transform: translate(-50%, -50%) scale(0);
+                border-radius: 50%;
+            }
+        
+            .portfolio-filters li:hover::before {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0;
+            }
+        
+            /* Icon Styling */
+            .portfolio-filters li i {
+                margin-right: 8px;
+                font-size: 16px;
+            }
+        </style>  
+          <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+                <li data-filter=".filter-none" class="filter-active"><i class="bi bi-shield-lock-fill"></i> <!-- Bootstrap Icon for Hide -->
+                </li>
+                <li data-filter=".filter-app">App</li>
+                <li data-filter=".filter-Tableau">Tableau</li>
+                <li data-filter=".filter-GenAI">Gen AI</li>
+                <li data-filter=".filter-PowerBi">Power Bi</li>
+                <li data-filter=".filter-GraduateAssistant">GA</li>
+                <li data-filter="*" >All</li>
+            </ul><!-- End Portfolio Filters -->
+		  
+
+          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app IMG">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/app-1.jpg" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>App IMG</IMG></h4>
+                  <p>Verizon Cloud Platform Simulation – VPN Security & Cloud-Native Testing</p>
+                  <a href="assets/img/portfolio/app-1.jpg" title="App IMG" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
               </div>
-            </div>
-          </article>
+            </div><!-- End Portfolio Item -->
 
-          <!-- Data Analytics Project -->
-          <article class="portfolio-item" data-category="data">
-            <div class="portfolio-image">
-              <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800" 
-                   alt="Data Analytics Project" />
-              <span class="category-badge">Data Analytics</span>
-            </div>
-            <div class="portfolio-content">
-              <h3>Deloitte Forensic Analysis</h3>
-              <p>Data Analytics Simulation with Tableau</p>
-              <div class="portfolio-actions">
-                <button class="btn-primary">View Details</button>
-                <button class="btn-secondary">Live Demo</button>
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app IMG">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/product-1.jpg" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>App IMG</h4>
+                  <p>Verizon Cloud Platform Simulation – VPN Security & Cloud-Native Testing</p>
+                  <a href="assets/img/portfolio/product-1.jpg" title="App IMG" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
               </div>
-            </div>
-          </article>
+            </div><!-- End Portfolio Item -->
 
-          <!-- AI Project -->
-          <article class="portfolio-item" data-category="ai">
-            <div class="portfolio-image">
-              <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800" 
-                   alt="AI Project" />
-              <span class="category-badge">AI & Machine Learning</span>
-            </div>
-            <div class="portfolio-content">
-              <h3>BCG GenAI Financial Chatbot</h3>
-              <p>AI-powered analysis of financial reports</p>
-              <div class="portfolio-actions">
-                <button class="btn-primary">View Details</button>
-                <button class="btn-secondary">Live Demo</button>
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app IMG">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/branding-1.jpg" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>App IMG</h4>
+                  <p>Verizon Cloud Platform Simulation – VPN Security & Cloud-Native Testing</p>
+                  <a href="assets/img/portfolio/branding-1.jpg" title="App IMG" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
               </div>
-            </div>
-          </article>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app IMG">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/books-1.jpg" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>App IMG</h4>
+                  <p>Verizon Cloud Platform Simulation – VPN Security & Cloud-Native Testing</p>
+                  <a href="assets/img/portfolio/books-1.jpg" title="App IMG" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-Tableau">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/app-2.jpg" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>Tableau</h4>
+                  <p>Deloitte Australia Data Analytics Simulation – Forensic Data Analysis</p>
+                  <a href="assets/img/portfolio/app-2.jpg" title="App 2" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolioTableau-details .html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-Tableau">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/product-2.jpg" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>Tableau</h4>
+                  <p>Deloitte Australia Data Analytics Simulation – Forensic Data Analysis</p>
+                  <a href="assets/img/portfolio/product-2.jpg" title="Tableau" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolioTableau-details .html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-Tableau">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/branding-2.jpg" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>Tableau</h4>
+                  <p>Deloitte Australia Data Analytics Simulation – Forensic Data Analysis</p>
+                  <a href="assets/img/portfolio/branding-2.jpg" title="Tableau" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolioTableau-details .html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-Tableau">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/books-2.jpg" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>Tableau</h4>
+                  <p>Deloitte Australia Data Analytics Simulation – Forensic Data Analysis</p>
+                  <a href="assets/img/portfolio/books-2.jpg" title="Tableau" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="portfolioTableau-details .html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-GraduateAssistant">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/app-3.jpg" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>Graduate Assistant</h4>
+                  <p>workshops on green screen technology, VR, podcasting, and 3D printing</p>
+                  <a href="assets/img/portfolio/app-3.jpg" title="GraduateAssistant" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <!--<a href="portfolioGA-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a> -->
+                </div>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-GraduateAssistant">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/product-3.jpg" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>Graduate Assistant</h4>
+                  <p>workshops on green screen technology, VR, podcasting, and 3D printing</p>
+                  <a href="assets/img/portfolio/product-3.jpg" title="GraduateAssistant" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <!--<a href="portfolioGA-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a> -->
+                </div>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-GraduateAssistant">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/branding-3.jpg" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>Graduate Assistant</h4>
+                  <p>workshops on green screen technology, VR, podcasting, and 3D printing</p>
+                  <a href="assets/img/portfolio/branding-3.jpg" title="GraduateAssistant" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <!--<a href="portfolioGA-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a> -->
+                </div>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-GraduateAssistant">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/books-3.jpg" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>Graduate Assistant</h4>
+                  <p>workshops on green screen technology, VR, podcasting, and 3D printing</p>
+                  <a href="assets/img/portfolio/books-3.jpg" title="GraduateAssistant" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <!--<a href="portfolioGA-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a> -->
+                </div>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-PowerBi">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/PowerBi (2).jpg" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>PowerBi</h4>
+                  <p>Power BI dashboards with DAX calculations to analyze KPIs</p>
+                  <a href="assets/img/portfolio/PowerBi (2).jpg" title="PowerBi" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <!--<a href="portfolioGA-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a> -->
+                </div>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-PowerBi">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/PowerBi.jpg" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>PowerBi</h4>
+                  <p>Power BI dashboards with DAX calculations to analyze KPIs</p>
+                  <a href="assets/img/portfolio/PowerBi.jpg" title="PowerBi" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <!--<a href="portfolioGA-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a> -->
+                </div>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-PowerBi">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/PowerBi (3).jpg" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>PowerBi</h4>
+                  <p>Power BI dashboards with DAX calculations to analyze KPIs</p>
+                  <a href="assets/img/portfolio/PowerBi (3).jpg" title="PowerBi" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <!--<a href="portfolioGA-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a> -->
+                </div>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-GenAI">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/AI Chat bot.jpg" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>Gen AI</h4>
+                  <p>Developed an AI-powered financial chatbot for data analysis in BCG GenAI Job Simulation</p>
+                  <a href="assets/img/portfolio/AI Chat bot.jpg" title="Gen AI" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <!--<a href="portfolioGA-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a> -->
+                </div>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+          </div><!-- End Portfolio Container -->
+
         </div>
-      </section>
+
+      </div>
+
+    </section><!-- /Portfolio Section -->
+
     <!-- Services Section -->
     <section id="services" class="services section">
 

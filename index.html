@@ -317,14 +317,14 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
 
     </section><!-- /Resume Section -->
 	  
-	<!-- Swipable Portfolio Section with Blue Borders -->
+<!-- Swipable Portfolio Section with Blue Borders -->
 <section id="portfolio" class="portfolio section light-background" style="border-top: 5px solid #a7d1f1; border-bottom: 5px solid #a7d1f1; position: relative;">
 
   <!-- Portfolio Container -->
   <div class="container section-title" id="portfolio-slider">
     <h2>Portfolio</h2>
     
-    <!-- Navigation Arrows - Repositioned outside of content flow -->
+    <!-- Navigation Arrows - Positioned further away from content -->
     <div class="portfolio-navigation">
       <button id="prevProject" class="nav-arrow prev-arrow" aria-label="Previous project">
         <i class="bi bi-chevron-left"></i>
@@ -461,13 +461,15 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
       font-size: 14px;
     }
     
-    /* New styles for swipable portfolio */
+    /* Modified styles for swipable portfolio */
     .portfolio-slides-container {
       position: relative;
       overflow: hidden;
       width: 100%;
       min-height: 300px;
-      padding: 0 50px; /* Add padding to make space for the buttons */
+      padding: 0; /* Removed horizontal padding */
+      margin: 0 auto;
+      max-width: 90%; /* Make the content area narrower to give space for navigation */
     }
     
     .portfolio-slide {
@@ -489,7 +491,7 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
       width: 100%;
       display: flex;
       justify-content: space-between;
-      padding: 0 10px;
+      padding: 0;
       pointer-events: none;
       z-index: 10;
       left: 0;
@@ -515,11 +517,11 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
     }
     
     .prev-arrow {
-      left: 10px;
+      left: 5px; /* Moved further left */
     }
     
     .next-arrow {
-      right: 10px;
+      right: 5px; /* Moved further right */
     }
     
     .nav-arrow:hover {
@@ -563,6 +565,22 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
     #portfolio-slider {
       position: relative;
       padding: 20px 0;
+      overflow: hidden; /* Prevent buttons from causing horizontal scroll */
+    }
+    
+    /* Media query for smaller screens */
+    @media (max-width: 768px) {
+      .portfolio-slides-container {
+        max-width: 80%;
+      }
+      
+      .prev-arrow {
+        left: -5px;
+      }
+      
+      .next-arrow {
+        right: -5px;
+      }
     }
   </style>
 

@@ -317,263 +317,153 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
 
     </section><!-- /Resume Section -->
 	  
-<!-- Portfolio Section with Blue Borders and Carousel Navigation -->
+	<!-- Portfolio Section with Blue Borders -->
 <section id="portfolio" class="portfolio section light-background" style="border-top: 5px solid #a7d1f1; border-bottom: 5px solid #a7d1f1;">
 
   <!-- Section Title - Centered -->
   <div class="container section-title" data-aos="fade-up">
     <h2>Portfolio</h2>
-    
-    <!-- Carousel Navigation -->
-    <div class="portfolio-categories" style="margin-bottom: 30px;">
-      <div class="category-buttons" style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px;">
-        <button class="category-btn active" data-category="ai-deep-learning" style="background: linear-gradient(135deg, #007bff, #0056b3); color: white; border: none; padding: 8px 20px; border-radius: 15px; font-weight: bold; cursor: pointer; transition: all 0.3s ease-in-out; box-shadow: 2px 4px 12px rgba(0, 123, 255, 0.4);">AI & Deep Learning</button>
-        <button class="category-btn" data-category="database-systems" style="background: linear-gradient(135deg, #6c757d, #495057); color: white; border: none; padding: 8px 20px; border-radius: 15px; font-weight: bold; cursor: pointer; transition: all 0.3s ease-in-out; box-shadow: 2px 4px 12px rgba(108, 117, 125, 0.4);">Database Systems</button>
-        <button class="category-btn" data-category="python-projects" style="background: linear-gradient(135deg, #6c757d, #495057); color: white; border: none; padding: 8px 20px; border-radius: 15px; font-weight: bold; cursor: pointer; transition: all 0.3s ease-in-out; box-shadow: 2px 4px 12px rgba(108, 117, 125, 0.4);">Python Projects</button>
-      </div>
+    <h3 class="resume-title">Advanced Intelligent Systems & Deep Learning </h3>
+    <p style="text-align:justify;">
+      <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>Face Animation and Lip Synchronization Using Generative Adversarial Networks (GAN):</i></b>  
+      This system generates lifelike facial expressions from a static image based on a provided audio file. Using GANs, the model analyzes phonetic cues from speech and creates synchronized facial movements, producing an animated video output. The project also supports cloud-based execution on Google Colab, allowing seamless file uploads, real-time progress tracking, and video playback with GPU acceleration.
+    </p>
+    <br>
+    <p style="text-align:justify;">
+      <strong>Technologies Used:</strong> PyTorch, GANs, OpenCV, SpeechRecognition, Google Text-to-Speech (gTTS), Google Colab, CUDA, ffmpeg
+    </p>
+
+    <p style="text-align:justify;">&nbsp;&nbsp;&nbsp;&nbsp;	The process begins with audio processing, where speech-to-text extraction analyzes phonetic cues. Next, the GAN-based facial animation model generates realistic expressions synchronized with speech. Video compilation is then performed using OpenCV to create a seamless animated output. Finally, cloud deployment on Google Colab enables GPU-accelerated processing and efficient file handling.
+    </p>
+    <br>
+    <p style="text-align:justify;">
+      <i>	This project showcases my expertise in deep learning, computer vision, and AI-driven animation, demonstrating how generative models can bring static images to life using audio input.</i>
+    </p>
+	<br>
+    <div class="container">                    
+
+      <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
+        <style>
+          /* Style the Portfolio Links */
+          .portfolio-links {
+              display: flex;
+              gap: 12px;
+              justify-content: center;
+              padding: 30px 1;
+              list-style: none;
+              margin: 0 auto;
+          }
       
-      <!-- Navigation indicators -->
-      <div class="carousel-indicators" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
-        <span class="indicator active" data-index="0" style="width: 12px; height: 12px; border-radius: 50%; background-color: #007bff; cursor: pointer; transition: all 0.3s ease;"></span>
-        <span class="indicator" data-index="1" style="width: 12px; height: 12px; border-radius: 50%; background-color: #6c757d; cursor: pointer; transition: all 0.3s ease;"></span>
-        <span class="indicator" data-index="2" style="width: 12px; height: 12px; border-radius: 50%; background-color: #6c757d; cursor: pointer; transition: all 0.3s ease;"></span>
-      </div>
-    </div>
-    
-    <!-- Carousel container -->
-    <div class="carousel-container" style="overflow: hidden; position: relative;">
-      <div class="carousel-track" style="display: flex; transition: transform 0.5s ease-in-out;">
-        
-        <!-- Category 1: AI & Deep Learning -->
-        <div class="carousel-slide" data-category="ai-deep-learning" style="min-width: 100%; flex-shrink: 0;">
-          <h3 class="resume-title">Advanced Intelligent Systems & Deep Learning</h3>
-          
-          <!-- Project 1 -->
-          <div class="project-item" data-aos="fade-up">
-            <p style="text-align:justify;">
-              <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>Face Animation and Lip Synchronization Using Generative Adversarial Networks (GAN):</i></b>  
-              This system generates lifelike facial expressions from a static image based on a provided audio file. Using GANs, the model analyzes phonetic cues from speech and creates synchronized facial movements, producing an animated video output. The project also supports cloud-based execution on Google Colab, allowing seamless file uploads, real-time progress tracking, and video playback with GPU acceleration.
-            </p>
-            <br>
-            <p style="text-align:justify;">
-              <strong>Technologies Used:</strong> PyTorch, GANs, OpenCV, SpeechRecognition, Google Text-to-Speech (gTTS), Google Colab, CUDA, ffmpeg
-            </p>
+          /* Style Each Link as a Button - Sized like original template */
+          .portfolio-links li a {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              background: linear-gradient(135deg, #007bff, #0056b3);
+              color: white;
+              padding: 5px 20px;
+              border-radius: 15px;
+              font-weight: bold;
+              transition: all 0.3s ease-in-out;
+              box-shadow: 2px 4px 12px rgba(0, 123, 255, 0.4);
+              border: none;
+              text-transform: uppercase;
+              font-size: 14px;
+              letter-spacing: 1px;
+              text-align: center;
+              min-width: 120px;
+              min-height: 30px;
+              line-height: 20px;
+              position: relative;
+              overflow: hidden;
+              text-decoration: none;
+          }
 
-            <p style="text-align:justify;">&nbsp;&nbsp;&nbsp;&nbsp;	The process begins with audio processing, where speech-to-text extraction analyzes phonetic cues. Next, the GAN-based facial animation model generates realistic expressions synchronized with speech. Video compilation is then performed using OpenCV to create a seamless animated output. Finally, cloud deployment on Google Colab enables GPU-accelerated processing and efficient file handling.
-            </p>
-            <br>
-            <p style="text-align:justify;">
-              <i>	This project showcases my expertise in deep learning, computer vision, and AI-driven animation, demonstrating how generative models can bring static images to life using audio input.</i>
-            </p>
-            <br>
-            <ul class="portfolio-links" data-aos="fade-up" data-aos-delay="100">
-              <li><a href="https://github.com/YogeshGajula/GAN_FaceAnimation_lipsync" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
-              <li><a href="https://www.youtube.com/watch?v=A7tC1bQin10" target="_blank"><i class="bi bi-youtube"></i>Video</a></li>
-            </ul>
-          </div>
+          /* Hover Effect */
+          .portfolio-links li a:hover {
+              background: linear-gradient(135deg, #0056b3, #004494);
+              transform: scale(1.08);
+              box-shadow: 3px 5px 15px rgba(0, 123, 255, 0.6);
+              text-decoration: none;
+          }
           
-          <!-- Project 2 -->
-          <div class="project-item" data-aos="fade-up" data-aos-delay="100" style="margin-top: 40px;">
-            <p style="text-align:justify;">
-              <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>Eye Detection Using YOLO-NAS:</i></b>  
-              This project implements a deep learning-based eye detection system using YOLO-NAS. The model is trained on a custom dataset to accurately detect eyes in images. The system supports real-time inference, enabling applications such as eye-tracking, gaze detection, and drowsiness monitoring. The project is integrated with Roboflow for dataset preparation and annotation, ensuring optimized training and evaluation.
-            </p>
-            <br>
-            <p style="text-align:justify;">
-              <strong>Technologies Used:</strong> YOLO-NAS, PyTorch, Roboflow, OpenCV, Matplotlib, Google Colab, CUDA
-            </p>
+          /* Clicked Effect */
+          .portfolio-links li a:active {
+              transform: scale(0.98);
+              box-shadow: 1px 2px 6px rgba(0, 123, 255, 0.3);
+          }
+      
+          /* Animation Effect (Pulse Glow on Hover) */
+          .portfolio-links li a::before {
+              content: "";
+              position: absolute;
+              top: 100%;
+              left: 50%;
+              width: 300%;
+              height: 600%;
+              background: rgba(255, 255, 255, 0.1);
+              transition: all 0.4s ease;
+              transform: translate(-50%, -50%) scale(0);
+              border-radius: 50%;
+          }
+      
+          .portfolio-links li a:hover::before {
+              transform: translate(-50%, -50%) scale(1);
+              opacity: 0;
+          }
+      
+          /* Icon Styling */
+          .portfolio-links li a i {
+              margin-right: 8px;
+              font-size: 14px;
+          }
+          
+          /* Center the section title text */
+          .text-center {
+              text-align: center;
+          }
+        </style>  
+        
+        <!-- Direct link buttons with adjusted sizing -->
+        <ul class="portfolio-links" data-aos="fade-up" data-aos-delay="100">
+          <li><a href="https://github.com/YogeshGajula/GAN_FaceAnimation_lipsync" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
+          <li><a href="https://www.youtube.com/watch?v=A7tC1bQin10" target="_blank"><i class="bi bi-youtube"></i>Video</a></li>
+        </ul><!-- End Portfolio Links -->
+	      <br>
+	      <br>
+        
+        <!-- Second Project Description and Buttons -->
+        <p style="text-align:justify;" data-aos="fade-up" data-aos-delay="100">
+          <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>Eye Detection Using YOLO-NAS:</i></b>  
+	This project implements a deep learning-based eye detection system using YOLO-NAS. The model is trained on a custom dataset to accurately detect eyes in images. The system supports real-time inference, enabling applications such as eye-tracking, gaze detection, and drowsiness monitoring. The project is integrated with Roboflow for dataset preparation and annotation, ensuring optimized training and evaluation.        </p>
+        <br>
+        <p style="text-align:justify;" data-aos="fade-up" data-aos-delay="100">
+          <strong>Technologies Used:</strong> YOLO-NAS, PyTorch, Roboflow, OpenCV, Matplotlib, Google Colab, CUDA
+        </p>
 
-            <p style="text-align:justify;">
-              &nbsp;&nbsp;&nbsp;&nbsp; The project leverages Roboflow to annotate and convert the dataset into YOLO format. A YOLO-NAS model is trained for accurate eye detection, and the trained model performs real-time inference, overlaying bounding boxes on detected eyes. Performance is evaluated using training graphs and metrics, while Google Colab integration enables efficient, GPU-accelerated execution. 🚀
-            </p>
-            <br>
-            <ul class="portfolio-links" data-aos="fade-up" data-aos-delay="100">
-              <li><a href="https://github.com/YogeshGajula/YOLO-NAS-Eye-Detection" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
-              <li><a href="https://github.com/YogeshGajula/YOLO-NAS-Eye-Detection/blob/main/FinalReport.pdf" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Report</a></li>
-            </ul>
-          </div>
-        </div>
+        <p style="text-align:justify;" data-aos="fade-up" data-aos-delay="100">
+          &nbsp;&nbsp;&nbsp;&nbsp; The project leverages Roboflow to annotate and convert the dataset into YOLO format. A YOLO-NAS model is trained for accurate eye detection, and the trained model performs real-time inference, overlaying bounding boxes on detected eyes. Performance is evaluated using training graphs and metrics, while Google Colab integration enables efficient, GPU-accelerated execution. 🚀
+        </p>
+        <br>
         
-        <!-- Category 2: Database Management Systems -->
-        <div class="carousel-slide" data-category="database-systems" style="min-width: 100%; flex-shrink: 0;">
-          <h3 class="resume-title">Database Management Systems</h3>
-          
-          <!-- Sample Database Project 1 -->
-          <div class="project-item" data-aos="fade-up">
-            <p style="text-align:justify;">
-              <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>Healthcare Management System:</i></b>  
-              A comprehensive database system designed to streamline patient records, appointment scheduling, and medical history tracking for healthcare providers. This project implements a relational database with optimized query performance and data integrity constraints.
-            </p>
-            <br>
-            <p style="text-align:justify;">
-              <strong>Technologies Used:</strong> PostgreSQL, SQL, MongoDB, Node.js, Express, Data Normalization Techniques
-            </p>
-            <p style="text-align:justify;">
-              &nbsp;&nbsp;&nbsp;&nbsp; The system features role-based access control, audit logging for sensitive operations, and HIPAA-compliant data handling. The database schema supports complex patient-doctor relationships, medication tracking, and appointment management with automated reminders.
-            </p>
-            <br>
-            <ul class="portfolio-links" data-aos="fade-up" data-aos-delay="100">
-              <li><a href="#" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
-              <li><a href="#" target="_blank"><i class="bi bi-file-earmark-pdf"></i>Documentation</a></li>
-            </ul>
-          </div>
-          
-          <!-- Sample Database Project 2 -->
-          <div class="project-item" data-aos="fade-up" data-aos-delay="100" style="margin-top: 40px;">
-            <p style="text-align:justify;">
-              <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>E-Commerce Data Warehouse:</i></b>  
-              Designed and implemented a data warehouse solution for an e-commerce platform, enabling advanced analytics and business intelligence. The project includes ETL pipelines, dimensional modeling, and interactive dashboards.
-            </p>
-            <br>
-            <p style="text-align:justify;">
-              <strong>Technologies Used:</strong> MySQL, AWS Redshift, Python, Tableau, ETL Processes
-            </p>
-            <p style="text-align:justify;">
-              &nbsp;&nbsp;&nbsp;&nbsp; This solution processes millions of transactions daily into a star schema optimized for analytical queries. The warehouse supports customer segmentation, product performance analysis, and sales forecasting through integrated BI tools.
-            </p>
-            <br>
-            <ul class="portfolio-links" data-aos="fade-up" data-aos-delay="100">
-              <li><a href="#" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
-              <li><a href="#" target="_blank"><i class="bi bi-bar-chart"></i>Demo Dashboard</a></li>
-            </ul>
-          </div>
-        </div>
+        <!-- Direct link buttons for the second project -->
+        <ul class="portfolio-links" data-aos="fade-up" data-aos-delay="100">
+          <li><a href="https://github.com/YogeshGajula/YOLO-NAS-Eye-Detection" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
+	  <li><a href="https://github.com/YogeshGajula/YOLO-NAS-Eye-Detection/blob/main/FinalReport.pdf" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Report</a></li>
+        </ul><!-- End Portfolio Links -->
         
-        <!-- Category 3: Python Projects -->
-        <div class="carousel-slide" data-category="python-projects" style="min-width: 100%; flex-shrink: 0;">
-          <h3 class="resume-title">Python Projects</h3>
-          
-          <!-- Sample Python Project 1 -->
-          <div class="project-item" data-aos="fade-up">
-            <p style="text-align:justify;">
-              <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>Automated Data Pipeline:</i></b>  
-              A robust data pipeline built with Python that automates the collection, transformation, and analysis of financial data from multiple sources. The system generates daily reports and alerts based on predefined metrics.
-            </p>
-            <br>
-            <p style="text-align:justify;">
-              <strong>Technologies Used:</strong> Python, Pandas, Apache Airflow, SQLAlchemy, Matplotlib, AWS Lambda
-            </p>
-            <p style="text-align:justify;">
-              &nbsp;&nbsp;&nbsp;&nbsp; This pipeline integrates with various APIs to gather market data, performs statistical analysis, and distributes insights via email and web dashboards. The system is fault-tolerant with comprehensive logging and error handling.
-            </p>
-            <br>
-            <ul class="portfolio-links" data-aos="fade-up" data-aos-delay="100">
-              <li><a href="#" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
-              <li><a href="#" target="_blank"><i class="bi bi-diagram-3"></i>System Design</a></li>
-            </ul>
-          </div>
-          
-          <!-- Sample Python Project 2 -->
-          <div class="project-item" data-aos="fade-up" data-aos-delay="100" style="margin-top: 40px;">
-            <p style="text-align:justify;">
-              <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>Natural Language Processing Tool:</i></b>  
-              A Python-based NLP tool that analyzes sentiment, extracts key entities, and summarizes text from various document formats. The application includes a web interface for real-time text processing.
-            </p>
-            <br>
-            <p style="text-align:justify;">
-              <strong>Technologies Used:</strong> Python, NLTK, spaCy, Flask, Transformers, Docker
-            </p>
-            <p style="text-align:justify;">
-              &nbsp;&nbsp;&nbsp;&nbsp; This tool incorporates state-of-the-art language models for accurate sentiment analysis and document summarization. It processes multiple file formats including PDF, DOCX, and TXT, with multilingual support for English, Spanish, and French.
-            </p>
-            <br>
-            <ul class="portfolio-links" data-aos="fade-up" data-aos-delay="100">
-              <li><a href="#" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
-              <li><a href="#" target="_blank"><i class="bi bi-play-btn"></i>Demo</a></li>
-            </ul>
-          </div>
-        </div>
-        
+        <!-- Portfolio items continue as before -->
+        <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="100">
+          <!-- All your existing portfolio items remain unchanged -->
+        </div><!-- End Portfolio Container -->
       </div>
+
     </div>
-    
-    <!-- Navigation arrows -->
-    <div class="carousel-nav" style="display: flex; justify-content: space-between; position: relative; margin-top: 20px;">
-      <button id="prev-btn" style="background: linear-gradient(135deg, #007bff, #0056b3); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 2px 4px 12px rgba(0, 123, 255, 0.4);">
-        <i class="bi bi-chevron-left"></i>
-      </button>
-      <button id="next-btn" style="background: linear-gradient(135deg, #007bff, #0056b3); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 2px 4px 12px rgba(0, 123, 255, 0.4);">
-        <i class="bi bi-chevron-right"></i>
-      </button>
-    </div>
-    
+
   </div>
 
-  <!-- JavaScript to control the carousel -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const carouselTrack = document.querySelector('.carousel-track');
-      const slides = document.querySelectorAll('.carousel-slide');
-      const categoryBtns = document.querySelectorAll('.category-btn');
-      const indicators = document.querySelectorAll('.indicator');
-      const nextBtn = document.getElementById('next-btn');
-      const prevBtn = document.getElementById('prev-btn');
-      
-      let currentIndex = 0;
-      let slideWidth = slides[0].getBoundingClientRect().width;
-      let autoplayInterval;
-      let isUserInteracting = false;
-
-      // Function to update the carousel position
-      function updateCarousel() {
-        carouselTrack.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-        
-        // Update active indicator and button
-        indicators.forEach((indicator, index) => {
-          if (index === currentIndex) {
-            indicator.style.backgroundColor = '#007bff';
-            indicator.style.width = '15px';
-            indicator.style.height = '15px';
-            indicator.classList.add('active');
-          } else {
-            indicator.style.backgroundColor = '#6c757d';
-            indicator.style.width = '12px';
-            indicator.style.height = '12px';
-            indicator.classList.remove('active');
-          }
-        });
-        
-        categoryBtns.forEach((btn, index) => {
-          if (index === currentIndex) {
-            btn.style.background = 'linear-gradient(135deg, #007bff, #0056b3)';
-            btn.style.transform = 'scale(1.05)';
-            btn.classList.add('active');
-          } else {
-            btn.style.background = 'linear-gradient(135deg, #6c757d, #495057)';
-            btn.style.transform = 'scale(1)';
-            btn.classList.remove('active');
-          }
-        });
-      }
-
-      // Function to move to the next slide
-      function nextSlide() {
-        currentIndex = (currentIndex + 1) % slides.length;
-        updateCarousel();
-      }
-
-      // Function to move to the previous slide
-      function prevSlide() {
-        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-        updateCarousel();
-      }
-
-      // Start autoplay
-      function startAutoplay() {
-        if (!isUserInteracting) {
-          autoplayInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
-        }
-      }
-
-      // Stop autoplay
-      function stopAutoplay() {
-        clearInterval(autoplayInterval);
-      }
-
-      // Initialize carousel
-      updateCarousel();
-      startAutoplay
-
+</section><!-- /Portfolio Section -->
 
     <!-- Services Section -->
     <section id="services" class="services section">
@@ -900,3 +790,5 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
 </body>
 
 </html>
+
+

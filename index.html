@@ -320,15 +320,14 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
 <section id="portfolio" class="portfolio section light-background" style="border-top: 5px solid #a7d1f1; border-bottom: 5px solid #a7d1f1;">
     <div class="container section-title" data-aos="fade-up">
         <h2>Portfolio</h2>
-        <p style="text-align:center; font-size:0.9rem; color:#aaa;">Swipe to view more projects</p>
     </div>
 
-    <div class="portfolio-carousel swiper-container" data-aos="fade-up" data-aos-delay="100">
+    <div class="portfolio-carousel swiper-container" data-aos="fade-up" data-aos-delay="100" style="margin-top: 2rem;">
         <div class="swiper-wrapper">
             <div class="swiper-slide">
                 <div class="container">
                     <h3 class="resume-title">AI Projects</h3>
-                    <div style="margin-bottom: 2rem;">
+                    <div style="margin-bottom: 8rem;">
                         <h4>Eye Detection Using YOLO-NAS</h4>
                         <p style="text-align:justify;">
                             <i class="bi bi-chevron-right" style="color:#007bff;"></i> This project implements a deep learning-based eye detection system using YOLO-NAS. The model is trained on a custom dataset to accurately detect eyes in images. The system supports real-time inference, enabling applications such as eye-tracking, gaze detection, and drowsiness monitoring. The project is integrated with Roboflow for dataset preparation and annotation, ensuring optimized training and evaluation.
@@ -424,7 +423,10 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
         </div>
         <div class="swiper-button-next" style="color: #007bff;"></div>
         <div class="swiper-button-prev" style="color: #007bff;"></div>
-        <div class="swiper-pagination" style="color: #007bff;"></div>
+        <div class="swiper-pagination" style="top: 0; margin-top: 1rem; margin-bottom: 2rem;"></div>
+        <div style="text-align:center; font-size:0.9rem; color:#a2a2a2; margin-top: 0.5rem; font-family: 'Poppins', sans-serif;">
+            <span style="margin-right: 5px;">←</span> Swipe to view more projects <span style="margin-left: 5px;">→</span>
+        </div>
     </div>
 </section>
 
@@ -483,6 +485,9 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
   transition: .3s opacity;
   transform: translate3d(0,0,0);
   z-index: 10;
+  top: 0;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 .swiper-pagination-bullet {
   width: var(--swiper-pagination-bullet-width, 8px);
@@ -531,7 +536,6 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
     line-height: 20px;
     position: relative;
     overflow: hidden;
-    text-decoration: none;
     font-family: 'Inter', sans-serif;
 }
 
@@ -614,6 +618,7 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
         },
     });
 </script>
+
 
 
     <!-- Services Section -->

@@ -317,319 +317,180 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
 
     </section><!-- /Resume Section -->
 	  
-<!-- Portfolio Section with Blue Borders and Carousel -->
+<!-- Portfolio Section with Blue Borders and Category Carousel -->
 <section id="portfolio" class="portfolio section light-background" style="border-top: 5px solid #a7d1f1; border-bottom: 5px solid #a7d1f1;">
 
   <!-- Section Title - Centered -->
   <div class="container section-title" data-aos="fade-up">
     <h2>Portfolio</h2>
-    <h3 class="resume-title">Advanced Intelligent Systems & Deep Learning </h3>
     
-    <!-- Carousel Navigation -->
-    <div class="carousel-navigation" style="text-align: center; margin-bottom: 20px;">
-      <button id="prev-project" class="carousel-btn" onclick="changeProject(-1)"><i class="bi bi-arrow-left-circle"></i> Previous</button>
-      <span id="project-indicator" style="margin: 0 15px;">1 / 2</span>
-      <button id="next-project" class="carousel-btn" onclick="changeProject(1)">Next <i class="bi bi-arrow-right-circle"></i></button>
+    <!-- Category Navigation -->
+    <div class="category-navigation" style="text-align: center; margin-bottom: 30px;">
+      <button class="category-btn active" data-category="ai-ml">Advanced Intelligent Systems & Deep Learning</button>
+      <button class="category-btn" data-category="database">Database Management Systems</button>
+      <button class="category-btn" data-category="web-vr">Virtual Reality & Web Scraping</button>
     </div>
     
-    <!-- Carousel Container -->
-    <div class="carousel-container" style="position: relative; overflow: hidden; min-height: 500px;">
-      <!-- Project 1 -->
-      <div class="project-slide" data-index="1">
-        <p style="text-align:justify;">
-          <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>Face Animation and Lip Synchronization Using Generative Adversarial Networks (GAN):</i></b>  
-          This system generates lifelike facial expressions from a static image based on a provided audio file. Using GANs, the model analyzes phonetic cues from speech and creates synchronized facial movements, producing an animated video output. The project also supports cloud-based execution on Google Colab, allowing seamless file uploads, real-time progress tracking, and video playback with GPU acceleration.
-        </p>
-        <br>
-        <p style="text-align:justify;">
-          <strong>Technologies Used:</strong> PyTorch, GANs, OpenCV, SpeechRecognition, Google Text-to-Speech (gTTS), Google Colab, CUDA, ffmpeg
-        </p>
-
-        <p style="text-align:justify;">&nbsp;&nbsp;&nbsp;&nbsp;	The process begins with audio processing, where speech-to-text extraction analyzes phonetic cues. Next, the GAN-based facial animation model generates realistic expressions synchronized with speech. Video compilation is then performed using OpenCV to create a seamless animated output. Finally, cloud deployment on Google Colab enables GPU-accelerated processing and efficient file handling.
-        </p>
-        <br>
-        <p style="text-align:justify;">
-          <i>	This project showcases my expertise in deep learning, computer vision, and AI-driven animation, demonstrating how generative models can bring static images to life using audio input.</i>
-        </p>
-        <br>
-        <!-- Direct link buttons for the first project -->
-        <ul class="portfolio-links">
-          <li><a href="https://github.com/YogeshGajula/GAN_FaceAnimation_lipsync" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
-          <li><a href="https://www.youtube.com/watch?v=A7tC1bQin10" target="_blank"><i class="bi bi-youtube"></i>Video</a></li>
-        </ul>
+    <!-- AI & ML Category -->
+    <div class="category-container active" id="ai-ml-container">
+      <h3 class="resume-title">Advanced Intelligent Systems & Deep Learning</h3>
+      
+      <!-- Project Navigation -->
+      <div class="project-navigation" style="text-align: center; margin: 20px 0;">
+        <button class="carousel-btn" onclick="changeAiProject(-1)"><i class="bi bi-arrow-left-circle"></i> Previous</button>
+        <span id="ai-project-indicator" style="margin: 0 15px;">1 / 2</span>
+        <button class="carousel-btn" onclick="changeAiProject(1)">Next <i class="bi bi-arrow-right-circle"></i></button>
       </div>
+      
+      <!-- AI Projects Carousel -->
+      <div class="carousel-container" id="ai-carousel">
+        <!-- Project 1 -->
+        <div class="project-slide" data-index="1">
+          <p style="text-align:justify;">
+            <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>Face Animation and Lip Synchronization Using Generative Adversarial Networks (GAN):</i></b>  
+            This system generates lifelike facial expressions from a static image based on a provided audio file. Using GANs, the model analyzes phonetic cues from speech and creates synchronized facial movements, producing an animated video output. The project also supports cloud-based execution on Google Colab, allowing seamless file uploads, real-time progress tracking, and video playback with GPU acceleration.
+          </p>
+          <br>
+          <p style="text-align:justify;">
+            <strong>Technologies Used:</strong> PyTorch, GANs, OpenCV, SpeechRecognition, Google Text-to-Speech (gTTS), Google Colab, CUDA, ffmpeg
+          </p>
 
-      <!-- Project 2 -->
-      <div class="project-slide" data-index="2" style="display: none;">
-        <p style="text-align:justify;">
-          <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>Eye Detection Using YOLO-NAS:</i></b>  
-          This project implements a deep learning-based eye detection system using YOLO-NAS. The model is trained on a custom dataset to accurately detect eyes in images. The system supports real-time inference, enabling applications such as eye-tracking, gaze detection, and drowsiness monitoring. The project is integrated with Roboflow for dataset preparation and annotation, ensuring optimized training and evaluation.
-        </p>
-        <br>
-        <p style="text-align:justify;">
-          <strong>Technologies Used:</strong> YOLO-NAS, PyTorch, Roboflow, OpenCV, Matplotlib, Google Colab, CUDA
-        </p>
+          <p style="text-align:justify;">&nbsp;&nbsp;&nbsp;&nbsp;	The process begins with audio processing, where speech-to-text extraction analyzes phonetic cues. Next, the GAN-based facial animation model generates realistic expressions synchronized with speech. Video compilation is then performed using OpenCV to create a seamless animated output. Finally, cloud deployment on Google Colab enables GPU-accelerated processing and efficient file handling.
+          </p>
+          <br>
+          <p style="text-align:justify;">
+            <i>This project showcases my expertise in deep learning, computer vision, and AI-driven animation, demonstrating how generative models can bring static images to life using audio input.</i>
+          </p>
+          <br>
+          <ul class="portfolio-links">
+            <li><a href="https://github.com/YogeshGajula/GAN_FaceAnimation_lipsync" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
+            <li><a href="https://www.youtube.com/watch?v=A7tC1bQin10" target="_blank"><i class="bi bi-youtube"></i>Video</a></li>
+          </ul>
+        </div>
 
-        <p style="text-align:justify;">
-          &nbsp;&nbsp;&nbsp;&nbsp; The project leverages Roboflow to annotate and convert the dataset into YOLO format. A YOLO-NAS model is trained for accurate eye detection, and the trained model performs real-time inference, overlaying bounding boxes on detected eyes. Performance is evaluated using training graphs and metrics, while Google Colab integration enables efficient, GPU-accelerated execution. 🚀
-        </p>
-        <br>
-        <!-- Direct link buttons for the second project -->
-        <ul class="portfolio-links">
-          <li><a href="https://github.com/YogeshGajula/YOLO-NAS-Eye-Detection" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
-          <li><a href="https://github.com/YogeshGajula/YOLO-NAS-Eye-Detection/blob/main/FinalReport.pdf" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Report</a></li>
-        </ul>
-      </div>
+        <!-- Project 2 -->
+        <div class="project-slide" data-index="2" style="display: none;">
+          <p style="text-align:justify;">
+            <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>Eye Detection Using YOLO-NAS:</i></b>  
+            This project implements a deep learning-based eye detection system using YOLO-NAS. The model is trained on a custom dataset to accurately detect eyes in images. The system supports real-time inference, enabling applications such as eye-tracking, gaze detection, and drowsiness monitoring. The project is integrated with Roboflow for dataset preparation and annotation, ensuring optimized training and evaluation.
+          </p>
+          <br>
+          <p style="text-align:justify;">
+            <strong>Technologies Used:</strong> YOLO-NAS, PyTorch, Roboflow, OpenCV, Matplotlib, Google Colab, CUDA
+          </p>
 
-      <!-- Project 3 (Add your third project here) -->
-      <div class="project-slide" data-index="3" style="display: none;">
-        <p style="text-align:justify;">
-          <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>Smart Traffic Management System:</i></b>  
-          An intelligent traffic management solution that leverages computer vision and deep learning to analyze traffic patterns and optimize signal timing. The system processes video feeds from traffic cameras to detect vehicles, estimate congestion levels, and dynamically adjust traffic signals based on real-time conditions.
-        </p>
-        <br>
-        <p style="text-align:justify;">
-          <strong>Technologies Used:</strong> TensorFlow, YOLOv5, Python, OpenCV, Docker, Kubernetes, AWS
-        </p>
-
-        <p style="text-align:justify;">
-          &nbsp;&nbsp;&nbsp;&nbsp; This project implements a scalable architecture for processing multiple video streams concurrently. The detection model identifies various vehicle types and tracks their movement through intersections. A decision engine uses this data to calculate optimal signal timing patterns. The system includes a web dashboard for traffic operators to monitor metrics and manually override automated decisions when necessary.
-        </p>
-        <br>
-        <p style="text-align:justify;">
-          <i>This project demonstrates my ability to apply AI solutions to real-world urban infrastructure challenges, combining computer vision with practical traffic engineering principles.</i>
-        </p>
-        <br>
-        <!-- Direct link buttons for the third project -->
-        <ul class="portfolio-links">
-          <li><a href="#" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
-          <li><a href="#" target="_blank"><i class="bi bi-file-earmark-text"></i>Case Study</a></li>
-        </ul>
+          <p style="text-align:justify;">
+            &nbsp;&nbsp;&nbsp;&nbsp; The project leverages Roboflow to annotate and convert the dataset into YOLO format. A YOLO-NAS model is trained for accurate eye detection, and the trained model performs real-time inference, overlaying bounding boxes on detected eyes. Performance is evaluated using training graphs and metrics, while Google Colab integration enables efficient, GPU-accelerated execution. 🚀
+          </p>
+          <br>
+          <ul class="portfolio-links">
+            <li><a href="https://github.com/YogeshGajula/YOLO-NAS-Eye-Detection" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
+            <li><a href="https://github.com/YogeshGajula/YOLO-NAS-Eye-Detection/blob/main/FinalReport.pdf" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Report</a></li>
+          </ul>
+        </div>
       </div>
     </div>
+    
+    <!-- Database Category -->
+    <div class="category-container" id="database-container" style="display: none;">
+      <h3 class="resume-title">Database Management Systems</h3>
+      
+      <!-- Project Navigation -->
+      <div class="project-navigation" style="text-align: center; margin: 20px 0;">
+        <button class="carousel-btn" onclick="changeDbProject(-1)"><i class="bi bi-arrow-left-circle"></i> Previous</button>
+        <span id="db-project-indicator" style="margin: 0 15px;">1 / 2</span>
+        <button class="carousel-btn" onclick="changeDbProject(1)">Next <i class="bi bi-arrow-right-circle"></i></button>
+      </div>
+      
+      <!-- Database Projects Carousel -->
+      <div class="carousel-container" id="db-carousel">
+        <!-- Project 1 -->
+        <div class="project-slide" data-index="1">
+          <p style="text-align:justify;">
+            <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>Enterprise Resource Planning System:</i></b>  
+            Developed a comprehensive ERP solution for small to medium-sized businesses using PostgreSQL and Node.js. The system includes modules for inventory management, customer relationship management, human resources, and financial reporting.
+          </p>
+          <br>
+          <p style="text-align:justify;">
+            <strong>Technologies Used:</strong> PostgreSQL, Node.js, Express, Redis, Docker, JWT, AWS RDS
+          </p>
 
-    <!-- Touch Swipe Indicator -->
-    <div class="swipe-indicator" style="text-align: center; margin-top: 20px; color: #6c757d; font-style: italic;">
-      <i class="bi bi-arrow-left-right"></i> Swipe or use buttons to navigate projects
+          <p style="text-align:justify;">
+            &nbsp;&nbsp;&nbsp;&nbsp; This project implements advanced database concepts including transaction management, data partitioning, and query optimization. The architecture follows a microservices approach with dedicated services for each business function. The database schema utilizes foreign key constraints, triggers, and stored procedures to maintain data integrity and automate business processes.
+          </p>
+          <br>
+          <ul class="portfolio-links">
+            <li><a href="#" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
+            <li><a href="#" target="_blank"><i class="bi bi-diagram-3"></i>Schema Design</a></li>
+          </ul>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-slide" data-index="2" style="display: none;">
+          <p style="text-align:justify;">
+            <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>Healthcare Data Integration Platform:</i></b>  
+            A data integration platform designed for healthcare providers to consolidate patient records from multiple sources. The system implements ETL processes to extract data from various healthcare information systems, transform it to a standardized format, and load it into a centralized data warehouse.
+          </p>
+          <br>
+          <p style="text-align:justify;">
+            <strong>Technologies Used:</strong> MongoDB, Apache Airflow, Python, PySpark, MongoDB Atlas, Docker, HIPAA-compliant cloud storage
+          </p>
+
+          <p style="text-align:justify;">
+            &nbsp;&nbsp;&nbsp;&nbsp; This project addresses the challenge of healthcare data interoperability by implementing a flexible data model that accommodates various healthcare standards (HL7, FHIR, DICOM). The MongoDB database provides the necessary flexibility for handling diverse medical data formats. Apache Airflow manages complex ETL workflows while ensuring data quality and consistency.
+          </p>
+          <br>
+          <ul class="portfolio-links">
+            <li><a href="#" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
+            <li><a href="#" target="_blank"><i class="bi bi-file-earmark-text"></i>Case Study</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
-
-  </div>
-
-</section>
-
-<style>
-  /* Portfolio Links Styling */
-  .portfolio-links {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    padding: 30px 1;
-    list-style: none;
-    margin: 0 auto;
-  }
-
-  .portfolio-links li a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #007bff, #0056b3);
-    color: white;
-    padding: 5px 20px;
-    border-radius: 15px;
-    font-weight: bold;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 2px 4px 12px rgba(0, 123, 255, 0.4);
-    border: none;
-    text-transform: uppercase;
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-align: center;
-    min-width: 120px;
-    min-height: 30px;
-    line-height: 20px;
-    position: relative;
-    overflow: hidden;
-    text-decoration: none;
-  }
-
-  .portfolio-links li a:hover {
-    background: linear-gradient(135deg, #0056b3, #004494);
-    transform: scale(1.08);
-    box-shadow: 3px 5px 15px rgba(0, 123, 255, 0.6);
-    text-decoration: none;
-  }
-
-  .portfolio-links li a:active {
-    transform: scale(0.98);
-    box-shadow: 1px 2px 6px rgba(0, 123, 255, 0.3);
-  }
-
-  .portfolio-links li a::before {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    width: 300%;
-    height: 600%;
-    background: rgba(255, 255, 255, 0.1);
-    transition: all 0.4s ease;
-    transform: translate(-50%, -50%) scale(0);
-    border-radius: 50%;
-  }
-
-  .portfolio-links li a:hover::before {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 0;
-  }
-
-  .portfolio-links li a i {
-    margin-right: 8px;
-    font-size: 14px;
-  }
-
-  /* Carousel Navigation Buttons */
-  .carousel-btn {
-    background: linear-gradient(135deg, #e0f0ff, #a7d1f1);
-    color: #0056b3;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-
-  .carousel-btn:hover {
-    background: linear-gradient(135deg, #a7d1f1, #7bb8e8);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  .carousel-btn:active {
-    transform: translateY(0);
-  }
-
-  /* Project Slides Animation */
-  .project-slide {
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    position: absolute;
-    width: 100%;
-    opacity: 1;
-  }
-
-  .project-slide.slide-out-left {
-    transform: translateX(-50px);
-    opacity: 0;
-  }
-
-  .project-slide.slide-out-right {
-    transform: translateX(50px);
-    opacity: 0;
-  }
-
-  .project-slide.slide-in-left {
-    transform: translateX(0);
-    opacity: 1;
-  }
-
-  .project-slide.slide-in-right {
-    transform: translateX(0);
-    opacity: 1;
-  }
-
-  /* For hiding slides */
-  .hidden {
-    display: none !important;
-  }
-</style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Initialize variables
-    let currentProject = 1;
-    const totalProjects = document.querySelectorAll('.project-slide').length;
     
-    // Update project indicator
-    updateProjectIndicator();
-    
-    // Setup touch swipe detection
-    const carouselContainer = document.querySelector('.carousel-container');
-    let touchStartX = 0;
-    let touchEndX = 0;
-    
-    carouselContainer.addEventListener('touchstart', e => {
-      touchStartX = e.changedTouches[0].screenX;
-    });
-    
-    carouselContainer.addEventListener('touchend', e => {
-      touchEndX = e.changedTouches[0].screenX;
-      handleSwipe();
-    });
-    
-    function handleSwipe() {
-      const swipeThreshold = 50;
-      if (touchEndX < touchStartX - swipeThreshold) {
-        // Swipe left - next project
-        changeProject(1);
-      } else if (touchEndX > touchStartX + swipeThreshold) {
-        // Swipe right - previous project
-        changeProject(-1);
-      }
-    }
-    
-    // Make changeProject function global
-    window.changeProject = function(direction) {
-      const currentSlide = document.querySelector(`.project-slide[data-index="${currentProject}"]`);
+    <!-- VR & Web Scraping Category -->
+    <div class="category-container" id="web-vr-container" style="display: none;">
+      <h3 class="resume-title">Virtual Reality & Web Scraping</h3>
       
-      // Calculate next project index with wrap-around
-      let nextProject = currentProject + direction;
-      if (nextProject > totalProjects) nextProject = 1;
-      if (nextProject < 1) nextProject = totalProjects;
+      <!-- Project Navigation -->
+      <div class="project-navigation" style="text-align: center; margin: 20px 0;">
+        <button class="carousel-btn" onclick="changeVrProject(-1)"><i class="bi bi-arrow-left-circle"></i> Previous</button>
+        <span id="vr-project-indicator" style="margin: 0 15px;">1 / 2</span>
+        <button class="carousel-btn" onclick="changeVrProject(1)">Next <i class="bi bi-arrow-right-circle"></i></button>
+      </div>
       
-      const nextSlide = document.querySelector(`.project-slide[data-index="${nextProject}"]`);
-      
-      // Apply animation classes based on direction
-      if (direction > 0) {
-        // Going forward
-        currentSlide.classList.add('slide-out-left');
-        setTimeout(() => {
-          currentSlide.style.display = 'none';
-          currentSlide.classList.remove('slide-out-left');
-          
-          nextSlide.style.display = 'block';
-          nextSlide.classList.add('slide-in-right');
-          
-          setTimeout(() => {
-            nextSlide.classList.remove('slide-in-right');
-          }, 500);
-        }, 500);
-      } else {
-        // Going backward
-        currentSlide.classList.add('slide-out-right');
-        setTimeout(() => {
-          currentSlide.style.display = 'none';
-          currentSlide.classList.remove('slide-out-right');
-          
-          nextSlide.style.display = 'block';
-          nextSlide.classList.add('slide-in-left');
-          
-          setTimeout(() => {
-            nextSlide.classList.remove('slide-in-left');
-          }, 500);
-        }, 500);
-      }
-      
-      // Update current project
-      currentProject = nextProject;
-      updateProjectIndicator();
-    };
-    
-    function updateProjectIndicator() {
-      document.getElementById('project-indicator').textContent = `${currentProject} / ${totalProjects}`;
-    }
-  });
-</script>
+      <!-- VR Projects Carousel -->
+      <div class="carousel-container" id="vr-carousel">
+        <!-- Project 1 -->
+        <div class="project-slide" data-index="1">
+          <p style="text-align:justify;">
+            <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>VR Training Simulator for Industrial Safety:</i></b>  
+            Developed an immersive VR training platform for industrial workers to practice safety protocols in high-risk environments without physical danger. The simulation replicates hazardous industrial settings with realistic physics and interactive elements.
+          </p>
+          <br>
+          <p style="text-align:justify;">
+            <strong>Technologies Used:</strong> Unity3D, C#, Oculus SDK, Blender, Photon Networking, Azure Cloud Services
+          </p>
+
+          <p style="text-align:justify;">
+            &nbsp;&nbsp;&nbsp;&nbsp; This project implements realistic physics simulations for industrial machinery and hazardous materials. It features a modular design allowing for easy creation of custom training scenarios. The system includes performance tracking and assessment modules that provide detailed feedback to trainees and supervisors.
+          </p>
+          <br>
+          <ul class="portfolio-links">
+            <li><a href="#" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
+            <li><a href="#" target="_blank"><i class="bi bi-youtube"></i>Demo Video</a></li>
+          </ul>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-slide" data-index="2" style="display: none;">
+          <p style="text-align:justify;">
+            <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>Advanced Web Scraping for Market Analysis:</i></b>  
+            Created a comprehensive web scraping system that collects and analyzes product information from e-commerce platforms to generate competitive market insights. The system tracks pricing trends, product availability, and customer sentiment across multiple online retailers.
+          </p>
+          <br>
+          <p style="text-align:justify;">
+            <strong>Technologies Used:
 
     <!-- Services Section -->
     <section id="services" class="services section">

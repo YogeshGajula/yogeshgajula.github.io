@@ -630,8 +630,8 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
 	<!-- Portfolio Section with Blue Borders -->
 <section id="portfolio" class="portfolio section light-background" style="border-top: 5px solid #a7d1f1; border-bottom: 5px solid #a7d1f1;">
 
-  <!-- Section Title -->
-  <div class="container section-title" data-aos="fade-up">
+  <!-- Section Title - Now Centered -->
+  <div class="container section-title text-center" data-aos="fade-up">
     <h2>Portfolio</h2>
     <p>I have worked on diverse projects that highlight my expertise in cloud computing, data analytics, AI, and emerging technologies. My experience includes analyzing client data, developing interactive dashboards with Tableau and Power BI, and implementing robust cloud security solutions. Recently, I completed a BCG GenAI Job Simulation, where I built an AI-powered financial chatbot using Python and pandas to analyze and interpret financial data from 10-K and 10-Q reports.
 
@@ -716,18 +716,24 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
             margin-right: 8px;
             font-size: 16px;
         }
+        
+        /* Center the section title text */
+        .text-center {
+            text-align: center;
+        }
       </style>  
       
-      <!-- Reduced to just two buttons and centered them -->
+      <!-- Three buttons as requested: Hide, APP, and Tableau -->
       <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
         <li data-filter=".filter-none" class="filter-active"><i class="bi bi-shield-lock-fill"></i>Hide</li>
-        <li data-filter="*">All</li>
+        <li data-filter=".filter-app">APP</li>
+        <li data-filter=".filter-Tableau">Tableau</li>
       </ul><!-- End Portfolio Filters -->
 	  
       <!-- Portfolio items continue as before -->
       <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
-        <!-- Portfolio items remain unchanged -->
-        <!-- All your existing portfolio items... -->
+        <!-- All your existing portfolio items remain unchanged -->
+        <!-- Portfolio items... -->
       </div><!-- End Portfolio Container -->
 
     </div>

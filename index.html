@@ -324,7 +324,7 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
   <div class="container section-title" id="portfolio-slider">
     <h2>Portfolio</h2>
     
-    <!-- Navigation Arrows -->
+    <!-- Navigation Arrows - Repositioned outside of content flow -->
     <div class="portfolio-navigation">
       <button id="prevProject" class="nav-arrow prev-arrow" aria-label="Previous project">
         <i class="bi bi-chevron-left"></i>
@@ -467,6 +467,7 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
       overflow: hidden;
       width: 100%;
       min-height: 300px;
+      padding: 0 50px; /* Add padding to make space for the buttons */
     }
     
     .portfolio-slide {
@@ -484,12 +485,14 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
     .portfolio-navigation {
       position: absolute;
       top: 50%;
+      transform: translateY(-50%);
       width: 100%;
       display: flex;
       justify-content: space-between;
-      padding: 0 20px;
+      padding: 0 10px;
       pointer-events: none;
       z-index: 10;
+      left: 0;
     }
     
     .nav-arrow {
@@ -506,11 +509,22 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
       box-shadow: 0 2px 6px rgba(0, 123, 255, 0.4);
       transition: all 0.3s ease;
       pointer-events: auto;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    
+    .prev-arrow {
+      left: 10px;
+    }
+    
+    .next-arrow {
+      right: 10px;
     }
     
     .nav-arrow:hover {
       background-color: #0056b3;
-      transform: scale(1.1);
+      transform: translateY(-50%) scale(1.1);
     }
     
     .nav-arrow:disabled {
@@ -543,6 +557,12 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
       background-color: #007bff;
       width: 20px;
       border-radius: 5px;
+    }
+
+    /* Make sure the container has proper positioning */
+    #portfolio-slider {
+      position: relative;
+      padding: 20px 0;
     }
   </style>
 

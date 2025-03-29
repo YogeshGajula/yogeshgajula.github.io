@@ -317,152 +317,333 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
 
     </section><!-- /Resume Section -->
 	  
-	<!-- Portfolio Section with Blue Borders -->
-<section id="portfolio" class="portfolio section light-background" style="border-top: 5px solid #a7d1f1; border-bottom: 5px solid #a7d1f1;">
+	<!-- Swipable Portfolio Section with Blue Borders -->
+<section id="portfolio" class="portfolio section light-background" style="border-top: 5px solid #a7d1f1; border-bottom: 5px solid #a7d1f1; position: relative;">
 
-  <!-- Section Title - Centered -->
-  <div class="container section-title" data-aos="fade-up">
+  <!-- Portfolio Container -->
+  <div class="container section-title" id="portfolio-slider">
     <h2>Portfolio</h2>
-    <h3 class="resume-title">Advanced Intelligent Systems & Deep Learning </h3>
-    <p style="text-align:justify;">
-      <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>Face Animation and Lip Synchronization Using Generative Adversarial Networks (GAN):</i></b>  
-      This system generates lifelike facial expressions from a static image based on a provided audio file. Using GANs, the model analyzes phonetic cues from speech and creates synchronized facial movements, producing an animated video output. The project also supports cloud-based execution on Google Colab, allowing seamless file uploads, real-time progress tracking, and video playback with GPU acceleration.
-    </p>
-    <br>
-    <p style="text-align:justify;">
-      <strong>Technologies Used:</strong> PyTorch, GANs, OpenCV, SpeechRecognition, Google Text-to-Speech (gTTS), Google Colab, CUDA, ffmpeg
-    </p>
+    
+    <!-- Navigation Arrows -->
+    <div class="portfolio-navigation">
+      <button id="prevProject" class="nav-arrow prev-arrow" aria-label="Previous project">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      <button id="nextProject" class="nav-arrow next-arrow" aria-label="Next project">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
 
-    <p style="text-align:justify;">&nbsp;&nbsp;&nbsp;&nbsp;	The process begins with audio processing, where speech-to-text extraction analyzes phonetic cues. Next, the GAN-based facial animation model generates realistic expressions synchronized with speech. Video compilation is then performed using OpenCV to create a seamless animated output. Finally, cloud deployment on Google Colab enables GPU-accelerated processing and efficient file handling.
-    </p>
-    <br>
-    <p style="text-align:justify;">
-      <i>	This project showcases my expertise in deep learning, computer vision, and AI-driven animation, demonstrating how generative models can bring static images to life using audio input.</i>
-    </p>
-	<br>
-    <div class="container">                    
+    <!-- Project Slides Container -->
+    <div class="portfolio-slides-container">
+      <!-- Project 1 -->
+      <div class="portfolio-slide">
+        <h3 class="resume-title">Advanced Intelligent Systems & Deep Learning</h3>
+        <p style="text-align:justify;">
+          <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>Face Animation and Lip Synchronization Using Generative Adversarial Networks (GAN):</i></b>  
+          This system generates lifelike facial expressions from a static image based on a provided audio file. Using GANs, the model analyzes phonetic cues from speech and creates synchronized facial movements, producing an animated video output. The project also supports cloud-based execution on Google Colab, allowing seamless file uploads, real-time progress tracking, and video playback with GPU acceleration.
+        </p>
+        <br>
+        <p style="text-align:justify;">
+          <strong>Technologies Used:</strong> PyTorch, GANs, OpenCV, SpeechRecognition, Google Text-to-Speech (gTTS), Google Colab, CUDA, ffmpeg
+        </p>
 
-      <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
-
-        <style>
-          /* Style the Portfolio Links */
-          .portfolio-links {
-              display: flex;
-              gap: 12px;
-              justify-content: center;
-              padding: 30px 1;
-              list-style: none;
-              margin: 0 auto;
-          }
-      
-          /* Style Each Link as a Button - Sized like original template */
-          .portfolio-links li a {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              background: linear-gradient(135deg, #007bff, #0056b3);
-              color: white;
-              padding: 5px 20px;
-              border-radius: 15px;
-              font-weight: bold;
-              transition: all 0.3s ease-in-out;
-              box-shadow: 2px 4px 12px rgba(0, 123, 255, 0.4);
-              border: none;
-              text-transform: uppercase;
-              font-size: 14px;
-              letter-spacing: 1px;
-              text-align: center;
-              min-width: 120px;
-              min-height: 30px;
-              line-height: 20px;
-              position: relative;
-              overflow: hidden;
-              text-decoration: none;
-          }
-
-          /* Hover Effect */
-          .portfolio-links li a:hover {
-              background: linear-gradient(135deg, #0056b3, #004494);
-              transform: scale(1.08);
-              box-shadow: 3px 5px 15px rgba(0, 123, 255, 0.6);
-              text-decoration: none;
-          }
-          
-          /* Clicked Effect */
-          .portfolio-links li a:active {
-              transform: scale(0.98);
-              box-shadow: 1px 2px 6px rgba(0, 123, 255, 0.3);
-          }
-      
-          /* Animation Effect (Pulse Glow on Hover) */
-          .portfolio-links li a::before {
-              content: "";
-              position: absolute;
-              top: 100%;
-              left: 50%;
-              width: 300%;
-              height: 600%;
-              background: rgba(255, 255, 255, 0.1);
-              transition: all 0.4s ease;
-              transform: translate(-50%, -50%) scale(0);
-              border-radius: 50%;
-          }
-      
-          .portfolio-links li a:hover::before {
-              transform: translate(-50%, -50%) scale(1);
-              opacity: 0;
-          }
-      
-          /* Icon Styling */
-          .portfolio-links li a i {
-              margin-right: 8px;
-              font-size: 14px;
-          }
-          
-          /* Center the section title text */
-          .text-center {
-              text-align: center;
-          }
-        </style>  
-        
-        <!-- Direct link buttons with adjusted sizing -->
-        <ul class="portfolio-links" data-aos="fade-up" data-aos-delay="100">
+        <p style="text-align:justify;">&nbsp;&nbsp;&nbsp;&nbsp;	The process begins with audio processing, where speech-to-text extraction analyzes phonetic cues. Next, the GAN-based facial animation model generates realistic expressions synchronized with speech. Video compilation is then performed using OpenCV to create a seamless animated output. Finally, cloud deployment on Google Colab enables GPU-accelerated processing and efficient file handling.
+        </p>
+        <br>
+        <p style="text-align:justify;">
+          <i>	This project showcases my expertise in deep learning, computer vision, and AI-driven animation, demonstrating how generative models can bring static images to life using audio input.</i>
+        </p>
+        <br>
+        <ul class="portfolio-links">
           <li><a href="https://github.com/YogeshGajula/GAN_FaceAnimation_lipsync" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
           <li><a href="https://www.youtube.com/watch?v=A7tC1bQin10" target="_blank"><i class="bi bi-youtube"></i>Video</a></li>
-        </ul><!-- End Portfolio Links -->
-	      <br>
-	      <br>
-        
-        <!-- Second Project Description and Buttons -->
-        <p style="text-align:justify;" data-aos="fade-up" data-aos-delay="100">
+        </ul>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="portfolio-slide">
+        <h3 class="resume-title">Computer Vision & Deep Learning</h3>
+        <p style="text-align:justify;">
           <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>Eye Detection Using YOLO-NAS:</i></b>  
-	This project implements a deep learning-based eye detection system using YOLO-NAS. The model is trained on a custom dataset to accurately detect eyes in images. The system supports real-time inference, enabling applications such as eye-tracking, gaze detection, and drowsiness monitoring. The project is integrated with Roboflow for dataset preparation and annotation, ensuring optimized training and evaluation.        </p>
+          This project implements a deep learning-based eye detection system using YOLO-NAS. The model is trained on a custom dataset to accurately detect eyes in images. The system supports real-time inference, enabling applications such as eye-tracking, gaze detection, and drowsiness monitoring. The project is integrated with Roboflow for dataset preparation and annotation, ensuring optimized training and evaluation.
+        </p>
         <br>
-        <p style="text-align:justify;" data-aos="fade-up" data-aos-delay="100">
+        <p style="text-align:justify;">
           <strong>Technologies Used:</strong> YOLO-NAS, PyTorch, Roboflow, OpenCV, Matplotlib, Google Colab, CUDA
         </p>
 
-        <p style="text-align:justify;" data-aos="fade-up" data-aos-delay="100">
-          &nbsp;&nbsp;&nbsp;&nbsp; The project leverages Roboflow to annotate and convert the dataset into YOLO format. A YOLO-NAS model is trained for accurate eye detection, and the trained model performs real-time inference, overlaying bounding boxes on detected eyes. Performance is evaluated using training graphs and metrics, while Google Colab integration enables efficient, GPU-accelerated execution. 🚀
+        <p style="text-align:justify;">&nbsp;&nbsp;&nbsp;&nbsp; The project leverages Roboflow to annotate and convert the dataset into YOLO format. A YOLO-NAS model is trained for accurate eye detection, and the trained model performs real-time inference, overlaying bounding boxes on detected eyes. Performance is evaluated using training graphs and metrics, while Google Colab integration enables efficient, GPU-accelerated execution. 🚀
         </p>
         <br>
-        
-        <!-- Direct link buttons for the second project -->
-        <ul class="portfolio-links" data-aos="fade-up" data-aos-delay="100">
+        <ul class="portfolio-links">
           <li><a href="https://github.com/YogeshGajula/YOLO-NAS-Eye-Detection" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
-	  <li><a href="https://github.com/YogeshGajula/YOLO-NAS-Eye-Detection/blob/main/FinalReport.pdf" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Report</a></li>
-        </ul><!-- End Portfolio Links -->
-        
-        <!-- Portfolio items continue as before -->
-        <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="100">
-          <!-- All your existing portfolio items remain unchanged -->
-        </div><!-- End Portfolio Container -->
+          <li><a href="https://github.com/YogeshGajula/YOLO-NAS-Eye-Detection/blob/main/FinalReport.pdf" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Report</a></li>
+        </ul>
       </div>
-
     </div>
 
+    <!-- Pagination Dots -->
+    <div class="pagination-dots">
+      <button class="pagination-dot active" data-index="0"></button>
+      <button class="pagination-dot" data-index="1"></button>
+      <!-- Add more dots if you add more projects -->
+    </div>
   </div>
 
+  <style>
+    /* Existing portfolio styles from your code */
+    .portfolio-links {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      padding: 30px 1;
+      list-style: none;
+      margin: 0 auto;
+    }
+    
+    .portfolio-links li a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #007bff, #0056b3);
+      color: white;
+      padding: 5px 20px;
+      border-radius: 15px;
+      font-weight: bold;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 2px 4px 12px rgba(0, 123, 255, 0.4);
+      border: none;
+      text-transform: uppercase;
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-align: center;
+      min-width: 120px;
+      min-height: 30px;
+      line-height: 20px;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+    }
+
+    .portfolio-links li a:hover {
+      background: linear-gradient(135deg, #0056b3, #004494);
+      transform: scale(1.08);
+      box-shadow: 3px 5px 15px rgba(0, 123, 255, 0.6);
+      text-decoration: none;
+    }
+    
+    .portfolio-links li a:active {
+      transform: scale(0.98);
+      box-shadow: 1px 2px 6px rgba(0, 123, 255, 0.3);
+    }
+
+    .portfolio-links li a::before {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      width: 300%;
+      height: 600%;
+      background: rgba(255, 255, 255, 0.1);
+      transition: all 0.4s ease;
+      transform: translate(-50%, -50%) scale(0);
+      border-radius: 50%;
+    }
+
+    .portfolio-links li a:hover::before {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0;
+    }
+
+    .portfolio-links li a i {
+      margin-right: 8px;
+      font-size: 14px;
+    }
+    
+    /* New styles for swipable portfolio */
+    .portfolio-slides-container {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      min-height: 300px;
+    }
+    
+    .portfolio-slide {
+      width: 100%;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    
+    .portfolio-slide.active {
+      display: block;
+      opacity: 1;
+    }
+    
+    .portfolio-navigation {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+      pointer-events: none;
+      z-index: 10;
+    }
+    
+    .nav-arrow {
+      width: 40px;
+      height: 40px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0, 123, 255, 0.4);
+      transition: all 0.3s ease;
+      pointer-events: auto;
+    }
+    
+    .nav-arrow:hover {
+      background-color: #0056b3;
+      transform: scale(1.1);
+    }
+    
+    .nav-arrow:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .nav-arrow i {
+      font-size: 24px;
+    }
+    
+    .pagination-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    
+    .pagination-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #ccc;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .pagination-dot.active {
+      background-color: #007bff;
+      width: 20px;
+      border-radius: 5px;
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get elements
+      const slides = document.querySelectorAll('.portfolio-slide');
+      const prevBtn = document.getElementById('prevProject');
+      const nextBtn = document.getElementById('nextProject');
+      const dots = document.querySelectorAll('.pagination-dot');
+      const slidesContainer = document.querySelector('.portfolio-slides-container');
+      
+      let currentSlide = 0;
+      let touchStartX = 0;
+      let touchEndX = 0;
+      const minSwipeDistance = 50;
+      
+      // Show first slide initially
+      slides[0].classList.add('active');
+      updateNavigation();
+      
+      // Add event listeners
+      prevBtn.addEventListener('click', prevSlide);
+      nextBtn.addEventListener('click', nextSlide);
+      
+      // Add touch events for mobile swipe
+      slidesContainer.addEventListener('touchstart', function(e) {
+        touchStartX = e.touches[0].clientX;
+      });
+      
+      slidesContainer.addEventListener('touchmove', function(e) {
+        touchEndX = e.touches[0].clientX;
+      });
+      
+      slidesContainer.addEventListener('touchend', handleSwipe);
+      
+      // Add click events to pagination dots
+      dots.forEach(dot => {
+        dot.addEventListener('click', function() {
+          currentSlide = parseInt(this.dataset.index);
+          showSlide(currentSlide);
+        });
+      });
+      
+      // Functions
+      function showSlide(index) {
+        // Hide all slides
+        slides.forEach(slide => {
+          slide.classList.remove('active');
+        });
+        
+        // Show selected slide
+        slides[index].classList.add('active');
+        
+        // Update dots
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === index);
+        });
+        
+        updateNavigation();
+      }
+      
+      function nextSlide() {
+        if (currentSlide < slides.length - 1) {
+          currentSlide++;
+          showSlide(currentSlide);
+        }
+      }
+      
+      function prevSlide() {
+        if (currentSlide > 0) {
+          currentSlide--;
+          showSlide(currentSlide);
+        }
+      }
+      
+      function handleSwipe() {
+        const distance = touchStartX - touchEndX;
+        
+        if (Math.abs(distance) > minSwipeDistance) {
+          if (distance > 0) {
+            // Swipe left, go to next
+            nextSlide();
+          } else {
+            // Swipe right, go to previous
+            prevSlide();
+          }
+        }
+      }
+      
+      function updateNavigation() {
+        // Disable prev button if on first slide
+        prevBtn.disabled = currentSlide === 0;
+        prevBtn.style.opacity = currentSlide === 0 ? '0.5' : '1';
+        
+        // Disable next button if on last slide
+        nextBtn.disabled = currentSlide === slides.length - 1;
+        nextBtn.style.opacity = currentSlide === slides.length - 1 ? '0.5' : '1';
+      }
+    });
+  </script>
 </section><!-- /Portfolio Section -->
 
     <!-- Services Section -->

@@ -320,6 +320,7 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
 <section id="portfolio" class="portfolio section light-background" style="border-top: 5px solid #a7d1f1; border-bottom: 5px solid #a7d1f1;">
     <div class="container section-title" data-aos="fade-up">
         <h2>Portfolio</h2>
+        <p style="text-align:center; font-size:0.9rem; color:#aaa;">Swipe to view more projects</p>
     </div>
 
     <div class="portfolio-carousel swiper-container" data-aos="fade-up" data-aos-delay="100">
@@ -497,6 +498,82 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
   opacity: var(--swiper-pagination-bullet-opacity, 1);
   background: var(--swiper-pagination-color, var(--swiper-theme-color));
 }
+
+/* Style the Portfolio Links */
+.portfolio-links {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    padding: 30px 1;
+    list-style: none;
+    margin: 0 auto;
+}
+
+/* Style Each Link as a Button - Sized like original template */
+.portfolio-links li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 5px 20px;
+    border-radius: 15px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 2px 4px 12px rgba(0, 123, 255, 0.4);
+    border: none;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-align: center;
+    min-width: 120px;
+    min-height: 30px;
+    line-height: 20px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Hover Effect */
+.portfolio-links li a:hover {
+    background: linear-gradient(135deg, #0056b3, #004494);
+    transform: scale(1.08);
+    box-shadow: 3px 5px 15px rgba(0, 123, 255, 0.6);
+    text-decoration: none;
+}
+
+/* Clicked Effect */
+.portfolio-links li a:active {
+    transform: scale(0.98);
+    box-shadow: 1px 2px 6px rgba(0, 123, 255, 0.3);
+}
+
+/* Animation Effect (Pulse Glow on Hover) */
+.portfolio-links li a::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 300%;
+    height: 600%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.4s ease;
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 50%;
+}
+
+.portfolio-links li a:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+}
+
+/* Icon Styling */
+.portfolio-links li a i {
+    margin-right: 8px;
+    font-size: 14px;
+}
+
 </style>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />

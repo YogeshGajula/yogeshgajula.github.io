@@ -317,331 +317,153 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
 
     </section><!-- /Resume Section -->
 	  
+	<!-- Portfolio Section with Blue Borders -->
 <section id="portfolio" class="portfolio section light-background" style="border-top: 5px solid #a7d1f1; border-bottom: 5px solid #a7d1f1;">
-    <div class="container section-title" data-aos="fade-up">
-        <h2>Portfolio</h2>
+
+  <!-- Section Title - Centered -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Portfolio</h2>
+    <h3 class="resume-title">Advanced Intelligent Systems & Deep Learning </h3>
+    <p style="text-align:justify;">
+      <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>Face Animation and Lip Synchronization Using Generative Adversarial Networks (GAN):</i></b>  
+      This system generates lifelike facial expressions from a static image based on a provided audio file. Using GANs, the model analyzes phonetic cues from speech and creates synchronized facial movements, producing an animated video output. The project also supports cloud-based execution on Google Colab, allowing seamless file uploads, real-time progress tracking, and video playback with GPU acceleration.
+    </p>
+    <br>
+    <p style="text-align:justify;">
+      <strong>Technologies Used:</strong> PyTorch, GANs, OpenCV, SpeechRecognition, Google Text-to-Speech (gTTS), Google Colab, CUDA, ffmpeg
+    </p>
+
+    <p style="text-align:justify;">&nbsp;&nbsp;&nbsp;&nbsp;	The process begins with audio processing, where speech-to-text extraction analyzes phonetic cues. Next, the GAN-based facial animation model generates realistic expressions synchronized with speech. Video compilation is then performed using OpenCV to create a seamless animated output. Finally, cloud deployment on Google Colab enables GPU-accelerated processing and efficient file handling.
+    </p>
+    <br>
+    <p style="text-align:justify;">
+      <i>	This project showcases my expertise in deep learning, computer vision, and AI-driven animation, demonstrating how generative models can bring static images to life using audio input.</i>
+    </p>
+	<br>
+    <div class="container">                    
+
+      <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
+        <style>
+          /* Style the Portfolio Links */
+          .portfolio-links {
+              display: flex;
+              gap: 12px;
+              justify-content: center;
+              padding: 30px 1;
+              list-style: none;
+              margin: 0 auto;
+          }
+      
+          /* Style Each Link as a Button - Sized like original template */
+          .portfolio-links li a {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              background: linear-gradient(135deg, #007bff, #0056b3);
+              color: white;
+              padding: 5px 20px;
+              border-radius: 15px;
+              font-weight: bold;
+              transition: all 0.3s ease-in-out;
+              box-shadow: 2px 4px 12px rgba(0, 123, 255, 0.4);
+              border: none;
+              text-transform: uppercase;
+              font-size: 14px;
+              letter-spacing: 1px;
+              text-align: center;
+              min-width: 120px;
+              min-height: 30px;
+              line-height: 20px;
+              position: relative;
+              overflow: hidden;
+              text-decoration: none;
+          }
+
+          /* Hover Effect */
+          .portfolio-links li a:hover {
+              background: linear-gradient(135deg, #0056b3, #004494);
+              transform: scale(1.08);
+              box-shadow: 3px 5px 15px rgba(0, 123, 255, 0.6);
+              text-decoration: none;
+          }
+          
+          /* Clicked Effect */
+          .portfolio-links li a:active {
+              transform: scale(0.98);
+              box-shadow: 1px 2px 6px rgba(0, 123, 255, 0.3);
+          }
+      
+          /* Animation Effect (Pulse Glow on Hover) */
+          .portfolio-links li a::before {
+              content: "";
+              position: absolute;
+              top: 100%;
+              left: 50%;
+              width: 300%;
+              height: 600%;
+              background: rgba(255, 255, 255, 0.1);
+              transition: all 0.4s ease;
+              transform: translate(-50%, -50%) scale(0);
+              border-radius: 50%;
+          }
+      
+          .portfolio-links li a:hover::before {
+              transform: translate(-50%, -50%) scale(1);
+              opacity: 0;
+          }
+      
+          /* Icon Styling */
+          .portfolio-links li a i {
+              margin-right: 8px;
+              font-size: 14px;
+          }
+          
+          /* Center the section title text */
+          .text-center {
+              text-align: center;
+          }
+        </style>  
+        
+        <!-- Direct link buttons with adjusted sizing -->
+        <ul class="portfolio-links" data-aos="fade-up" data-aos-delay="100">
+          <li><a href="https://github.com/YogeshGajula/GAN_FaceAnimation_lipsync" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
+          <li><a href="https://www.youtube.com/watch?v=A7tC1bQin10" target="_blank"><i class="bi bi-youtube"></i>Video</a></li>
+        </ul><!-- End Portfolio Links -->
+	      <br>
+	      <br>
+        
+        <!-- Second Project Description and Buttons -->
+        <p style="text-align:justify;" data-aos="fade-up" data-aos-delay="100">
+          <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>Eye Detection Using YOLO-NAS:</i></b>  
+	This project implements a deep learning-based eye detection system using YOLO-NAS. The model is trained on a custom dataset to accurately detect eyes in images. The system supports real-time inference, enabling applications such as eye-tracking, gaze detection, and drowsiness monitoring. The project is integrated with Roboflow for dataset preparation and annotation, ensuring optimized training and evaluation.        </p>
+        <br>
+        <p style="text-align:justify;" data-aos="fade-up" data-aos-delay="100">
+          <strong>Technologies Used:</strong> YOLO-NAS, PyTorch, Roboflow, OpenCV, Matplotlib, Google Colab, CUDA
+        </p>
+
+        <p style="text-align:justify;" data-aos="fade-up" data-aos-delay="100">
+          &nbsp;&nbsp;&nbsp;&nbsp; The project leverages Roboflow to annotate and convert the dataset into YOLO format. A YOLO-NAS model is trained for accurate eye detection, and the trained model performs real-time inference, overlaying bounding boxes on detected eyes. Performance is evaluated using training graphs and metrics, while Google Colab integration enables efficient, GPU-accelerated execution. 🚀
+        </p>
+        <br>
+        
+        <!-- Direct link buttons for the second project -->
+        <ul class="portfolio-links" data-aos="fade-up" data-aos-delay="100">
+          <li><a href="https://github.com/YogeshGajula/YOLO-NAS-Eye-Detection" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
+	  <li><a href="https://github.com/YogeshGajula/YOLO-NAS-Eye-Detection/blob/main/FinalReport.pdf" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Report</a></li>
+        </ul><!-- End Portfolio Links -->
+        
+        <!-- Portfolio items continue as before -->
+        <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="100">
+          <!-- All your existing portfolio items remain unchanged -->
+        </div><!-- End Portfolio Container -->
+      </div>
+
     </div>
 
-    <div class="portfolio-carousel swiper-container" data-aos="fade-up" data-aos-delay="100" style="margin-top: 2rem;">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <div class="container">
-                    <h3 class="resume-title">AI Projects</h3>
-                    <div style="margin-bottom: 8rem;">
-                        <h4>Eye Detection Using YOLO-NAS</h4>
-                        <p style="text-align:justify;">
-                            <i class="bi bi-chevron-right" style="color:#007bff;"></i> This project implements a deep learning-based eye detection system using YOLO-NAS. The model is trained on a custom dataset to accurately detect eyes in images. The system supports real-time inference, enabling applications such as eye-tracking, gaze detection, and drowsiness monitoring. The project is integrated with Roboflow for dataset preparation and annotation, ensuring optimized training and evaluation.
-                        </p>
-                        <br>
-                        <p style="text-align:justify;">
-                            <strong>Technologies Used:</strong> YOLO-NAS, PyTorch, Roboflow, OpenCV, Matplotlib, Google Colab, CUDA
-                        </p>
-                        <p style="text-align:justify;">
-                            The project leverages Roboflow to annotate and convert the dataset into YOLO format. A YOLO-NAS model is trained for accurate eye detection, and the trained model performs real-time inference, overlaying bounding boxes on detected eyes. Performance is evaluated using training graphs and metrics, while Google Colab integration enables efficient, GPU-accelerated execution. 🚀
-                        </p>
-                        <br>
-                        <ul class="portfolio-links">
-                            <li><a href="https://github.com/YogeshGajula/YOLO-NAS-Eye-Detection" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
-                            <li><a href="https://github.com/YogeshGajula/YOLO-NAS-Eye-Detection/blob/main/FinalReport.pdf" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Report</a></li>
-                        </ul>
-                    </div>
+  </div>
 
-                    <div>
-                        <h4>Face Animation and Lip Synchronization Using GANs</h4>
-                        <p style="text-align:justify;">
-                            <i class="bi bi-chevron-right" style="color:#007bff;"></i> This system generates lifelike facial expressions from a static image based on a provided audio file. Using GANs, the model analyzes phonetic cues from speech and creates synchronized facial movements, producing an animated video output. The project also supports cloud-based execution on Google Colab, allowing seamless file uploads, real-time progress tracking, and video playback with GPU acceleration.
-                        </p>
-                        <br>
-                        <p style="text-align:justify;">
-                            <strong>Technologies Used:</strong> PyTorch, GANs, OpenCV, SpeechRecognition, Google Text-to-Speech (gTTS), Google Colab, CUDA, ffmpeg
-                        </p>
-                        <p style="text-align:justify;">
-                            The process begins with audio processing, where speech-to-text extraction analyzes phonetic cues. Next, the GAN-based facial animation model generates realistic expressions synchronized with speech. Video compilation is then performed using OpenCV to create a seamless animated output. Finally, cloud deployment on Google Colab enables GPU-accelerated processing and efficient file handling.
-                        </p>
-                        <br>
-                        <p style="text-align:justify;">
-                            <i>This project showcases my expertise in deep learning, computer vision, and AI-driven animation, demonstrating how generative models can bring static images to life using audio input.</i>
-                        </p>
-                        <br>
-                        <ul class="portfolio-links">
-                            <li><a href="https://github.com/YogeshGajula/GAN_FaceAnimation_lipsync" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
-                            <li><a href="https://www.youtube.com/watch?v=A7tC1bQin10" target="_blank"><i class="bi bi-youtube"></i>Video</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="swiper-slide">
-                <div class="container">
-                    <h3 class="resume-title">New Project Category 1</h3>
-                    <p style="text-align:justify;">
-                        <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>Project 3: Description</i></b>
-                        Description of the third project category.  Include details about the projects and technologies used.
-                    </p>
-                    <br>
-                    <p style="text-align:justify;">
-                        <strong>Technologies Used:</strong> Technology 1, Technology 2, Technology 3
-                    </p>
-                    <p style="text-align:justify;">
-                       Project 3 process description.
-                    </p>
-                    <br>
-                    <p style="text-align:justify;">
-                        <i>Insights or highlights about project 3.</i>
-                    </p>
-                    <ul class="portfolio-links">
-                         <li><a href="#" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
-                        <li><a href="#" target="_blank"><i class="bi bi-link"></i>Demo</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="swiper-slide">
-                <div class="container">
-                    <h3 class="resume-title">New Project Category 2</h3>
-                    <p style="text-align:justify;">
-                        <i class="bi bi-chevron-right" style="color:#007bff;"></i> <b><i>Project 4: Description</i></b>
-                         Description of the fourth project category.  Include details.
-                    </p>
-                    <br>
-                    <p style="text-align:justify;">
-                        <strong>Technologies Used:</strong> Tech A, Tech B, Tech C
-                    </p>
-                    <p style="text-align:justify;">
-                        Details of Project 4.
-                    </p>
-                    <br>
-                     <p style="text-align:justify;">
-                        <i>Insights for project 4.</i>
-                    </p>
-                    <ul class="portfolio-links">
-                        <li><a href="#" target="_blank"><i class="bi bi-github"></i>Project Files</a></li>
-                        <li><a href="#" target="_blank"><i class="bi bi-file-earmark-pdf"></i> Report</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="swiper-button-next" style="color: #007bff;"></div>
-        <div class="swiper-button-prev" style="color: #007bff;"></div>
-        <div class="swiper-pagination" style="top: 0; margin-top: 1rem; margin-bottom: 2rem;"></div>
-        <div style="text-align:center; font-size:0.9rem; color:#a2a2a2; margin-top: 0.5rem; font-family: 'Poppins', sans-serif;">
-            <span style="margin-right: 5px;">←</span> Swipe to view more projects <span style="margin-left: 5px;">→</span>
-        </div>
-    </div>
-</section>
-
-<style>
-.portfolio-carousel {
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-}
-
-.swiper-wrapper {
-  display: flex;
-  width: 100%;
-  height: fit-content;
-  position: relative;
-  transition-property: transform;
-  box-sizing: content-box;
-}
-
-.swiper-slide {
-  flex-shrink: 0;
-  width: 100%;
-  height: auto;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-.swiper-button-next, .swiper-button-prev{
-    position: absolute;
-    top: 50%;
-    width: var(--swiper-navigation-size, 44px);
-    height: var(--swiper-navigation-size, 44px);
-    margin-top: calc(0px - (var(--swiper-navigation-size, 44px) / 2));
-    z-index: 10;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--swiper-navigation-color, var(--swiper-theme-color));
-}
-.swiper-button-next:after, .swiper-button-prev:after {
-    font-family: swiper-icons;
-    font-size: var(--swiper-navigation-size, 44px);
-    text-shadow: 0 0 10px rgba(0,0,0,0.3);
-    font-weight: bold;
-    content: '→';
-}
-.swiper-button-prev:after{
-    content: '←';
-}
-
-.swiper-pagination {
-  position: absolute;
-  text-align: center;
-  transition: .3s opacity;
-  transform: translate3d(0,0,0);
-  z-index: 10;
-  top: 0;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-}
-.swiper-pagination-bullet {
-  width: var(--swiper-pagination-bullet-width, 8px);
-  height: var(--swiper-pagination-bullet-height, 8px);
-  display: inline-block;
-  border-radius: 50%;
-  background: var(--swiper-pagination-bullet-inactive-color, #000);
-  opacity: var(--swiper-pagination-bullet-inactive-opacity, .2);
-  margin: 0 var(--swiper-pagination-bullet-horizontal-gap, 4px);
-  cursor: pointer;
-}
-.swiper-pagination-bullet-active {
-  opacity: var(--swiper-pagination-bullet-opacity, 1);
-  background: var(--swiper-pagination-color, var(--swiper-theme-color));
-}
-
-/* Style the Portfolio Links */
-.portfolio-links {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    padding: 30px 1;
-    list-style: none;
-    margin: 0 auto;
-}
-
-/* Style Each Link as a Button - Sized like original template */
-.portfolio-links li a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #007bff, #0056b3);
-    color: white;
-    padding: 5px 20px;
-    border-radius: 15px;
-    font-weight: bold;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 2px 4px 12px rgba(0, 123, 255, 0.4);
-    border: none;
-    text-transform: uppercase;
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-align: center;
-    min-width: 120px;
-    min-height: 30px;
-    line-height: 20px;
-    position: relative;
-    overflow: hidden;
-    font-family: 'Inter', sans-serif;
-}
-
-/* Hover Effect */
-.portfolio-links li a:hover {
-    background: linear-gradient(135deg, #0056b3, #004494);
-    transform: scale(1.08);
-    box-shadow: 3px 5px 15px rgba(0, 123, 255, 0.6);
-    text-decoration: none;
-}
-
-/* Clicked Effect */
-.portfolio-links li a:active {
-    transform: scale(0.98);
-    box-shadow: 1px 2px 6px rgba(0, 123, 255, 0.3);
-}
-
-/* Animation Effect (Pulse Glow on Hover) */
-.portfolio-links li a::before {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    width: 300%;
-    height: 600%;
-    background: rgba(255, 255, 255, 0.1);
-    transition: all 0.4s ease;
-    transform: translate(-50%, -50%) scale(0);
-    border-radius: 50%;
-}
-
-.portfolio-links li a:hover::before {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 0;
-}
-
-/* Icon Styling */
-.portfolio-links li a i {
-    margin-right: 8px;
-    font-size: 14px;
-}
-
-</style>
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-<script>
-    var swiper = new Swiper('.portfolio-carousel', {
-        slidesPerView: 1,
-        spaceBetween: 30,
-        loop: true,
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        // Enable touch swipe
-        touchEventsTarget: 'container',
-        touchMoveStopPropagation: false,
-        grabCursor: true,
-        // autoplay: {  //removed autoplay
-        //     delay: 2500,
-        //     disableOnInteraction: false,
-        // },
-        // Handle events correctly to ensure navigation works
-       on: {
-            'click': function (event) {
-                // Log the event to help in debugging
-                console.log('Swiper click event:', event);
-                // Check if the clicked element is a navigation button
-                if (event.target.classList.contains('swiper-button-next')) {
-                    swiper.slideNext();
-                } else if (event.target.classList.contains('swiper-button-prev')) {
-                    swiper.slidePrev();
-                }
-            },
-            'navigationPrev': function () {
-                console.log('navigationPrev fired');
-            },
-            'navigationNext': function () {
-                console.log('navigationNext fired');
-            }
-        },
-        breakpoints: {
-            // when window width is >= 640px
-            640: {
-                slidesPerView: 1,
-                spaceBetween: 20,
-            },
-            // when window width is >= 768px
-            768: {
-                slidesPerView: 1,
-                spaceBetween: 30,
-            },
-            // when window width is >= 1024px
-            1024: {
-                slidesPerView: 1,
-                spaceBetween: 30,
-            },
-        },
-    });
-</script>
-
-
+</section><!-- /Portfolio Section -->
 
     <!-- Services Section -->
     <section id="services" class="services section">

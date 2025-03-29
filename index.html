@@ -598,7 +598,29 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
         touchEventsTarget: 'container',
         touchMoveStopPropagation: false,
         grabCursor: true,
-        // Responsive breakpoints
+        // autoplay: {  //removed autoplay
+        //     delay: 2500,
+        //     disableOnInteraction: false,
+        // },
+        // Handle events correctly to ensure navigation works
+       on: {
+            'click': function (event) {
+                // Log the event to help in debugging
+                console.log('Swiper click event:', event);
+                // Check if the clicked element is a navigation button
+                if (event.target.classList.contains('swiper-button-next')) {
+                    swiper.slideNext();
+                } else if (event.target.classList.contains('swiper-button-prev')) {
+                    swiper.slidePrev();
+                }
+            },
+            'navigationPrev': function () {
+                console.log('navigationPrev fired');
+            },
+            'navigationNext': function () {
+                console.log('navigationNext fired');
+            }
+        },
         breakpoints: {
             // when window width is >= 640px
             640: {

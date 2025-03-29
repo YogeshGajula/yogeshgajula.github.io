@@ -317,85 +317,85 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
 
     </section><!-- /Resume Section -->
 	  
-<!-- Portfolio Section with Blue Borders and Carousel Navigation -->
+<!-- Portfolio Section -->
 <section id="portfolio" class="portfolio section light-background" style="border-top: 5px solid #a7d1f1; border-bottom: 5px solid #a7d1f1;">
-
-  <!-- Section Title - Centered -->
   <div class="container section-title" data-aos="fade-up">
     <h2>Portfolio</h2>
-    
-    <!-- Carousel Navigation -->
-    <div class="portfolio-categories" style="margin-bottom: 30px;">
-      <div class="category-buttons" style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px;">
+
+    <!-- Carousel Categories -->
+    <div class="portfolio-categories">
+      <div class="category-buttons">
         <button class="category-btn active" data-category="ai-deep-learning">AI & Deep Learning</button>
         <button class="category-btn" data-category="database-systems">Database Systems</button>
         <button class="category-btn" data-category="python-projects">Python Projects</button>
       </div>
-      
+
       <!-- Navigation indicators -->
-      <div class="carousel-indicators" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
+      <div class="carousel-indicators">
         <span class="indicator active" data-index="0"></span>
         <span class="indicator" data-index="1"></span>
         <span class="indicator" data-index="2"></span>
       </div>
     </div>
-    
-    <!-- Carousel container -->
+
+    <!-- Carousel Container -->
     <div class="carousel-container">
       <div class="carousel-track">
-        
-        <!-- Category 1: AI & Deep Learning -->
-        <div class="carousel-slide" data-category="ai-deep-learning">
-          <h3>Advanced Intelligent Systems & Deep Learning</h3>
-          <p><strong>Project:</strong> Face Animation and Lip Synchronization Using GANs</p>
-          <p><strong>Technologies Used:</strong> PyTorch, OpenCV, SpeechRecognition</p>
+        <div class="carousel-slide">
+          <h3>AI & Deep Learning</h3>
+          <p>Face Animation and Lip Sync using GANs</p>
+          <p><strong>Tech:</strong> PyTorch, OpenCV, SpeechRecognition</p>
           <a href="https://github.com/YogeshGajula/GAN_FaceAnimation_lipsync" target="_blank">GitHub</a>
         </div>
-        
-        <!-- Category 2: Database Management Systems -->
-        <div class="carousel-slide" data-category="database-systems">
-          <h3>Database Management Systems</h3>
-          <p><strong>Project:</strong> Healthcare Management System</p>
-          <p><strong>Technologies Used:</strong> PostgreSQL, SQL, MongoDB</p>
-          <a href="#" target="_blank">GitHub</a>
-        </div>
-        
-        <!-- Category 3: Python Projects -->
-        <div class="carousel-slide" data-category="python-projects">
-          <h3>Python Projects</h3>
-          <p><strong>Project:</strong> Automated Data Pipeline</p>
-          <p><strong>Technologies Used:</strong> Python, Apache Airflow</p>
+
+        <div class="carousel-slide">
+          <h3>Database Systems</h3>
+          <p>Healthcare Management System</p>
+          <p><strong>Tech:</strong> PostgreSQL, SQL, MongoDB</p>
           <a href="#" target="_blank">GitHub</a>
         </div>
 
+        <div class="carousel-slide">
+          <h3>Python Projects</h3>
+          <p>Automated Data Pipeline</p>
+          <p><strong>Tech:</strong> Python, Apache Airflow</p>
+          <a href="#" target="_blank">GitHub</a>
+        </div>
       </div>
     </div>
-    
-    <!-- Navigation arrows -->
+
+    <!-- Navigation Buttons -->
     <div class="carousel-nav">
       <button id="prev-btn"><i class="bi bi-chevron-left"></i></button>
       <button id="next-btn"><i class="bi bi-chevron-right"></i></button>
     </div>
   </div>
 
-  <!-- CSS Styling -->
+  <!-- CSS -->
   <style>
     .carousel-container {
+      width: 100%;
       overflow: hidden;
       position: relative;
-      width: 100%;
     }
 
     .carousel-track {
       display: flex;
       transition: transform 0.5s ease-in-out;
+      width: 300%; /* Prevents content overflow */
     }
 
     .carousel-slide {
-      min-width: 100%;
-      flex-shrink: 0;
+      flex: 0 0 100%;
       text-align: center;
       padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .category-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
     }
 
     .category-btn {
@@ -407,7 +407,13 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
       font-weight: bold;
       cursor: pointer;
       transition: all 0.3s ease-in-out;
-      box-shadow: 2px 4px 12px rgba(0, 123, 255, 0.4);
+    }
+
+    .carousel-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
     }
 
     .indicator {
@@ -437,111 +443,96 @@ I Completed a Diploma in Electronics and Communication Engineering, with a proje
       height: 40px;
       border-radius: 50%;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 2px 4px 12px rgba(0, 123, 255, 0.4);
     }
   </style>
 
   <!-- JavaScript -->
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const carouselTrack = document.querySelector('.carousel-track');
       const slides = document.querySelectorAll('.carousel-slide');
-      const categoryBtns = document.querySelectorAll('.category-btn');
-      const indicators = document.querySelectorAll('.indicator');
       const nextBtn = document.getElementById('next-btn');
       const prevBtn = document.getElementById('prev-btn');
       const portfolioSection = document.getElementById('portfolio');
 
       let currentIndex = 0;
-      let slideWidth = slides[0].offsetWidth;
+      let slideWidth = document.querySelector('.carousel-container').offsetWidth;
       let autoplayInterval;
       let isUserInteracting = false;
 
-      function updateCarousel() {
-        slideWidth = slides[0].offsetWidth;
-        carouselTrack.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-
-        indicators.forEach((indicator, index) => {
-          indicator.style.backgroundColor = index === currentIndex ? '#007bff' : '#6c757d';
+      // Function to update slide width dynamically
+      function updateSlideWidth() {
+        slideWidth = document.querySelector('.carousel-container').offsetWidth;
+        slides.forEach(slide => {
+          slide.style.width = `${slideWidth}px`;
         });
-
-        categoryBtns.forEach((btn, index) => {
-          btn.classList.toggle('active', index === currentIndex);
-        });
+        carouselTrack.style.width = `${slides.length * slideWidth}px`;
+        updateCarousel();
       }
 
+      // Function to update carousel position
+      function updateCarousel() {
+        carouselTrack.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+      }
+
+      // Function to go to the next slide
       function nextSlide() {
         currentIndex = (currentIndex + 1) % slides.length;
         updateCarousel();
       }
 
+      // Function to go to the previous slide
       function prevSlide() {
         currentIndex = (currentIndex - 1 + slides.length) % slides.length;
         updateCarousel();
       }
 
+      // Function to start autoplay
       function startAutoplay() {
         if (!isUserInteracting) {
           autoplayInterval = setInterval(nextSlide, 5000);
         }
       }
 
+      // Function to stop autoplay
       function stopAutoplay() {
         clearInterval(autoplayInterval);
       }
 
+      // Function to pause autoplay when user interacts
       function resetAutoplay() {
         stopAutoplay();
         isUserInteracting = true;
         setTimeout(() => {
           isUserInteracting = false;
           startAutoplay();
-        }, 10000);
+        }, 10000); // Resume autoplay after 10 seconds
       }
 
-      updateCarousel();
+      // Initialize carousel and start autoplay
+      updateSlideWidth();
       startAutoplay();
 
-      nextBtn.addEventListener('click', function() {
+      // Event listeners for navigation buttons
+      nextBtn.addEventListener('click', () => {
         resetAutoplay();
         nextSlide();
       });
 
-      prevBtn.addEventListener('click', function() {
+      prevBtn.addEventListener('click', () => {
         resetAutoplay();
         prevSlide();
       });
 
-      categoryBtns.forEach((btn, index) => {
-        btn.addEventListener('click', function() {
-          resetAutoplay();
-          currentIndex = index;
-          updateCarousel();
-        });
-      });
-
-      indicators.forEach((indicator, index) => {
-        indicator.addEventListener('click', function() {
-          resetAutoplay();
-          currentIndex = index;
-          updateCarousel();
-        });
-      });
-
+      // Pause autoplay when user interacts anywhere inside the section
       portfolioSection.addEventListener('click', resetAutoplay);
       portfolioSection.addEventListener('touchstart', resetAutoplay);
       portfolioSection.addEventListener('scroll', resetAutoplay);
 
-      window.addEventListener('resize', function() {
-        slideWidth = slides[0].offsetWidth;
-        updateCarousel();
-      });
+      // Adjust slide width on window resize
+      window.addEventListener('resize', updateSlideWidth);
     });
   </script>
-
 </section>
 
     <!-- Services Section -->

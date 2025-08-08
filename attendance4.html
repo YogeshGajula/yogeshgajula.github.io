@@ -386,8 +386,8 @@
       return obj;
     }
 
-    async function startVideo() {
-      updateLoadingText('Starting camera...<br>Requesting camera access');
+    async function requestCameraPermission() {
+      updateLoadingText('Requesting camera permission...<br>Please allow camera access');
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ 
           video: { 
@@ -400,15 +400,61 @@
         
         return new Promise((resolve) => {
           video.addEventListener('loadedmetadata', () => {
-            updateLoadingText('Camera ready...<br>Finalizing setup');
+            updateLoadingText('Camera access granted ✓<br>Camera ready');
             resolve();
           });
         });
       } catch (err) {
         console.error("Camera Error:", err);
-        updateLoadingText('Camera Error<br>Please allow camera access and refresh');
-        throw err;
+        updateLoadingText('❌ Camera access denied<br>Please allow camera access and refresh the page');
+        throw new Error('Camera permission denied');
       }
+    }
+
+    async function requestLocationPermission() {
+      updateLoadingText('Requesting location permission...<br>Please allow location access');
+      return new Promise((resolve, reject) => {
+        if (!navigator.geolocation) {
+          updateLoadingText('❌ Geolocation not supported<br>Your browser doesn\'t support location services');
+          reject(new Error("Geolocation not supported"));
+          return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            updateLoadingText('Location access granted ✓<br>Location services ready');
+            resolve({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+              accuracy: position.coords.accuracy
+            });
+          },
+          (error) => {
+            let errorMsg;
+            switch(error.code) {
+              case error.PERMISSION_DENIED:
+                errorMsg = 'Location access denied<br>Please allow location access and refresh';
+                break;
+              case error.POSITION_UNAVAILABLE:
+                errorMsg = 'Location unavailable<br>Please check your location settings';
+                break;
+              case error.TIMEOUT:
+                errorMsg = 'Location request timeout<br>Please try again';
+                break;
+              default:
+                errorMsg = 'Location error<br>Please enable location services';
+                break;
+            }
+            updateLoadingText('❌ ' + errorMsg);
+            reject(new Error(`Location permission error: ${error.message}`));
+          },
+          { 
+            enableHighAccuracy: true, 
+            timeout: 15000, 
+            maximumAge: 0 
+          }
+        );
+      });
     }
 
     function getUserLocation() {
@@ -431,10 +477,10 @@
 
       try {
         locationStatusDiv.className = 'location-checking';
-        locationStatusDiv.textContent = '📍 Checking location...';
+        locationStatusDiv.textContent = '📍 Verifying location...';
         distanceInfoDiv.textContent = '';
 
-        const location = await getUserLocation();
+        const location = await getUserLocationQuick();
         const validation = isWithinTargetLocation(location.latitude, location.longitude);
 
         if (validation.isValid) {
@@ -454,12 +500,27 @@
         }
       } catch (error) {
         locationStatusDiv.className = 'location-invalid';
-        locationStatusDiv.textContent = `📍 Location error: ${error.message}`;
-        distanceInfoDiv.textContent = 'Please enable location access';
+        locationStatusDiv.textContent = `📍 Location verification failed`;
+        distanceInfoDiv.textContent = 'Unable to verify location';
         clockInButton.className = 'inactive';
         clockInButton.disabled = true;
         return null;
       }
+    }
+
+    // Quick location check (uses cached location from permission request)
+    function getUserLocationQuick() {
+      return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(
+          (position) => resolve({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            accuracy: position.coords.accuracy
+          }),
+          (error) => reject(error),
+          { enableHighAccuracy: false, timeout: 5000, maximumAge: 300000 } // Allow 5 min cache
+        );
+      });
     }
 
     async function logAttendance(name, location) {
@@ -490,22 +551,42 @@
 
     async function initialize() {
       try {
-        // Load AI models
+        // Step 1: Request Camera Permission
+        await requestCameraPermission();
+        
+        // Step 2: Request Location Permission
+        const initialLocation = await requestLocationPermission();
+        
+        // Step 3: Load AI models
         await loadModels();
         
-        // Get employee face data
+        // Step 4: Get employee face data
         employeeFaceData = await getFaceData();
         
-        // Start camera
-        await startVideo();
+        // Step 5: Finalize setup
+        updateLoadingText('All permissions granted ✓<br>Finalizing setup...');
         
         // Small delay for smooth transition
         setTimeout(async () => {
           showMainInterface();
-          statusDiv.textContent = 'System ready - Welcome!';
+          statusDiv.textContent = 'System ready - All permissions granted!';
           
-          // Initial location validation
-          await validateLocation();
+          // Initial location validation using the location we already got
+          const validation = isWithinTargetLocation(initialLocation.latitude, initialLocation.longitude);
+          
+          if (validation.isValid) {
+            locationStatusDiv.className = 'location-valid';
+            locationStatusDiv.textContent = '✓ Location verified - Within office premises';
+            distanceInfoDiv.textContent = `Distance from office: ${validation.distance}m`;
+            clockInButton.className = 'active';
+            clockInButton.disabled = false;
+          } else {
+            locationStatusDiv.className = 'location-invalid';
+            locationStatusDiv.textContent = '✗ Location invalid - Too far from office';
+            distanceInfoDiv.textContent = `Distance: ${validation.distance}m (max: ${TARGET_LOCATION.radius}m)`;
+            clockInButton.className = 'inactive';
+            clockInButton.disabled = true;
+          }
           
           // Revalidate location every 30 seconds
           setInterval(validateLocation, 30000);
@@ -513,7 +594,10 @@
         
       } catch (error) {
         console.error('Initialization error:', error);
-        updateLoadingText('System Error<br>Please refresh the page');
+        // Don't show main interface if permissions are denied
+        setTimeout(() => {
+          updateLoadingText('❌ Setup incomplete<br><small>Please refresh and grant all permissions</small>');
+        }, 2000);
       }
     }
 
@@ -529,9 +613,20 @@
       }
 
       // Revalidate location before processing
-      const location = await validateLocation();
+      const location = await getUserLocationQuick();
       if (!location) {
-        statusDiv.textContent = "📍 Location validation failed";
+        statusDiv.textContent = "📍 Unable to verify location";
+        return;
+      }
+
+      // Check if still within valid location
+      const validation = isWithinTargetLocation(location.latitude, location.longitude);
+      if (!validation.isValid) {
+        statusDiv.textContent = "📍 You've moved outside the office area";
+        locationStatusDiv.className = 'location-invalid';
+        locationStatusDiv.textContent = '✗ Location invalid - Too far from office';
+        clockInButton.className = 'inactive';
+        clockInButton.disabled = true;
         return;
       }
 

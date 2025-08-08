@@ -2,315 +2,145 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Face Recognition Attendance</title>
+  <title>Attendance System</title>
+  <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
   <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      box-sizing: border-box;
-    }
-    body {
-      min-height: 100vh;
-      width: 100vw;
-      overflow-x: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #f4f6fa;
-    }
-    #container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: #fff;
-      padding: 2.5em 2em;
-      border-radius: 16px;
-      box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07);
-      min-width: 340px;
-      max-width: 95vw;
-    }
-    h1 {
-      margin-bottom: 1.2em;
-      color: #2a4365;
-      font-size: 2em;
-      letter-spacing: 0.01em;
-    }
-    video, canvas {
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      background: #222;
-    }
-    #controls {
-      margin: 1.3em 0 0.8em 0;
-      display: flex;
-      gap: 1.2em;
-    }
-    .clock-buttons button {
-      padding: 0.7em 2.2em;
-      font-size: 1.1em;
-      border: none;
-      border-radius: 7px;
-      background: #1976d2;
-      color: #fff;
-      cursor: pointer;
-      font-weight: bold;
-      box-shadow: 0 2px 8px #0001;
-      transition: background 0.2s;
-    }
-    .clock-buttons button:last-child {
-      background: #2e7d32;
-    }
-    .clock-buttons button:disabled {
-      background: #aaa;
-      cursor: not-allowed;
-    }
-    #location, #timestamp {
-      font-size: 1em;
-      color: #555;
-      margin-top: 0.4em;
-      text-align: center;
-    }
-    #status {
-      margin-top: 1.2em;
-      font-weight: bold;
-      font-size: 1.13em;
-      color: #333;
-      text-align: center;
-      min-height: 1.2em;
-    }
-    @media (max-width: 600px) {
-      #container {
-        min-width: unset;
-        padding: 1em 0.5em;
-      }
-      video, canvas {
-        width: 95vw !important;
-        height: auto !important;
-        max-width: 98vw;
-      }
-    }
+    body { font-family: Arial,sans-serif; display: flex; flex-direction: column; align-items: center; padding: 2em; background: #f4f4f8; }
+    #video-container { position: relative; width: 480px; height: 360px; border: 3px solid #ccc; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);}
+    video { position: absolute; top: 0; left: 0;}
+    #status { margin-top: 20px; padding: 8px 16px; font-size: 1.2em; font-weight: 500; color: #333; background: #fff; border-radius: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);}
+    #clockInButton { margin-top: 20px; padding: 12px 25px; font-size: 1.1em; font-weight: bold; border-radius: 8px; border: none; cursor: pointer; background-color: #007aff; color: white; transition: all 0.2s;}
+    #clockInButton:hover { background-color: #005ecb;}
   </style>
-  <!-- Load face-api.js from CDN before your script -->
-  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
 </head>
 <body>
-  <div id="container">
-    <h1>Face Recognition Attendance</h1>
-    <video id="video" width="480" height="360" autoplay muted></video>
-    <canvas id="canvas" width="480" height="360" style="display: none;"></canvas>
-    <div id="controls" class="clock-buttons">
-      <button id="clockInBtn">Clock In</button>
-      <button id="clockOutBtn">Clock Out</button>
-    </div>
-    <div id="location"></div>
-    <div id="timestamp"></div>
-    <div id="status">Ready</div>
-  </div>
+  <h1>Attendance System</h1>
+  <div id="video-container"><video id="video" width="480" height="360" autoplay muted></video></div>
+  <div id="status">Loading Models...</div>
+  <button id="clockInButton">Clock In / Out</button>
+  <script>
+    // Change this to your actual facial_data.json RAW URL
+    const faceDataURL = "https://raw.githubusercontent.com/YogeshGajula/yogeshgajula.github.io/main/facial_data.json"; 
+    // Google Apps Script Web App URL
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwUh935OwqJ8SMhCbt3eZnBn9iEE98op_4bOS9mEmEFtVwkUyov09Aeh-RSuG2I4Luj7w/exec';
 
-  <script defer>
-    // Geofence configuration
-    const ALLOWED_LAT = 17.385044;   // Hyderabad example
-    const ALLOWED_LON = 78.486671;
-    const ALLOWED_RADIUS = 200;      // meters
-
-    // Elements
-    const video = document.getElementById('video');
-    const canvas = document.getElementById('canvas');
-    const clockInBtn = document.getElementById('clockInBtn');
-    const clockOutBtn = document.getElementById('clockOutBtn');
-    const locationDiv = document.getElementById('location');
-    const timestampDiv = document.getElementById('timestamp');
-    const statusDiv = document.getElementById('status');
-
-    let facialData = {};
-    let userLocation = null;
-
-    // Haversine formula for geofence
-    function isWithinGeofence(lat, lon, centerLat, centerLon, radiusMeters) {
-      const toRad = deg => deg * Math.PI / 180;
-      const R = 6371000;
-      const dLat = toRad(lat - centerLat);
-      const dLon = toRad(lon - centerLon);
-      const a = Math.sin(dLat/2)**2 +
-                Math.cos(toRad(centerLat)) * Math.cos(toRad(lat)) *
-                Math.sin(dLon/2)**2;
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-      const distance = R * c;
-      return distance <= radiusMeters;
+    async function loadModels() {
+      const MODEL_URL = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/';
+      await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+      await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+      await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
     }
 
-    // Load facial data (JSON with arrays)
-    async function loadFacialData() {
-      const res = await fetch('facial_data.json');
+    async function getFaceData() {
+      const res = await fetch(faceDataURL, {cache: "reload"});
       const data = await res.json();
-      Object.keys(data).forEach(name => {
-        data[name] = new Float32Array(data[name]);
-      });
-      return data;
-    }
-
-    // Euclidean distance
-    function euclidean(a, b) {
-      let s = 0;
-      for (let i = 0; i < a.length; i++) s += (a[i] - b[i]) ** 2;
-      return Math.sqrt(s);
-    }
-
-    // Face API setup
-    async function setupFaceAPI() {
-      // Wait until face-api.js global is available
-      for (let i = 0; i < 40; i++) { // Wait max 2s
-        if (window.faceapi) break;
-        await new Promise(r => setTimeout(r, 50));
+      const obj = {};
+      for (const [name, arr] of Object.entries(data)) {
+        obj[name] = new Float32Array(arr);
       }
-      if (!window.faceapi) {
-        statusDiv.textContent = "face-api.js not loaded!";
-        alert('face-api.js not loaded!');
-        return false;
-      }
-      await faceapi.nets.tinyFaceDetector.loadFromUri('./models');
-      await faceapi.nets.faceRecognitionNet.loadFromUri('./models');
-      await faceapi.nets.faceLandmark68Net.loadFromUri('./models');
-      return true;
+      return obj;
     }
 
-    // Get user location (lat, lon)
-    function getLocation() {
+    async function startVideo() {
+      statusDiv.textContent = 'Starting camera...';
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: {} });
+        video.srcObject = stream;
+      } catch (err) {
+        console.error("Camera Error:", err);
+        statusDiv.textContent = 'Error: Could not start camera.';
+      }
+    }
+
+    function getUserLocation() {
       return new Promise((resolve, reject) => {
-        if (!navigator.geolocation) return reject("Geolocation unsupported");
+        if (!navigator.geolocation) reject(new Error("Geolocation is not supported by your browser."));
         navigator.geolocation.getCurrentPosition(
-          pos => resolve({
-            lat: pos.coords.latitude,
-            lon: pos.coords.longitude,
-            accuracy: pos.coords.accuracy
-          }),
-          err => reject(err.message)
+          (position) => resolve(`${position.coords.latitude.toFixed(5)}, ${position.coords.longitude.toFixed(5)}`),
+          (error) => reject(new Error(`Location Error: ${error.message}`))
         );
       });
     }
 
-    function showLocationAndTime(loc) {
-      locationDiv.textContent = `Location: ${loc.lat.toFixed(6)}, ${loc.lon.toFixed(6)} (±${Math.round(loc.accuracy)}m)`;
-      timestampDiv.textContent = `Timestamp: ${new Date().toLocaleString()}`;
-    }
-
-    async function recognizeFace() {
-      const context = canvas.getContext('2d');
-      context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      const detection = await faceapi.detectSingleFace(canvas, new faceapi.TinyFaceDetectorOptions())
-        .withFaceLandmarks().withFaceDescriptor();
-      if (!detection) return null;
-      let minDist = Infinity, bestName = null;
-      for (const [name, desc] of Object.entries(facialData)) {
-        const dist = euclidean(desc, detection.descriptor);
-        if (dist < minDist) {
-          minDist = dist;
-          bestName = name;
-        }
-      }
-      return minDist < 0.45 ? bestName : null;
-    }
-
-    async function logAttendance(name, action, loc) {
-      const timestamp = new Date().toISOString();
-      const attendanceData = {
-        name,
-        action,
-        timestamp,
-        latitude: loc.lat,
-        longitude: loc.lon
-      };
-      // Example: log to console or send to server
-      console.log("Logging attendance:", attendanceData);
-      // Uncomment and modify for your backend:
-      // await fetch('/your-attendance-endpoint', {
-      //   method: 'POST',
-      //   headers: {'Content-Type': 'application/json'},
-      //   body: JSON.stringify(attendanceData)
-      // });
-    }
-
-    async function handleClock(action) {
-      statusDiv.textContent = 'Recognizing face...';
-      clockInBtn.disabled = true;
-      clockOutBtn.disabled = true;
-
-      const name = await recognizeFace();
-      if (!name) {
-        statusDiv.textContent = 'Face not recognized. Try again.';
-        clockInBtn.disabled = false;
-        clockOutBtn.disabled = false;
-        return;
-      }
-      let loc = userLocation;
+    async function logAttendance(name, location) {
       try {
-        loc = await getLocation();
-        userLocation = loc;
-        showLocationAndTime(loc);
-      } catch (e) {
-        statusDiv.textContent = 'Could not get location: ' + e;
-        clockInBtn.disabled = false;
-        clockOutBtn.disabled = false;
-        return;
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: name,
+            location: location,
+            status: 'Clock In/Out',
+            timestamp: new Date().toISOString()
+          })
+        });
+
+        statusDiv.textContent = `Attendance for ${name} logged successfully!`;
+        setTimeout(() => { statusDiv.textContent = 'Ready to Clock In'; }, 5000);
+      } catch (error) {
+        console.error('Error logging attendance:', error);
+        statusDiv.textContent = 'Error logging attendance. Please try again.';
       }
-      if (!isWithinGeofence(loc.lat, loc.lon, ALLOWED_LAT, ALLOWED_LON, ALLOWED_RADIUS)) {
-        statusDiv.textContent = 'Not in authorized location!';
-        clockInBtn.disabled = false;
-        clockOutBtn.disabled = false;
-        return;
-      }
-      await logAttendance(name, action, loc);
-      statusDiv.textContent = `${action} successful for ${name}!`;
-      setTimeout(() => {
-        statusDiv.textContent = 'Ready';
-        clockInBtn.disabled = false;
-        clockOutBtn.disabled = false;
-      }, 4000);
     }
 
-    async function main() {
-      statusDiv.textContent = 'Loading facial data...';
-      facialData = await loadFacialData();
+    const video = document.getElementById('video');
+    const statusDiv = document.getElementById('status');
+    const clockInButton = document.getElementById('clockInButton');
 
-      statusDiv.textContent = 'Loading face recognition models...';
-      await setupFaceAPI();
+    let employeeFaceData = {};
 
-      statusDiv.textContent = 'Accessing camera...';
+    async function initialize() {
+      await loadModels();
+      employeeFaceData = await getFaceData();
+      await startVideo();
+    }
+
+    video.addEventListener('play', () => {
+      statusDiv.textContent = 'Ready to Clock In';
+    });
+
+    clockInButton.addEventListener('click', async () => {
+      if (Object.keys(employeeFaceData).length === 0) {
+        statusDiv.textContent = "Error: No employee face data is configured.";
+        return;
+      }
+      let location;
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        video.srcObject = stream;
-      } catch (e) {
-        statusDiv.textContent = 'Camera access denied!';
+        statusDiv.textContent = "Getting location...";
+        location = await getUserLocation();
+      } catch (error) {
+        statusDiv.textContent = error.message;
         return;
       }
 
-      try {
-        userLocation = await getLocation();
-        showLocationAndTime(userLocation);
-      } catch (e) {
-        locationDiv.textContent = 'Location unavailable';
+      statusDiv.textContent = 'Detecting face... Please look at the camera.';
+      const detection = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
+        .withFaceLandmarks()
+        .withFaceDescriptor();
+
+      if (!detection) {
+        statusDiv.textContent = 'No face detected. Please try again.';
+        return;
       }
 
-      statusDiv.textContent = 'Ready for Clock In/Out';
-    }
+      const labeledDescriptors = Object.keys(employeeFaceData).map(
+        label => new faceapi.LabeledFaceDescriptors(label, [employeeFaceData[label]])
+      );
+      const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors);
+      const bestMatch = faceMatcher.findBestMatch(detection.descriptor);
 
-    clockInBtn.onclick = () => handleClock('Clock In');
-    clockOutBtn.onclick = () => handleClock('Clock Out');
-    window.addEventListener('DOMContentLoaded', main);
+      if (bestMatch.label === 'unknown') {
+        statusDiv.textContent = 'Face not recognized. Clock-in failed.';
+      } else {
+        statusDiv.textContent = `Welcome, ${bestMatch.label}! Logging attendance...`;
+        logAttendance(bestMatch.label, location);
+      }
+    });
+
+    initialize();
   </script>
-
-  <!--
-    Requirements:
-    - face-api.js from CDN (see https://github.com/justadudewhohacks/face-api.js/)
-    - /models directory for weights, in the same path as this HTML
-    - facial_data.json in the same directory, formatted as:
-      {
-        "Yogesh": [ ...array of numbers... ],
-        ...
-      }
-  -->
 </body>
 </html>

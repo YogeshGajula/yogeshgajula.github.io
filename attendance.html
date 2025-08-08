@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Facial Recognition Attendance</title>
-    
-    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
-
+    <!-- Place face-api.js in the head, but do NOT use defer -->
+    <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -62,150 +61,157 @@
     </style>
 </head>
 <body>
-
     <h1>Attendance System</h1>
-    
     <div id="video-container">
         <video id="video" width="480" height="360" autoplay muted></video>
     </div>
-    
     <div id="status">Loading Models...</div>
-    
     <button id="clockInButton">Clock In / Out</button>
-
     <script>
-        const video = document.getElementById('video');
-        const statusDiv = document.getElementById('status');
-        const clockInButton = document.getElementById('clockInButton');
-
-        // ========================================================================
-        // === 1. PASTE YOUR GOOGLE APPS SCRIPT URL HERE ===
-        // ========================================================================
-        const googleScriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE'; 
-
-        // ========================================================================
-        // === 2. ADD YOUR EMPLOYEE FACE DATA HERE ===
-        // You must generate these descriptors from employee photos first.
-        // This is placeholder data. Run a separate script to get these values.
-        // ========================================================================
-        const employeeFaceData = {
-            // Example of what the data should look like:
-            // "Alice": new Float32Array([0.1, -0.2, /* ...126 more numbers... */]),
-            // "Bob": new Float32Array([-0.05, 0.15, /* ...126 more numbers... */]),
-        };
-
-        // Load all the required models from the CDN
-        async function loadModels() {
-            // The '/models' path assumes you have a 'models' folder in your GitHub repo
-            // with the face-api.js models. If not, use a full URI.
-            const MODEL_URL = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/';
-            await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
-            await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
-            await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
-        }
-
-        // Start the camera feed
-        async function startVideo() {
-            statusDiv.textContent = 'Starting camera...';
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: {} });
-                video.srcObject = stream;
-            } catch (err) {
-                console.error("Camera Error:", err);
-                statusDiv.textContent = 'Error: Could not start camera.';
-            }
-        }
-
-        // Get the user's current location
-        function getUserLocation() {
-            return new Promise((resolve, reject) => {
-                if (!navigator.geolocation) {
-                    reject(new Error("Geolocation is not supported by your browser."));
-                }
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        const locationString = `${position.coords.latitude.toFixed(5)}, ${position.coords.longitude.toFixed(5)}`;
-                        resolve(locationString);
-                    },
-                    (error) => {
-                        reject(new Error(`Location Error: ${error.message}`));
-                    }
-                );
-            });
-        }
-        
-        // Main function for handling the clock-in process
-        clockInButton.addEventListener('click', async () => {
-            if (Object.keys(employeeFaceData).length === 0) {
-                statusDiv.textContent = "Error: No employee face data is configured.";
-                return;
-            }
-
-            // 1. Get Location
-            let location;
-            try {
-                statusDiv.textContent = "Getting location...";
-                location = await getUserLocation();
-            } catch (error) {
-                statusDiv.textContent = error.message;
-                return;
-            }
-
-            // 2. Detect and Recognize Face
-            statusDiv.textContent = 'Detecting face... Please look at the camera.';
-            const detection = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
-                .withFaceLandmarks()
-                .withFaceDescriptor();
-            
-            if (!detection) {
-                statusDiv.textContent = 'No face detected. Please try again.';
-                return;
-            }
-
-            const labeledDescriptors = Object.keys(employeeFaceData).map(
-                label => new faceapi.LabeledFaceDescriptors(label, [employeeFaceData[label]])
-            );
-            const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors);
-            const bestMatch = faceMatcher.findBestMatch(detection.descriptor);
-            
-            // 3. Log Attendance if recognized
-            if (bestMatch.label === 'unknown') {
-                statusDiv.textContent = 'Face not recognized. Clock-in failed.';
+        // Wait for DOM and face-api.js to be ready
+        function waitForFaceApi(callback) {
+            if (window.faceapi) {
+                callback();
             } else {
-                statusDiv.textContent = `Welcome, ${bestMatch.label}! Logging attendance...`;
-                logAttendance(bestMatch.label, location);
+                setTimeout(() => waitForFaceApi(callback), 100);
             }
-        });
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            waitForFaceApi(() => {
+                const video = document.getElementById('video');
+                const statusDiv = document.getElementById('status');
+                const clockInButton = document.getElementById('clockInButton');
 
-        // Send the attendance data to the Google Sheet
-        function logAttendance(name, location) {
-            fetch(googleScriptURL, {
-                method: 'POST',
-                mode: 'no-cors', // Required for simple Apps Script deployment
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, location }),
-            })
-            .then(() => {
-                statusDiv.textContent = `Attendance for ${name} logged successfully!`;
-                setTimeout(() => { statusDiv.textContent = 'Ready to Clock In'; }, 5000);
-            })
-            .catch(error => {
-                console.error('Logging Error:', error);
-                statusDiv.textContent = 'Error: Could not log attendance.';
+                // ========================================================================
+                // === 1. PASTE YOUR GOOGLE APPS SCRIPT URL HERE ===
+                // ========================================================================
+                const googleScriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE'; 
+
+                // ========================================================================
+                // === 2. ADD YOUR EMPLOYEE FACE DATA HERE ===
+                // You must generate these descriptors from employee photos first.
+                // This is placeholder data. Run a separate script to get these values.
+                // ========================================================================
+                const employeeFaceData = {
+                    // Example:
+                    // "Alice": new Float32Array([0.1, -0.2, ...]),
+                    // "Bob": new Float32Array([-0.05, 0.15, ...]),
+                };
+
+                // Load all the required models from the CDN
+                async function loadModels() {
+                    // The '/models' path assumes you have a 'models' folder in your GitHub repo
+                    // with the face-api.js models. If not, use a full URI.
+                    const MODEL_URL = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/';
+                    await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+                    await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+                    await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
+                }
+
+                // Start the camera feed
+                async function startVideo() {
+                    statusDiv.textContent = 'Starting camera...';
+                    try {
+                        const stream = await navigator.mediaDevices.getUserMedia({ video: {} });
+                        video.srcObject = stream;
+                    } catch (err) {
+                        console.error("Camera Error:", err);
+                        statusDiv.textContent = 'Error: Could not start camera.';
+                    }
+                }
+
+                // Get the user's current location
+                function getUserLocation() {
+                    return new Promise((resolve, reject) => {
+                        if (!navigator.geolocation) {
+                            reject(new Error("Geolocation is not supported by your browser."));
+                        }
+                        navigator.geolocation.getCurrentPosition(
+                            (position) => {
+                                const locationString = `${position.coords.latitude.toFixed(5)}, ${position.coords.longitude.toFixed(5)}`;
+                                resolve(locationString);
+                            },
+                            (error) => {
+                                reject(new Error(`Location Error: ${error.message}`));
+                            }
+                        );
+                    });
+                }
+                
+                // Main function for handling the clock-in process
+                clockInButton.addEventListener('click', async () => {
+                    if (Object.keys(employeeFaceData).length === 0) {
+                        statusDiv.textContent = "Error: No employee face data is configured.";
+                        return;
+                    }
+
+                    // 1. Get Location
+                    let location;
+                    try {
+                        statusDiv.textContent = "Getting location...";
+                        location = await getUserLocation();
+                    } catch (error) {
+                        statusDiv.textContent = error.message;
+                        return;
+                    }
+
+                    // 2. Detect and Recognize Face
+                    statusDiv.textContent = 'Detecting face... Please look at the camera.';
+                    const detection = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
+                        .withFaceLandmarks()
+                        .withFaceDescriptor();
+                    
+                    if (!detection) {
+                        statusDiv.textContent = 'No face detected. Please try again.';
+                        return;
+                    }
+
+                    const labeledDescriptors = Object.keys(employeeFaceData).map(
+                        label => new faceapi.LabeledFaceDescriptors(label, [employeeFaceData[label]])
+                    );
+                    const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors);
+                    const bestMatch = faceMatcher.findBestMatch(detection.descriptor);
+                    
+                    // 3. Log Attendance if recognized
+                    if (bestMatch.label === 'unknown') {
+                        statusDiv.textContent = 'Face not recognized. Clock-in failed.';
+                    } else {
+                        statusDiv.textContent = `Welcome, ${bestMatch.label}! Logging attendance...`;
+                        logAttendance(bestMatch.label, location);
+                    }
+                });
+
+                // Send the attendance data to the Google Sheet
+                function logAttendance(name, location) {
+                    fetch(googleScriptURL, {
+                        method: 'POST',
+                        mode: 'no-cors', // Required for simple Apps Script deployment
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name, location }),
+                    })
+                    .then(() => {
+                        statusDiv.textContent = `Attendance for ${name} logged successfully!`;
+                        setTimeout(() => { statusDiv.textContent = 'Ready to Clock In'; }, 5000);
+                    })
+                    .catch(error => {
+                        console.error('Logging Error:', error);
+                        statusDiv.textContent = 'Error: Could not log attendance.';
+                    });
+                }
+                
+                // Initialize the application
+                async function initialize() {
+                    await loadModels();
+                    await startVideo();
+                }
+
+                video.addEventListener('play', () => {
+                    statusDiv.textContent = 'Ready to Clock In';
+                });
+
+                initialize();
             });
-        }
-        
-        // Initialize the application
-        async function initialize() {
-            await loadModels();
-            await startVideo();
-        }
-
-        video.addEventListener('play', () => {
-            statusDiv.textContent = 'Ready to Clock In';
         });
-
-        initialize();
     </script>
 </body>
 </html>

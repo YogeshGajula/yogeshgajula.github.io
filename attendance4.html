@@ -73,7 +73,8 @@
       width: 100vw;
       height: 100vh;
       object-fit: cover;
-      z-index: 1;
+      z-index: 1;\
+      transform: scaleX(-1);
     }
 
     /* Main UI Overlay */
@@ -409,8 +410,8 @@
 
     // TARGET LOCATION CONFIGURATION
     const TARGET_LOCATION = {
-      latitude: 40.7128,    // Replace with your office latitude
-      longitude: -74.0060,  // Replace with your office longitude
+      latitude: 39.7286093,    // Replace with your office latitude
+      longitude: -84.1531532,  // Replace with your office longitude
       radius: 100          // Allowed radius in meters (100m = ~328 feet)
     };
 

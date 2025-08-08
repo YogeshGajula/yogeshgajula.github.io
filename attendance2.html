@@ -93,6 +93,8 @@
       }
     }
   </style>
+  <!-- Load face-api.js from CDN before your script -->
+  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
 </head>
 <body>
   <div id="container">
@@ -311,13 +313,13 @@
 
   <!-- 
     Dependencies:
-    - face-api.js in /models (see https://github.com/justadudewhohacks/face-api.js/)
+    - face-api.js from CDN (see https://github.com/justadudewhohacks/face-api.js/)
+    - /models directory for weights
     - facial_data.json in the same directory, formatted as:
       {
         "Yogesh": [ ...array of numbers... ],
         ...
       }
   -->
-  <script defer src="face-api.min.js"></script>
 </body>
 </html>

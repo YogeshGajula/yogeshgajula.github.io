@@ -110,7 +110,7 @@
     <div id="status">Ready</div>
   </div>
 
-  <script>
+  <script defer>
     // Geofence configuration
     const ALLOWED_LAT = 17.385044;   // Hyderabad example
     const ALLOWED_LON = 78.486671;
@@ -161,7 +161,13 @@
 
     // Face API setup
     async function setupFaceAPI() {
+      // Wait until face-api.js global is available
+      for (let i = 0; i < 40; i++) { // Wait max 2s
+        if (window.faceapi) break;
+        await new Promise(r => setTimeout(r, 50));
+      }
       if (!window.faceapi) {
+        statusDiv.textContent = "face-api.js not loaded!";
         alert('face-api.js not loaded!');
         return false;
       }

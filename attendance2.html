@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Attendance (Face Recognition)</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; background: #f4f6fa; }
+    h1 { color: #333; }
+    video, canvas { border: 1px solid #ddd; border-radius: 6px; }
+    #controls { margin: 1em 0; }
+    #status { margin-top: 1em; font-weight: bold; }
+    .clock-buttons button {
+      padding: 0.5em 1.2em;
+      margin-right: 1em;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      background: #1976d2;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .clock-buttons button:last-child { background: #2e7d32; }
+    .clock-buttons button:disabled { background: #aaa; }
+    #location, #timestamp { font-size: 0.95em; color: #666; margin-top: 0.5em; }
+  </style>
+</head>
+<body>
+  <h1>Face Recognition Attendance</h1>
+  <video id="video" width="480" height="360" autoplay muted></video>
+  <canvas id="canvas" width="480" height="360" style="display: none;"></canvas>
+  <div id="controls" class="clock-buttons">
+    <button id="clockInBtn">Clock In</button>
+    <button id="clockOutBtn">Clock Out</button>
+  </div>
+  <div id="location"></div>
+  <div id="timestamp"></div>
+  <div id="status">Ready</div>
+
+  <script>
+    // Geofence configuration
+    const ALLOWED_LAT = 17.385044;   // Example: Hyderabad
+    const ALLOWED_LON = 78.486671;
+    const ALLOWED_RADIUS = 200;      // meters
+
+    // Utility: Haversine formula for geofence
+    function isWithinGeofence(lat, lon, centerLat, centerLon, radiusMeters) {
+      const toRad = deg => deg * Math.PI / 180;
+      const R = 6371000;
+      const dLat = toRad(lat - centerLat);
+      const dLon = toRad(lon - centerLon);
+      const a = Math.sin(dLat/2)**2 +
+                Math.cos(toRad(centerLat)) * Math.cos(toRad(lat)) *
+                Math.sin(dLon/2)**2;
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      const distance = R * c;
+      return distance <= radiusMeters;
+    }
+
+    // Elements
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const clockInBtn = document.getElementById('clockInBtn');
+    const clockOutBtn = document.getElementById('clockOutBtn');
+    const locationDiv = document.getElementById('location');
+    const timestampDiv = document.getElementById('timestamp');
+    const statusDiv = document.getElementById('status');
+
+    let facialData = {};
+    let userLocation = null;
+
+    // Load facial data (JSON with arrays)
+    async function loadFacialData() {
+      const res = await fetch('facial_data.json');
+      const data = await res.json();
+      // Convert arrays to Float32Array for comparison
+      Object.keys(data).forEach(name => {
+        data[name] = new Float32Array(data[name]);
+      });
+      return data;
+    }
+
+    // Euclidean distance
+    function euclidean(a, b) {
+      let s = 0;
+      for (let i = 0; i < a.length; i++) s += (a[i] - b[i]) ** 2;
+      return Math.sqrt(s);
+    }
+
+    // Face API setup (assumes face-api.js and weights are loaded)
+    async function setupFaceAPI() {
+      if (!window.faceapi) {
+        alert('face-api.js not loaded!');
+        return false;
+      }
+      await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
+      await faceapi.nets.faceRecognitionNet.loadFromUri('/models');
+      return true;
+    }
+
+    // Get user location (lat, lon)
+    function getLocation() {
+      return new Promise((resolve, reject) => {
+        if (!navigator.geolocation) return reject("Geolocation unsupported");
+        navigator.geolocation.getCurrentPosition(
+          pos => resolve({
+            lat: pos.coords.latitude,
+            lon: pos.coords.longitude,
+            accuracy: pos.coords.accuracy
+          }),
+          err => reject(err.message)
+        );
+      });
+    }
+
+    // Show location and time
+    function showLocationAndTime(loc) {
+      locationDiv.textContent = `Location: ${loc.lat.toFixed(6)}, ${loc.lon.toFixed(6)} (±${loc.accuracy}m)`;
+      timestampDiv.textContent = `Timestamp: ${new Date().toLocaleString()}`;
+    }
+
+    // Face recognition
+    async function recognizeFace() {
+      const context = canvas.getContext('2d');
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const detection = await faceapi.detectSingleFace(canvas, new faceapi.TinyFaceDetectorOptions())
+        .withFaceLandmarks().withFaceDescriptor();
+      if (!detection) return null;
+      let minDist = Infinity, bestName = null;
+      for (const [name, desc] of Object.entries(facialData)) {
+        const dist = euclidean(desc, detection.descriptor);
+        if (dist < minDist) {
+          minDist = dist;
+          bestName = name;
+        }
+      }
+      // Accept only if distance is below threshold (e.g., 0.45)
+      return minDist < 0.45 ? bestName : null;
+    }
+
+    // Attendance logging (customize endpoint as needed)
+    async function logAttendance(name, action, loc) {
+      const timestamp = new Date().toISOString();
+      const attendanceData = {
+        name,
+        action,
+        timestamp,
+        latitude: loc.lat,
+        longitude: loc.lon
+      };
+      // For demonstration, log to console. Replace with your API endpoint.
+      console.log("Logging attendance:", attendanceData);
+      // Example: send data to backend
+      // await fetch('/your-attendance-endpoint', {
+      //   method: 'POST',
+      //   headers: {'Content-Type': 'application/json'},
+      //   body: JSON.stringify(attendanceData)
+      // });
+    }
+
+    // Handle Clock In/Out
+    async function handleClock(action) {
+      statusDiv.textContent = 'Recognizing face...';
+      // Recognize face
+      const name = await recognizeFace();
+      if (!name) {
+        statusDiv.textContent = 'Face not recognized. Try again.';
+        return;
+      }
+      // Get and check location
+      let loc = userLocation;
+      try {
+        loc = await getLocation();
+        userLocation = loc; // cache for quick retry
+        showLocationAndTime(loc);
+      } catch (e) {
+        statusDiv.textContent = 'Could not get location: ' + e;
+        return;
+      }
+      if (!isWithinGeofence(loc.lat, loc.lon, ALLOWED_LAT, ALLOWED_LON, ALLOWED_RADIUS)) {
+        statusDiv.textContent = 'Not in authorized location!';
+        return;
+      }
+      // Log attendance
+      await logAttendance(name, action, loc);
+      statusDiv.textContent = `${action} successful for ${name}!`;
+      setTimeout(() => { statusDiv.textContent = 'Ready'; }, 4000);
+    }
+
+    // Main setup
+    async function main() {
+      statusDiv.textContent = 'Loading facial data...';
+      facialData = await loadFacialData();
+
+      statusDiv.textContent = 'Loading face recognition models...';
+      await setupFaceAPI();
+
+      // Get video stream
+      statusDiv.textContent = 'Accessing camera...';
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = stream;
+      } catch (e) {
+        statusDiv.textContent = 'Camera access denied!';
+        return;
+      }
+
+      // Prefetch location
+      try {
+        userLocation = await getLocation();
+        showLocationAndTime(userLocation);
+      } catch (e) {
+        locationDiv.textContent = 'Location unavailable';
+      }
+
+      statusDiv.textContent = 'Ready for Clock In/Out';
+    }
+
+    // Button listeners
+    clockInBtn.onclick = () => handleClock('Clock In');
+    clockOutBtn.onclick = () => handleClock('Clock Out');
+
+    // Wait for DOM, then load
+    window.addEventListener('DOMContentLoaded', main);
+  </script>
+
+  <!-- 
+    Dependencies:
+    - face-api.js in /models (see https://github.com/justadudewhohacks/face-api.js/)
+    - facial_data.json in the same directory, formatted as:
+      {
+        "Yogesh": [ ...array of numbers... ],
+        ...
+      }
+  -->
+  <script defer src="face-api.min.js"></script>
+</body>
+</html>

@@ -112,23 +112,9 @@
 
   <script>
     // Geofence configuration
-    const ALLOWED_LAT = 17.385044;   // Example: Hyderabad
+    const ALLOWED_LAT = 17.385044;   // Hyderabad example
     const ALLOWED_LON = 78.486671;
     const ALLOWED_RADIUS = 200;      // meters
-
-    // Utility: Haversine formula for geofence
-    function isWithinGeofence(lat, lon, centerLat, centerLon, radiusMeters) {
-      const toRad = deg => deg * Math.PI / 180;
-      const R = 6371000;
-      const dLat = toRad(lat - centerLat);
-      const dLon = toRad(lon - centerLon);
-      const a = Math.sin(dLat/2)**2 +
-                Math.cos(toRad(centerLat)) * Math.cos(toRad(lat)) *
-                Math.sin(dLon/2)**2;
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-      const distance = R * c;
-      return distance <= radiusMeters;
-    }
 
     // Elements
     const video = document.getElementById('video');
@@ -142,11 +128,24 @@
     let facialData = {};
     let userLocation = null;
 
+    // Haversine formula for geofence
+    function isWithinGeofence(lat, lon, centerLat, centerLon, radiusMeters) {
+      const toRad = deg => deg * Math.PI / 180;
+      const R = 6371000;
+      const dLat = toRad(lat - centerLat);
+      const dLon = toRad(lon - centerLon);
+      const a = Math.sin(dLat/2)**2 +
+                Math.cos(toRad(centerLat)) * Math.cos(toRad(lat)) *
+                Math.sin(dLon/2)**2;
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      const distance = R * c;
+      return distance <= radiusMeters;
+    }
+
     // Load facial data (JSON with arrays)
     async function loadFacialData() {
       const res = await fetch('facial_data.json');
       const data = await res.json();
-      // Convert arrays to Float32Array for comparison
       Object.keys(data).forEach(name => {
         data[name] = new Float32Array(data[name]);
       });
@@ -160,7 +159,7 @@
       return Math.sqrt(s);
     }
 
-    // Face API setup (assumes face-api.js and weights are loaded)
+    // Face API setup
     async function setupFaceAPI() {
       if (!window.faceapi) {
         alert('face-api.js not loaded!');
@@ -187,13 +186,11 @@
       });
     }
 
-    // Show location and time
     function showLocationAndTime(loc) {
       locationDiv.textContent = `Location: ${loc.lat.toFixed(6)}, ${loc.lon.toFixed(6)} (±${Math.round(loc.accuracy)}m)`;
       timestampDiv.textContent = `Timestamp: ${new Date().toLocaleString()}`;
     }
 
-    // Face recognition
     async function recognizeFace() {
       const context = canvas.getContext('2d');
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -208,11 +205,9 @@
           bestName = name;
         }
       }
-      // Accept only if distance is below threshold (e.g., 0.45)
       return minDist < 0.45 ? bestName : null;
     }
 
-    // Attendance logging (customize endpoint as needed)
     async function logAttendance(name, action, loc) {
       const timestamp = new Date().toISOString();
       const attendanceData = {
@@ -222,9 +217,9 @@
         latitude: loc.lat,
         longitude: loc.lon
       };
-      // For demonstration, log to console. Replace with your API endpoint.
+      // Example: log to console or send to server
       console.log("Logging attendance:", attendanceData);
-      // Example: send data to backend
+      // Uncomment and modify for your backend:
       // await fetch('/your-attendance-endpoint', {
       //   method: 'POST',
       //   headers: {'Content-Type': 'application/json'},
@@ -232,13 +227,11 @@
       // });
     }
 
-    // Handle Clock In/Out
     async function handleClock(action) {
       statusDiv.textContent = 'Recognizing face...';
       clockInBtn.disabled = true;
       clockOutBtn.disabled = true;
 
-      // Recognize face
       const name = await recognizeFace();
       if (!name) {
         statusDiv.textContent = 'Face not recognized. Try again.';
@@ -246,11 +239,10 @@
         clockOutBtn.disabled = false;
         return;
       }
-      // Get and check location
       let loc = userLocation;
       try {
         loc = await getLocation();
-        userLocation = loc; // cache for quick retry
+        userLocation = loc;
         showLocationAndTime(loc);
       } catch (e) {
         statusDiv.textContent = 'Could not get location: ' + e;
@@ -264,17 +256,15 @@
         clockOutBtn.disabled = false;
         return;
       }
-      // Log attendance
       await logAttendance(name, action, loc);
       statusDiv.textContent = `${action} successful for ${name}!`;
-      setTimeout(() => { 
-        statusDiv.textContent = 'Ready'; 
+      setTimeout(() => {
+        statusDiv.textContent = 'Ready';
         clockInBtn.disabled = false;
         clockOutBtn.disabled = false;
       }, 4000);
     }
 
-    // Main setup
     async function main() {
       statusDiv.textContent = 'Loading facial data...';
       facialData = await loadFacialData();
@@ -282,7 +272,6 @@
       statusDiv.textContent = 'Loading face recognition models...';
       await setupFaceAPI();
 
-      // Get video stream
       statusDiv.textContent = 'Accessing camera...';
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -292,7 +281,6 @@
         return;
       }
 
-      // Prefetch location
       try {
         userLocation = await getLocation();
         showLocationAndTime(userLocation);
@@ -303,18 +291,15 @@
       statusDiv.textContent = 'Ready for Clock In/Out';
     }
 
-    // Button listeners
     clockInBtn.onclick = () => handleClock('Clock In');
     clockOutBtn.onclick = () => handleClock('Clock Out');
-
-    // Wait for DOM, then load
     window.addEventListener('DOMContentLoaded', main);
   </script>
 
-  <!-- 
-    Dependencies:
+  <!--
+    Requirements:
     - face-api.js from CDN (see https://github.com/justadudewhohacks/face-api.js/)
-    - /models directory for weights
+    - /models directory for weights, in the same path as this HTML
     - facial_data.json in the same directory, formatted as:
       {
         "Yogesh": [ ...array of numbers... ],

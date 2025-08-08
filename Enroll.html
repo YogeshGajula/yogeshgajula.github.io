@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Employee Face Enrollment</title>
+  <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+</head>
+<body>
+  <h2>Enroll Employee Face</h2>
+  <video id="video" width="480" height="360" autoplay muted></video><br>
+  <input type="text" id="employeeName" placeholder="Employee Name"><br>
+  <button id="captureBtn">Capture Face</button>
+  <pre id="output"></pre>
+  <script>
+    async function loadModels() {
+      const MODEL_URL = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/';
+      await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+      await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+      await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
+    }
+
+    async function startVideo() {
+      const video = document.getElementById('video');
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: {} });
+        video.srcObject = stream;
+      } catch (err) {
+        alert('Camera error: ' + err);
+      }
+    }
+
+    async function captureFace() {
+      const video = document.getElementById('video');
+      const name = document.getElementById('employeeName').value.trim();
+      const output = document.getElementById('output');
+      if (!name) {
+        alert('Please enter employee name!');
+        return;
+      }
+      const detection = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
+        .withFaceLandmarks()
+        .withFaceDescriptor();
+
+      if (!detection) {
+        output.textContent = "No face detected. Try again.";
+        return;
+      }
+      // Convert Float32Array to regular array for storage
+      const descriptorArray = Array.from(detection.descriptor);
+      output.textContent = `"${name}": new Float32Array([${descriptorArray.join(", ")}])`;
+
+      // You can now copy this output and paste it into your employeeFaceData in attendance.html
+    }
+
+    // Main
+    (async () => {
+      await loadModels();
+      await startVideo();
+      document.getElementById('captureBtn').onclick = captureFace;
+    })();
+  </script>
+</body>
+</html>

@@ -2,40 +2,111 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Attendance (Face Recognition)</title>
+  <title>Face Recognition Attendance</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 2em; background: #f4f6fa; }
-    h1 { color: #333; }
-    video, canvas { border: 1px solid #ddd; border-radius: 6px; }
-    #controls { margin: 1em 0; }
-    #status { margin-top: 1em; font-weight: bold; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    body {
+      min-height: 100vh;
+      width: 100vw;
+      overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f4f6fa;
+    }
+    #container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      padding: 2.5em 2em;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07);
+      min-width: 340px;
+      max-width: 95vw;
+    }
+    h1 {
+      margin-bottom: 1.2em;
+      color: #2a4365;
+      font-size: 2em;
+      letter-spacing: 0.01em;
+    }
+    video, canvas {
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background: #222;
+    }
+    #controls {
+      margin: 1.3em 0 0.8em 0;
+      display: flex;
+      gap: 1.2em;
+    }
     .clock-buttons button {
-      padding: 0.5em 1.2em;
-      margin-right: 1em;
-      font-size: 1em;
+      padding: 0.7em 2.2em;
+      font-size: 1.1em;
       border: none;
-      border-radius: 5px;
+      border-radius: 7px;
       background: #1976d2;
       color: #fff;
       cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 2px 8px #0001;
       transition: background 0.2s;
     }
-    .clock-buttons button:last-child { background: #2e7d32; }
-    .clock-buttons button:disabled { background: #aaa; }
-    #location, #timestamp { font-size: 0.95em; color: #666; margin-top: 0.5em; }
+    .clock-buttons button:last-child {
+      background: #2e7d32;
+    }
+    .clock-buttons button:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+    #location, #timestamp {
+      font-size: 1em;
+      color: #555;
+      margin-top: 0.4em;
+      text-align: center;
+    }
+    #status {
+      margin-top: 1.2em;
+      font-weight: bold;
+      font-size: 1.13em;
+      color: #333;
+      text-align: center;
+      min-height: 1.2em;
+    }
+    @media (max-width: 600px) {
+      #container {
+        min-width: unset;
+        padding: 1em 0.5em;
+      }
+      video, canvas {
+        width: 95vw !important;
+        height: auto !important;
+        max-width: 98vw;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>Face Recognition Attendance</h1>
-  <video id="video" width="480" height="360" autoplay muted></video>
-  <canvas id="canvas" width="480" height="360" style="display: none;"></canvas>
-  <div id="controls" class="clock-buttons">
-    <button id="clockInBtn">Clock In</button>
-    <button id="clockOutBtn">Clock Out</button>
+  <div id="container">
+    <h1>Face Recognition Attendance</h1>
+    <video id="video" width="480" height="360" autoplay muted></video>
+    <canvas id="canvas" width="480" height="360" style="display: none;"></canvas>
+    <div id="controls" class="clock-buttons">
+      <button id="clockInBtn">Clock In</button>
+      <button id="clockOutBtn">Clock Out</button>
+    </div>
+    <div id="location"></div>
+    <div id="timestamp"></div>
+    <div id="status">Ready</div>
   </div>
-  <div id="location"></div>
-  <div id="timestamp"></div>
-  <div id="status">Ready</div>
 
   <script>
     // Geofence configuration
@@ -93,8 +164,9 @@
         alert('face-api.js not loaded!');
         return false;
       }
-      await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
-      await faceapi.nets.faceRecognitionNet.loadFromUri('/models');
+      await faceapi.nets.tinyFaceDetector.loadFromUri('./models');
+      await faceapi.nets.faceRecognitionNet.loadFromUri('./models');
+      await faceapi.nets.faceLandmark68Net.loadFromUri('./models');
       return true;
     }
 
@@ -115,7 +187,7 @@
 
     // Show location and time
     function showLocationAndTime(loc) {
-      locationDiv.textContent = `Location: ${loc.lat.toFixed(6)}, ${loc.lon.toFixed(6)} (±${loc.accuracy}m)`;
+      locationDiv.textContent = `Location: ${loc.lat.toFixed(6)}, ${loc.lon.toFixed(6)} (±${Math.round(loc.accuracy)}m)`;
       timestampDiv.textContent = `Timestamp: ${new Date().toLocaleString()}`;
     }
 
@@ -161,10 +233,15 @@
     // Handle Clock In/Out
     async function handleClock(action) {
       statusDiv.textContent = 'Recognizing face...';
+      clockInBtn.disabled = true;
+      clockOutBtn.disabled = true;
+
       // Recognize face
       const name = await recognizeFace();
       if (!name) {
         statusDiv.textContent = 'Face not recognized. Try again.';
+        clockInBtn.disabled = false;
+        clockOutBtn.disabled = false;
         return;
       }
       // Get and check location
@@ -175,16 +252,24 @@
         showLocationAndTime(loc);
       } catch (e) {
         statusDiv.textContent = 'Could not get location: ' + e;
+        clockInBtn.disabled = false;
+        clockOutBtn.disabled = false;
         return;
       }
       if (!isWithinGeofence(loc.lat, loc.lon, ALLOWED_LAT, ALLOWED_LON, ALLOWED_RADIUS)) {
         statusDiv.textContent = 'Not in authorized location!';
+        clockInBtn.disabled = false;
+        clockOutBtn.disabled = false;
         return;
       }
       // Log attendance
       await logAttendance(name, action, loc);
       statusDiv.textContent = `${action} successful for ${name}!`;
-      setTimeout(() => { statusDiv.textContent = 'Ready'; }, 4000);
+      setTimeout(() => { 
+        statusDiv.textContent = 'Ready'; 
+        clockInBtn.disabled = false;
+        clockOutBtn.disabled = false;
+      }, 4000);
     }
 
     // Main setup

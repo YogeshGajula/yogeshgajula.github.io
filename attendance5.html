@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Attendance System</title>
+  <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      height: 100vh; 
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Loading Screen */
+    #loadingScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      transition: opacity 0.5s ease-out;
+    }
+
+    #loadingScreen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loading-logo {
+      font-size: 3em;
+      font-weight: bold;
+      color: white;
+      margin-bottom: 30px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .loading-spinner {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(255,255,255,0.3);
+      border-top: 4px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    .loading-text {
+      color: white;
+      font-size: 1.2em;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Full-screen camera background */
+    #video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: 1;
+      transform: scaleX(1);
+    }
+
+    /* Main UI Overlay */
+    #mainUI {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transition: opacity 0.5s ease-in;
+    }
+
+    #mainUI.visible {
+      opacity: 1;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      font-size: 2.5em;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+      margin-bottom: 10px;
+    }
+
+    .header .subtitle {
+      color: rgba(255,255,255,0.9);
+      font-size: 1.1em;
+      text-shadow: 0 1px 5px rgba(0,0,0,0.5);
+    }
+
+    /* Status and Controls Container */
+    .controls-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      width: 90%;
+      max-width: 450px;
+      min-width: 280px;
+      margin-bottom: 20px;
+    }
+
+    #status {
+      padding: 15px 20px;
+      font-size: 1.1em;
+      font-weight: 600;
+      color: #333;
+      background: rgba(255,255,255,0.9);
+      border-radius: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      margin-bottom: 15px;
+      text-align: center;
+      width: 100%;
+      word-wrap: break-word;
+    }
+
+    #locationStatus {
+      padding: 12px 16px;
+      font-size: 1em;
+      font-weight: 500;
+      border-radius: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 10px;
+      text-align: center;
+      width: 100%;
+      word-wrap: break-word;
+    }
+
+    .location-valid {
+      background: linear-gradient(135deg, #d4edda, #c3e6cb);
+      color: #155724;
+      border: 2px solid #28a745;
+    }
+
+    .location-invalid {
+      background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+      color: #721c24;
+      border: 2px solid #dc3545;
+    }
+
+    .location-checking {
+      background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+      color: #856404;
+      border: 2px solid #ffc107;
+    }
+
+    #distanceInfo {
+      margin-bottom: 20px;
+      font-size: 0.9em;
+      color: #666;
+      text-align: center;
+      width: 100%;
+    }
+
+    /* Button Container */
+    .button-container {
+      display: flex;
+      gap: 15px;
+      width: 100%;
+      max-width: 350px;
+    }
+
+    .clock-button {
+      flex: 1;
+      padding: 16px 20px;
+      font-size: 1.1em;
+      font-weight: bold;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      min-height: 56px;
+    }
+
+    .clock-button.active {
+      color: white;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transform: translateY(-2px);
+    }
+
+    .clock-button.active:hover {
+      box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+      transform: translateY(-3px);
+    }
+
+    .clock-button.inactive {
+      background: linear-gradient(135deg, #ccc, #999);
+      color: #666;
+      cursor: not-allowed;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    #clockInButton.active {
+      background: linear-gradient(135deg, #28a745, #20c997);
+    }
+
+    #clockInButton.active:hover {
+      background: linear-gradient(135deg, #20c997, #17a2b8);
+    }
+
+    #clockOutButton.active {
+      background: linear-gradient(135deg, #dc3545, #fd7e14);
+    }
+
+    #clockOutButton.active:hover {
+      background: linear-gradient(135deg, #fd7e14, #ffc107);
+    }
+
+    /* Pulse animation for active buttons */
+    .clock-button.active::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255,255,255,0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .clock-button.active:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    /* Employee Status */
+    #employeeStatus {
+      margin-top: 15px;
+      padding: 10px 16px;
+      font-size: 0.95em;
+      font-weight: 500;
+      color: #495057;
+      background: rgba(248, 249, 250, 0.9);
+      border-radius: 15px;
+      text-align: center;
+      width: 100%;
+      border: 1px solid #dee2e6;
+    }
+
+    .status-clocked-in {
+      background: linear-gradient(135deg, #d1ecf1, #bee5eb);
+      color: #0c5460;
+      border-color: #17a2b8;
+    }
+
+    .status-clocked-out {
+      background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+      color: #721c24;
+      border-color: #dc3545;
+    }
+
+    /* Camera permission prompt */
+    .camera-prompt {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      text-align: center;
+      z-index: 100;
+      max-width: 400px;
+    }
+
+    .error-icon {
+      font-size: 3em;
+      color: #ff6b6b;
+      margin-bottom: 15px;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      #mainUI {
+        padding: 15px 10px;
+        justify-content: center;
+      }
+
+      .header {
+        margin-bottom: 30px;
+      }
+
+      .header h1 { 
+        font-size: 2.2em;
+        margin-bottom: 8px;
+      }
+
+      .header .subtitle {
+        font-size: 1em;
+      }
+
+      .controls-container { 
+        width: 95%;
+        padding: 25px 20px;
+        border-radius: 15px;
+        margin-bottom: 0;
+      }
+
+      #status {
+        font-size: 1em;
+        padding: 12px 16px;
+        margin-bottom: 12px;
+      }
+
+      #locationStatus { 
+        font-size: 0.9em;
+        padding: 10px 14px;
+        margin-bottom: 8px;
+      }
+
+      #distanceInfo {
+        font-size: 0.85em;
+        margin-bottom: 15px;
+      }
+
+      .button-container {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .clock-button {
+        padding: 14px 20px;
+        font-size: 1em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #mainUI {
+        padding: 10px 8px;
+      }
+
+      .header h1 { 
+        font-size: 1.8em;
+      }
+
+      .header .subtitle {
+        font-size: 0.9em;
+      }
+
+      .controls-container { 
+        width: 98%;
+        padding: 20px 15px;
+        border-radius: 12px;
+      }
+
+      #status {
+        font-size: 0.95em;
+        padding: 10px 14px;
+      }
+
+      #locationStatus { 
+        font-size: 0.85em;
+        padding: 8px 12px;
+      }
+
+      #distanceInfo {
+        font-size: 0.8em;
+      }
+
+      .clock-button {
+        padding: 12px 18px;
+        font-size: 0.95em;
+      }
+    }
+
+    @media (max-height: 600px) {
+      #mainUI {
+        justify-content: center;
+      }
+
+      .header {
+        margin-bottom: 20px;
+      }
+
+      .header h1 {
+        font-size: 1.8em;
+        margin-bottom: 5px;
+      }
+
+      .controls-container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loadingScreen">
+    <div class="loading-logo">AttendanceAI</div>
+    <div class="loading-spinner"></div>
+    <div class="loading-text" id="loadingText">
+      Initializing system...<br>
+      Loading AI models...
+    </div>
+  </div>
+
+  <!-- Full-screen camera -->
+  <video id="video" autoplay muted playsinline></video>
+
+  <!-- Main UI Overlay -->
+  <div id="mainUI">
+    <div class="header">
+      <h1>Smart Attendance</h1>
+      <div class="subtitle">AI-Powered Location Verified Check-in</div>
+    </div>
+
+    <div class="controls-container">
+      <div id="status">System Ready</div>
+      <div id="locationStatus" class="location-checking">Checking location...</div>
+      <div id="distanceInfo"></div>
+      <div class="button-container">
+        <button id="clockInButton" class="clock-button inactive" disabled>
+          🕐 Clock In
+        </button>
+        <button id="clockOutButton" class="clock-button inactive" disabled>
+          🕕 Clock Out
+        </button>
+      </div>
+      <div id="employeeStatus">Ready to authenticate</div>
+    </div>
+  </div>
+
+  <script>
+    // Change this to your actual facial_data.json RAW URL
+    const faceDataURL = "https://raw.githubusercontent.com/YogeshGajula/yogeshgajula.github.io/main/facial_data.json"; 
+    // Google Apps Script Web App URL
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwUh935OwqJ8SMhCbt3eZnBn9iEE98op_4bOS9mEmEFtVwkUyov09Aeh-RSuG2I4Luj7w/exec';
+
+    // TARGET LOCATION CONFIGURATION
+    const TARGET_LOCATION = {
+      latitude: 39.8550255,    // Replace with your office latitude
+      longitude: -84.1917607,  // Replace with your office longitude
+      radius: 150          // Allowed radius in meters (100m = ~328 feet)
+    };
+
+    // DOM Elements
+    const loadingScreen = document.getElementById('loadingScreen');
+    const loadingText = document.getElementById('loadingText');
+    const mainUI = document.getElementById('mainUI');
+    const video = document.getElementById('video');
+    const statusDiv = document.getElementById('status');
+    const locationStatusDiv = document.getElementById('locationStatus');
+    const distanceInfoDiv = document.getElementById('distanceInfo');
+    const clockInButton = document.getElementById('clockInButton');
+    const clockOutButton = document.getElementById('clockOutButton');
+    const employeeStatusDiv = document.getElementById('employeeStatus');
+
+    let employeeFaceData = {};
+    let isSystemReady = false;
+    let currentEmployee = null;
+    let currentStatus = 'out'; // 'in' or 'out'
+
+    // Employee status tracking (in memory)
+    const employeeStatuses = {};
+
+    // Update loading text
+    function updateLoadingText(text) {
+      loadingText.innerHTML = text;
+    }
+
+    // Show main interface
+    function showMainInterface() {
+      loadingScreen.classList.add('hidden');
+      setTimeout(() => {
+        mainUI.classList.add('visible');
+        isSystemReady = true;
+      }, 500);
+    }
+
+    // Update employee status display
+    function updateEmployeeStatus(name, status) {
+      if (name) {
+        currentEmployee = name;
+        currentStatus = status;
+        employeeStatuses[name] = status;
+        
+        if (status === 'in') {
+          employeeStatusDiv.textContent = `${name} - Currently Clocked In`;
+          employeeStatusDiv.className = 'status-clocked-in';
+        } else {
+          employeeStatusDiv.textContent = `${name} - Currently Clocked Out`;
+          employeeStatusDiv.className = 'status-clocked-out';
+        }
+      } else {
+        employeeStatusDiv.textContent = 'Ready to authenticate';
+        employeeStatusDiv.className = '';
+      }
+    }
+
+    // Function to calculate distance between two coordinates (Haversine formula)
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371000; // Earth's radius in meters
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      return R * c; // Distance in meters
+    }
+
+    function isWithinTargetLocation(userLat, userLon) {
+      const distance = calculateDistance(
+        userLat, userLon,
+        TARGET_LOCATION.latitude, TARGET_LOCATION.longitude
+      );
+      return {
+        isValid: distance <= TARGET_LOCATION.radius,
+        distance: Math.round(distance)
+      };
+    }
+
+    async function loadModels() {
+      updateLoadingText('Loading AI models...<br>Face detection models');
+      const MODEL_URL = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/';
+      
+      updateLoadingText('Loading AI models...<br>• Face detector');
+      await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+      
+      updateLoadingText('Loading AI models...<br>• Facial landmarks');
+      await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+      
+      updateLoadingText('Loading AI models...<br>• Face recognition');
+      await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
+    }
+
+    async function getFaceData() {
+      updateLoadingText('Loading employee data...<br>Fetching face profiles');
+      const res = await fetch(faceDataURL, {cache: "reload"});
+      const data = await res.json();
+      const obj = {};
+      for (const [name, arr] of Object.entries(data)) {
+        obj[name] = new Float32Array(arr);
+        // Initialize employee status as 'out'
+        employeeStatuses[name] = 'out';
+      }
+      return obj;
+    }
+
+    async function requestCameraPermission() {
+      updateLoadingText('Requesting camera permission...<br>Please allow camera access');
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ 
+          video: { 
+            facingMode: 'user',
+            width: { ideal: 1920 },
+            height: { ideal: 1080 }
+          } 
+        });
+        video.srcObject = stream;
+        
+        return new Promise((resolve) => {
+          video.addEventListener('loadedmetadata', () => {
+            updateLoadingText('Camera access granted ✓<br>Camera ready');
+            resolve();
+          });
+        });
+      } catch (err) {
+        console.error("Camera Error:", err);
+        updateLoadingText('❌ Camera access denied<br>Please allow camera access and refresh the page');
+        throw new Error('Camera permission denied');
+      }
+    }
+
+    async function requestLocationPermission() {
+      updateLoadingText('Requesting location permission...<br>Please allow location access');
+      return new Promise((resolve, reject) => {
+        if (!navigator.geolocation) {
+          updateLoadingText('❌ Geolocation not supported<br>Your browser doesn\'t support location services');
+          reject(new Error("Geolocation not supported"));
+          return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            updateLoadingText('Location access granted ✓<br>Location services ready');
+            resolve({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+              accuracy: position.coords.accuracy
+            });
+          },
+          (error) => {
+            let errorMsg;
+            switch(error.code) {
+              case error.PERMISSION_DENIED:
+                errorMsg = 'Location access denied<br>Please allow location access and refresh';
+                break;
+              case error.POSITION_UNAVAILABLE:
+                errorMsg = 'Location unavailable<br>Please check your location settings';
+                break;
+              case error.TIMEOUT:
+                errorMsg = 'Location request timeout<br>Please try again';
+                break;
+              default:
+                errorMsg = 'Location error<br>Please enable location services';
+                break;
+            }
+            updateLoadingText('❌ ' + errorMsg);
+            reject(new Error(`Location permission error: ${error.message}`));
+          },
+          { 
+            enableHighAccuracy: true, 
+            timeout: 15000, 
+            maximumAge: 0 
+          }
+        );
+      });
+    }
+
+    function getUserLocation() {
+      return new Promise((resolve, reject) => {
+        if (!navigator.geolocation) reject(new Error("Geolocation not supported"));
+        navigator.geolocation.getCurrentPosition(
+          (position) => resolve({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            accuracy: position.coords.accuracy
+          }),
+          (error) => reject(new Error(`Location Error: ${error.message}`)),
+          { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+        );
+      });
+    }
+
+    async function validateLocation() {
+      if (!isSystemReady) return null;
+
+      try {
+        locationStatusDiv.className = 'location-checking';
+        locationStatusDiv.textContent = '📍 Verifying location...';
+        distanceInfoDiv.textContent = '';
+
+        const location = await getUserLocationQuick();
+        const validation = isWithinTargetLocation(location.latitude, location.longitude);
+
+        if (validation.isValid) {
+          locationStatusDiv.className = 'location-valid';
+          locationStatusDiv.textContent = '✓ Location verified - Within office premises';
+          distanceInfoDiv.textContent = `Distance from office: ${validation.distance}m`;
+          clockInButton.className = 'clock-button active';
+          clockInButton.disabled = false;
+          clockOutButton.className = 'clock-button active';
+          clockOutButton.disabled = false;
+          return location;
+        } else {
+          locationStatusDiv.className = 'location-invalid';
+          locationStatusDiv.textContent = '✗ Location invalid - Too far from office';
+          distanceInfoDiv.textContent = `Distance: ${validation.distance}m (max: ${TARGET_LOCATION.radius}m)`;
+          clockInButton.className = 'clock-button inactive';
+          clockInButton.disabled = true;
+          clockOutButton.className = 'clock-button inactive';
+          clockOutButton.disabled = true;
+          return null;
+        }
+      } catch (error) {
+        locationStatusDiv.className = 'location-invalid';
+        locationStatusDiv.textContent = `📍 Location verification failed`;
+        distanceInfoDiv.textContent = 'Unable to verify location';
+        clockInButton.className = 'clock-button inactive';
+        clockInButton.disabled = true;
+        clockOutButton.className = 'clock-button inactive';
+        clockOutButton.disabled = true;
+        return null;
+      }
+    }
+
+    // Quick location check (uses cached location from permission request)
+    function getUserLocationQuick() {
+      return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(
+          (position) => resolve({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            accuracy: position.coords.accuracy
+          }),
+          (error) => reject(error),
+          { enableHighAccuracy: false, timeout: 5000, maximumAge: 300000 } // Allow 5 min cache
+        );
+      });
+    }
+
+    async function logAttendance(name, location, action) {
+      try {
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: name,
+            location: `${location.latitude.toFixed(5)}, ${location.longitude.toFixed(5)}`,
+            status: action,
+            timestamp: new Date().toISOString()
+          })
+        });
+
+        statusDiv.textContent = `✅ ${action} successful for ${name}!`;
+        
+        // Update employee status
+        const newStatus = action === 'Clock In' ? 'in' : 'out';
+        updateEmployeeStatus(name, newStatus);
+        
+        setTimeout(() => { 
+          statusDiv.textContent = 'Ready for next authentication'; 
+        }, 5000);
+      } catch (error) {
+        console.error('Error logging attendance:', error);
+        statusDiv.textContent = '❌ Error logging attendance. Please try again.';
+      }
+    }
+
+    async function handleFaceRecognition(action) {
+      // Revalidate location before processing
+      const location = await getUserLocationQuick();
+      if (!location) {
+        statusDiv.textContent = "📍 Unable to verify location";
+        return;
+      }
+
+      // Check if still within valid location
+      const validation = isWithinTargetLocation(location.latitude, location.longitude);
+      if (!validation.isValid) {
+        statusDiv.textContent = "📍 You've moved outside the office area";
+        locationStatusDiv.className = 'location-invalid';
+        locationStatusDiv.textContent = '✗ Location invalid - Too far from office';
+        clockInButton.className = 'clock-button inactive';
+        clockInButton.disabled = true;
+        clockOutButton.className = 'clock-button inactive';
+        clockOutButton.disabled = true;
+        return;
+      }
+
+      statusDiv.textContent = '👤 Detecting face... Look at camera';
+      
+      try {
+        const detection = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
+          .withFaceLandmarks()
+          .withFaceDescriptor();
+
+        if (!detection) {
+          statusDiv.textContent = '❌ No face detected. Please try again';
+          return;
+        }
+
+        const labeledDescriptors = Object.keys(employeeFaceData).map(
+          label => new faceapi.LabeledFaceDescriptors(label, [employeeFaceData[label]])
+        );
+        const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors);
+        const bestMatch = faceMatcher.findBestMatch(detection.descriptor);
+
+        if (bestMatch.label === 'unknown') {
+          statusDiv.textContent = '❌ Face not recognized. Access denied';
+        } else {
+          const employeeName = bestMatch.label;
+          statusDiv.textContent = `🎯 Welcome, ${employeeName}! Processing ${action.toLowerCase()}...`;
+          await logAttendance(employeeName, location, action);
+        }
+      } catch (error) {
+        console.error('Face detection error:', error);
+        statusDiv.textContent = '❌ Face detection failed. Please try again';
+      }
+    }
+
+    async function initialize() {
+      try {
+        // Step 1: Request Camera Permission
+        await requestCameraPermission();
+        
+        // Step 2: Request Location Permission
+        const initialLocation = await requestLocationPermission();
+        
+        // Step 3: Load AI models
+        await loadModels();
+        
+        // Step 4: Get employee face data
+        employeeFaceData = await getFaceData();
+        
+        // Step 5: Finalize setup
+        updateLoadingText('All permissions granted ✓<br>Finalizing setup...');
+        
+        // Small delay for smooth transition
+        setTimeout(async () => {
+          showMainInterface();
+          statusDiv.textContent = 'System ready - All permissions granted!';
+          
+          // Initial location validation using the location we already got
+          const validation = isWithinTargetLocation(initialLocation.latitude, initialLocation.longitude);
+          
+          if (validation.isValid) {
+            locationStatusDiv.className = 'location-valid';
+            locationStatusDiv.textContent = '✓ Location verified - Within office premises';
+            distanceInfoDiv.textContent = `Distance from office: ${validation.distance}m`;
+            clockInButton.className = 'clock-button active';
+            clockInButton.disabled = false;
+            clockOutButton.className = 'clock-button active';
+            clockOutButton.disabled = false;
+          } else {
+            locationStatusDiv.className = 'location-invalid';
+            locationStatusDiv.textContent = '✗ Location invalid - Too far from office';
+            distanceInfoDiv.textContent = `Distance: ${validation.distance}m (max: ${TARGET_LOCATION.radius}m)`;
+            clockInButton.className = 'clock-button inactive';
+            clockInButton.disabled = true;
+            clockOutButton.className = 'clock-button inactive';
+            clockOutButton.disabled = true;
+          }
+          
+          // Revalidate location every 30 seconds
+          setInterval(validateLocation, 30000);
+        }, 1000);
+        
+      } catch (error) {
+        console.error('Initialization error:', error);
+        // Don't show main interface if permissions are denied
+        setTimeout(() => {
+          updateLoadingText('❌ Setup incomplete<br><small>Please refresh and grant all permissions</small>');
+        }, 2000);
+      }
+    }
+
+    // Event Listeners
+    clockInButton.addEventListener('click', async () => {
+      if (clockInButton.disabled) {
+        statusDiv.textContent = "⏳ Please wait for location validation...";
+        return;
+      }
+
+      if (Object.keys(employeeFaceData).length === 0) {
+        statusDiv.textContent = "❌ No employee data configured";
+        return;
+      }
+
+      await handleFaceRecognition('Clock In');
+    });
+
+    clockOutButton.addEventListener('click', async () => {
+      if (clockOutButton.disabled) {
+        statusDiv.textContent = "⏳ Please wait for location validation...";
+        return;
+      }
+
+      if (Object.keys(employeeFaceData).length === 0) {
+        statusDiv.textContent = "

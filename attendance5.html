@@ -866,12 +866,10 @@
         statusDiv.textContent = "⏳ Please wait for location validation...";
         return;
       }
-
       if (Object.keys(employeeFaceData).length === 0) {
         statusDiv.textContent = "❌ No employee data configured";
         return;
       }
-
       await handleFaceRecognition('Clock In');
     });
 
@@ -882,4 +880,15 @@
       }
 
       if (Object.keys(employeeFaceData).length === 0) {
-        statusDiv.textContent = "
+        statusDiv.textContent = "❌ No employee data configured";
+        return;
+      }
+
+      await handleFaceRecognition('Clock Out');
+    });
+
+    // Start initialization
+    initialize();
+  </script>
+</body>
+</html>

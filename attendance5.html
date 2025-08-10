@@ -782,34 +782,7 @@
   }
 }
 // Also add a test function to check if your Google Script URL is working
-async function testGoogleScriptConnection() {
-  try {
-    console.log('Testing Google Script connection...');
-    console.log('URL:', GOOGLE_SCRIPT_URL);
-    
-    const response = await fetch(GOOGLE_SCRIPT_URL, {
-      method: 'GET'
-    });
-    
-    console.log('Test response:', {
-      status: response.status,
-      statusText: response.statusText,
-      ok: response.ok
-    });
-    
-    const text = await response.text();
-    console.log('Test response text:', text);
-    
-    return response.ok;
-  } catch (error) {
-    console.error('Test connection failed:', error);
-    return false;
-  }
-}
 
-// Call this test function after initialization to check connectivity
-// Add this to your initialize() function after showing the main interface:
-// testGoogleScriptConnection();
 
     async function handleFaceRecognition(action) {
       // Revalidate location before processing
